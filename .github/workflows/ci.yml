@@ -33,8 +33,8 @@ jobs:
             exit 1
           }
 
-          test -f server/package.json || {
-            echo "❌ server/package.json is missing"
+          test -f Server/package.json || {
+            echo "❌ Server/package.json is missing"
             exit 1
           }
 
