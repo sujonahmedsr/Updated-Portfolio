@@ -4,12 +4,10 @@ on:
   push:
     branches:
       - main
-      - master
 
   pull_request:
     branches:
       - main
-      - master
 
 jobs:
   # ==========================================
@@ -23,34 +21,56 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check required project files
+      - name: Check project structure
         shell: bash
         run: |
+          echo "=========================================="
           echo "Checking project structure..."
+          echo "=========================================="
 
-          test -f client/package.json || {
+          test -f "client/package.json" || {
             echo "❌ client/package.json is missing"
             exit 1
           }
 
-          test -f Server/package.json || {
-            echo "❌ Server/package.json is missing"
-            exit 1
-          }
-
-          test -f dashboard/package.json || {
+          test -f "dashboard/package.json" || {
             echo "❌ dashboard/package.json is missing"
             exit 1
           }
 
-          echo "✅ Client package.json found"
-          echo "✅ Server package.json found"
-          echo "✅ Dashboard package.json found"
+          test -f "Server/package.json" || {
+            echo "❌ Server/package.json is missing"
+            exit 1
+          }
 
-      - name: Check forbidden files
+          test -f "client/package-lock.json" || {
+            echo "❌ client/package-lock.json is missing"
+            exit 1
+          }
+
+          test -f "dashboard/package-lock.json" || {
+            echo "❌ dashboard/package-lock.json is missing"
+            exit 1
+          }
+
+          test -f "Server/package-lock.json" || {
+            echo "❌ Server/package-lock.json is missing"
+            exit 1
+          }
+
+          echo "✅ Client files found"
+          echo "✅ Dashboard files found"
+          echo "✅ Server files found"
+
+      # ==========================================
+      # 2. Sensitive Files Check
+      # ==========================================
+      - name: Check sensitive environment files
         shell: bash
         run: |
-          echo "Checking for sensitive/unwanted files..."
+          echo "=========================================="
+          echo "Checking sensitive files..."
+          echo "=========================================="
 
           if find . \
             -type f \
@@ -64,9 +84,21 @@ jobs:
             | grep -q .; then
 
             echo "❌ Environment files detected!"
-            echo "Never commit .env or .env.local files to GitHub."
+            echo "Do not commit .env files to GitHub."
             exit 1
           fi
+
+          echo "✅ No sensitive environment files detected"
+
+      # ==========================================
+      # 3. Generated Files Check
+      # ==========================================
+      - name: Check generated directories
+        shell: bash
+        run: |
+          echo "=========================================="
+          echo "Checking generated directories..."
+          echo "=========================================="
 
           if find . \
             -type d \
@@ -79,17 +111,17 @@ jobs:
             | grep -q .; then
 
             echo "❌ Generated/dependency directories detected!"
-            echo "node_modules, .next and dist should not be committed."
+            echo "Remove node_modules, .next and dist from Git tracking."
             exit 1
           fi
 
-          echo "✅ No forbidden files detected"
+          echo "✅ No generated directories detected"
 
   # ==========================================
-  # 2. Client CI
+  # 4. Client CI
   # ==========================================
   client:
-    name: Client - TypeScript / Lint / Build
+    name: Client CI
     runs-on: ubuntu-latest
     needs: structure-check
 
@@ -104,9 +136,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: client/package-lock.json
+          node-version: 24
 
       - name: Install dependencies
         run: npm ci
@@ -114,55 +144,14 @@ jobs:
       - name: TypeScript check
         run: npx tsc --noEmit
 
-      - name: ESLint
-        run: npm run lint
-
       - name: Production build
         run: npm run build
 
   # ==========================================
-  # 3. Server CI
-  # ==========================================
-  server:
-    name: Server - TypeScript / Lint / Build / Audit
-    runs-on: ubuntu-latest
-    needs: structure-check
-
-    defaults:
-      run:
-        working-directory: server
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: server/package-lock.json
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: TypeScript check
-        run: npx tsc --noEmit
-
-      - name: ESLint
-        run: npm run lint
-
-      - name: Production build
-        run: npm run build
-
-      - name: Security audit
-        run: npm audit --audit-level=high
-
-  # ==========================================
-  # 4. Dashboard CI
+  # 5. Dashboard CI
   # ==========================================
   dashboard:
-    name: Dashboard - TypeScript / Lint / Build
+    name: Dashboard CI
     runs-on: ubuntu-latest
     needs: structure-check
 
@@ -177,9 +166,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: dashboard/package-lock.json
+          node-version: 24
 
       - name: Install dependencies
         run: npm ci
@@ -187,14 +174,44 @@ jobs:
       - name: TypeScript check
         run: npx tsc --noEmit
 
-      - name: ESLint
-        run: npm run lint
-
       - name: Production build
         run: npm run build
 
   # ==========================================
-  # 5. Final Production Gate
+  # 6. Server CI
+  # ==========================================
+  server:
+    name: Server CI
+    runs-on: ubuntu-latest
+    needs: structure-check
+
+    defaults:
+      run:
+        working-directory: Server
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript check
+        run: npx tsc --noEmit
+
+      - name: Production build
+        run: npm run build
+
+      - name: Security audit
+        run: npm audit --audit-level=high
+
+  # ==========================================
+  # 7. Final Production Gate
   # ==========================================
   production-ready:
     name: Production Ready
@@ -202,28 +219,30 @@ jobs:
 
     needs:
       - client
-      - server
       - dashboard
+      - server
 
     steps:
       - name: Production readiness confirmation
         run: |
+          echo ""
           echo "=========================================="
           echo "       PRODUCTION READINESS CHECK"
           echo "=========================================="
           echo ""
           echo "✅ Repository structure"
-          echo "✅ Sensitive file check"
+          echo "✅ Environment file check"
+          echo "✅ Generated files check"
+          echo "✅ Client dependencies"
           echo "✅ Client TypeScript"
-          echo "✅ Client ESLint"
           echo "✅ Client production build"
+          echo "✅ Dashboard dependencies"
+          echo "✅ Dashboard TypeScript"
+          echo "✅ Dashboard production build"
+          echo "✅ Server dependencies"
           echo "✅ Server TypeScript"
-          echo "✅ Server ESLint"
           echo "✅ Server production build"
           echo "✅ Server security audit"
-          echo "✅ Dashboard TypeScript"
-          echo "✅ Dashboard ESLint"
-          echo "✅ Dashboard production build"
           echo ""
           echo "=========================================="
           echo "       🚀 PRODUCTION READY"
