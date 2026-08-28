@@ -6,11 +6,11 @@ import { revalidateTag } from "next/cache";
 const API_URL = process.env.API_URL;
 
 export async function revalidateProjects() {
-  revalidateTag("projects");
+  revalidateTag("projects", "projects");
 }
 
 export async function revalidateBlogs() {
-  revalidateTag("blogs");
+  revalidateTag("blogs", "blogs");
 }
 
 // API কলের জন্য আলাদা async function
