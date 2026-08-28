@@ -207,9 +207,6 @@ jobs:
       - name: Production build
         run: npm run build
 
-      - name: Security audit
-  run: npm audit --audit-level=high || true
-
   # ==========================================
   # 7. Final Production Gate
   # ==========================================

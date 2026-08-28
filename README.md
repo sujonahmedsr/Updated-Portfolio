@@ -5,7 +5,7 @@ This is a **Personal Portfolio & Blog Website** built with **Next.js, TypeScript
 ### ✅ Live Links
 
 - **Frontend:** [Live](https://shofiqul81.vercel.app/)
-- **Backend:** [Live](https://my-portfolio-backend-ebon.vercel.app/)
+- **Backend:** [Live](https://shofiqul81severdb.vercel.app/)
 
 ---
 
