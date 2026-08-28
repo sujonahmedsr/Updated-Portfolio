@@ -1,0 +1,230 @@
+name: Production Readiness CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  # ==========================================
+  # 1. Repository Structure Check
+  # ==========================================
+  structure-check:
+    name: Repository Structure
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check required project files
+        shell: bash
+        run: |
+          echo "Checking project structure..."
+
+          test -f client/package.json || {
+            echo "❌ client/package.json is missing"
+            exit 1
+          }
+
+          test -f server/package.json || {
+            echo "❌ server/package.json is missing"
+            exit 1
+          }
+
+          test -f dashboard/package.json || {
+            echo "❌ dashboard/package.json is missing"
+            exit 1
+          }
+
+          echo "✅ Client package.json found"
+          echo "✅ Server package.json found"
+          echo "✅ Dashboard package.json found"
+
+      - name: Check forbidden files
+        shell: bash
+        run: |
+          echo "Checking for sensitive/unwanted files..."
+
+          if find . \
+            -type f \
+            \( \
+              -name ".env" \
+              -o -name ".env.local" \
+              -o -name ".env.production" \
+              -o -name ".env.development" \
+            \) \
+            -not -path "./.git/*" \
+            | grep -q .; then
+
+            echo "❌ Environment files detected!"
+            echo "Never commit .env or .env.local files to GitHub."
+            exit 1
+          fi
+
+          if find . \
+            -type d \
+            \( \
+              -name "node_modules" \
+              -o -name ".next" \
+              -o -name "dist" \
+            \) \
+            -not -path "./.git/*" \
+            | grep -q .; then
+
+            echo "❌ Generated/dependency directories detected!"
+            echo "node_modules, .next and dist should not be committed."
+            exit 1
+          fi
+
+          echo "✅ No forbidden files detected"
+
+  # ==========================================
+  # 2. Client CI
+  # ==========================================
+  client:
+    name: Client - TypeScript / Lint / Build
+    runs-on: ubuntu-latest
+    needs: structure-check
+
+    defaults:
+      run:
+        working-directory: client
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript check
+        run: npx tsc --noEmit
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: Production build
+        run: npm run build
+
+  # ==========================================
+  # 3. Server CI
+  # ==========================================
+  server:
+    name: Server - TypeScript / Lint / Build / Audit
+    runs-on: ubuntu-latest
+    needs: structure-check
+
+    defaults:
+      run:
+        working-directory: server
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript check
+        run: npx tsc --noEmit
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: Production build
+        run: npm run build
+
+      - name: Security audit
+        run: npm audit --audit-level=high
+
+  # ==========================================
+  # 4. Dashboard CI
+  # ==========================================
+  dashboard:
+    name: Dashboard - TypeScript / Lint / Build
+    runs-on: ubuntu-latest
+    needs: structure-check
+
+    defaults:
+      run:
+        working-directory: dashboard
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: dashboard/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript check
+        run: npx tsc --noEmit
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: Production build
+        run: npm run build
+
+  # ==========================================
+  # 5. Final Production Gate
+  # ==========================================
+  production-ready:
+    name: Production Ready
+    runs-on: ubuntu-latest
+
+    needs:
+      - client
+      - server
+      - dashboard
+
+    steps:
+      - name: Production readiness confirmation
+        run: |
+          echo "=========================================="
+          echo "       PRODUCTION READINESS CHECK"
+          echo "=========================================="
+          echo ""
+          echo "✅ Repository structure"
+          echo "✅ Sensitive file check"
+          echo "✅ Client TypeScript"
+          echo "✅ Client ESLint"
+          echo "✅ Client production build"
+          echo "✅ Server TypeScript"
+          echo "✅ Server ESLint"
+          echo "✅ Server production build"
+          echo "✅ Server security audit"
+          echo "✅ Dashboard TypeScript"
+          echo "✅ Dashboard ESLint"
+          echo "✅ Dashboard production build"
+          echo ""
+          echo "=========================================="
+          echo "       🚀 PRODUCTION READY"
+          echo "=========================================="

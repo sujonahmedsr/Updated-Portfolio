@@ -14,9 +14,11 @@ export const metadata: Metadata = {
 const BlogDetails = async ({ params }: { params: any }) => {
   const { id } = await params;
 
+  const API_URL = process.env.API_URL;
+
   let blog = null;
   try {
-    const res = await fetch(`https://my-portfolio-backend-ebon.vercel.app/api/blogs/${id}`, {
+    const res = await fetch(`${API_URL}/blogs/${id}`, {
       next: { tags: ["blogs"] },
     });
     const blogsRes = await res.json();

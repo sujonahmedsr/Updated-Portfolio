@@ -11,6 +11,7 @@ import TechStackSection from "@/components/TechStackSection";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+// import BlogsPage from "./blogs/page";
 
 export default function HomePage() {
   return (
@@ -26,8 +27,9 @@ export default function HomePage() {
       <ExperienceTimeline />
       <TechStackSection />
       <AboutSection />
+      {/* <BlogsPage /> */}
       <ContactSection />
       <Footer />
     </main>
   );
-}
+}

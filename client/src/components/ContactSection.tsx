@@ -26,10 +26,12 @@ export default function ContactSection() {
     resolver: zodResolver(contactSchema),
   });
 
+  const API_URL = process.env.API_URL;
+
   const onSubmit = async (data: ContactFormData) => {
     const toastId = toast.loading("Sending message...");
     try {
-      const res = await axios.post("https://my-portfolio-backend-ebon.vercel.app/api/message/create", data);
+      const res = await axios.post(`${API_URL}/message/create`, data);
       if (res.data && res.data.success !== false) {
         toast.success("Message sent successfully! I will respond promptly.", { id: toastId });
         reset();

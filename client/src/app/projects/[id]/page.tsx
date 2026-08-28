@@ -15,9 +15,11 @@ export const metadata: Metadata = {
 const ProjectDetailsPage = async ({ params }: { params: any }) => {
   const { id } = await params;
 
+  const API_URL = process.env.API_URL;
+
   let project = null;
   try {
-    const res = await fetch(`https://my-portfolio-backend-ebon.vercel.app/api/projects/${id}`, {
+    const res = await fetch(`${API_URL}/projects/${id}`, {
       next: { tags: ["projects"] },
     });
     const projectRes = await res.json();
