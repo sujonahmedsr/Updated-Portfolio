@@ -6,7 +6,7 @@ export async function POST(request: Request) {
     const { username, password } = await request.json();
 
     const expectedUsername = process.env.ADMIN_USERNAME || "admin";
-    const expectedPassword = process.env.ADMIN_PASSWORD || "adminpassword123";
+    const expectedPassword = process.env.ADMIN_PASSWORD || "X123";
 
     if (username !== expectedUsername || password !== expectedPassword) {
       return NextResponse.json(

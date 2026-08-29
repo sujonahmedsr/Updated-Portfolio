@@ -3,7 +3,7 @@
 import axios from "axios";
 import { revalidateTag } from "next/cache";
 
-const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://shofiqul81severdb.vercel.app/api";
 
 export async function revalidateProjects() {
   revalidateTag("projects", "projects");
@@ -16,7 +16,7 @@ export async function revalidateBlogs() {
 // API কলের জন্য আলাদা async function
 export async function getProjects() {
   try {
-    const res = await axios.get(`${NEXT_PUBLIC_API_URL}/projects`);
+    const res = await axios.get(`${API_URL}/projects`);
 
     return res.data?.data?.result || [];
   } catch (error) {
@@ -27,7 +27,7 @@ export async function getProjects() {
 
 export async function getBlogs() {
   try {
-    const res = await axios.get(`${NEXT_PUBLIC_API_URL}/blogs`);
+    const res = await axios.get(`${API_URL}/blogs`);
 
     return res.data?.data?.result || [];
   } catch (error) {

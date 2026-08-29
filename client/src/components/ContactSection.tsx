@@ -26,7 +26,7 @@ export default function ContactSection() {
     resolver: zodResolver(contactSchema),
   });
 
-  const API_URL = process.env.API_URL;
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://shofiqul81severdb.vercel.app/api";
 
   const onSubmit = async (data: ContactFormData) => {
     const toastId = toast.loading("Sending message...");

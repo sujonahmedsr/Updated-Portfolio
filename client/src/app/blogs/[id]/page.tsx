@@ -14,11 +14,11 @@ export const metadata: Metadata = {
 const BlogDetails = async ({ params }: { params: any }) => {
   const { id } = await params;
 
-  const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://shofiqul81severdb.vercel.app/api";
 
   let blog = null;
   try {
-    const res = await fetch(`${NEXT_PUBLIC_API_URL}/blogs/${id}`, {
+    const res = await fetch(`${API_URL}/blogs/${id}`, {
       next: { tags: ["blogs"] },
     });
     const blogsRes = await res.json();

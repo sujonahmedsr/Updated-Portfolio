@@ -3,10 +3,9 @@ import { Project, Article, Message } from "@/types";
 
 const rawBaseUrl =
   process.env.NEXT_PUBLIC_API_BASE_URL ||
-  process.env.NEXT_PUBLIC_API_URL ||
-  "https://shofiqul81severdb.vercel.app/api";
+  "https://shofiqul81severdb.vercel.app";
 
-const BASE_URL = rawBaseUrl.replace(/\/+$/, "");
+const BASE_URL = rawBaseUrl;
 
 const apiClient = axios.create({
   baseURL: BASE_URL,
