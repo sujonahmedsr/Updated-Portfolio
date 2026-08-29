@@ -7,6 +7,8 @@ const rawBaseUrl =
 
 const BASE_URL = rawBaseUrl;
 
+console.log(BASE_URL, "BASE_URL")
+
 const apiClient = axios.create({
   baseURL: BASE_URL,
   timeout: 10000,

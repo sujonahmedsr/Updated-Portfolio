@@ -65,14 +65,14 @@ export default function SelectedWork() {
             }) => ({
               _id: item._id,
               title: item.title || "UNTITLED PROJECT",
-              category: item.category || "FULL-STACK / SHOPIFY DEVELOPMENT",
+              category: item.category || "FULL-STACK",
               description: item.description || "",
               image: item.image,
               liveLink: item.liveLink,
               githubLink: item.githubLink,
               technologies: typeof item.technologies === "string" 
                 ? item.technologies.split(",").map((t: string) => t.trim()) 
-                : item.technologies || ["Shopify", "React", "Node.js"],
+                : item.technologies || [],
               challenge: item.challenge,
               approach: item.approach,
               whatIBuilt: item.whatIBuilt,
@@ -106,7 +106,7 @@ export default function SelectedWork() {
             </h2>
           </div>
           <p className="text-sm text-[#A1A1A1] max-w-md font-sans leading-relaxed">
-            A curated selection of Shopify stores and modern web applications built with performance, usability, and clean architecture.
+            A curated selection of modern web applications built with performance, usability, and clean architecture.
           </p>
         </div>
 
