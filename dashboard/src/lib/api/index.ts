@@ -4,7 +4,7 @@ import { Project, Article, Message } from "@/types";
 const rawBaseUrl =
   process.env.NEXT_PUBLIC_API_BASE_URL ||
   process.env.NEXT_PUBLIC_API_URL ||
-  "https://my-portfolio-backend-ebon.vercel.app";
+  "https://shofiqul81severdb.vercel.app/api";
 
 const BASE_URL = rawBaseUrl.replace(/\/+$/, "");
 

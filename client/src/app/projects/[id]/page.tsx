@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 const ProjectDetailsPage = async ({ params }: { params: any }) => {
   const { id } = await params;
 
-  const API_URL = process.env.API_URL;
+  const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   let project = null;
   try {
-    const res = await fetch(`${API_URL}/projects/${id}`, {
+    const res = await fetch(`${NEXT_PUBLIC_API_URL}/projects/${id}`, {
       next: { tags: ["projects"] },
     });
     const projectRes = await res.json();

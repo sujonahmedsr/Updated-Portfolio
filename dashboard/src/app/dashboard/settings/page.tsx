@@ -45,7 +45,7 @@ export default function SettingsPage() {
 
   const apiUrl =
     process.env.NEXT_PUBLIC_API_BASE_URL ||
-    process.env.NEXT_PUBLIC_API_URL ||
+    process.env.NEXT_PUBLIC_NEXT_PUBLIC_API_URL ||
     "https://my-portfolio-backend-ebon.vercel.app";
 
   return (
@@ -133,7 +133,7 @@ export default function SettingsPage() {
             
             <div className="space-y-3 font-mono text-xs">
               <div className="p-3 rounded-lg bg-[#161616] border border-[#222222] flex items-center justify-between">
-                <span className="text-[#888]">NEXT_PUBLIC_API_URL</span>
+                <span className="text-[#888]">NEXT_PUBLIC_NEXT_PUBLIC_API_URL</span>
                 <span className="text-[#7CFF6B] text-[11px]">✓ Set</span>
               </div>
               <div className="p-3 rounded-lg bg-[#161616] border border-[#222222] flex items-center justify-between">

@@ -6,16 +6,16 @@ A standalone, private Admin CMS built with **Next.js 15**, **TypeScript**, and *
 
 ## 🏗 Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Framework | Next.js 15 (App Router) |
-| Language | TypeScript |
-| Styling | Tailwind CSS |
+| Layer          | Technology                      |
+| -------------- | ------------------------------- |
+| Framework      | Next.js 15 (App Router)         |
+| Language       | TypeScript                      |
+| Styling        | Tailwind CSS                    |
 | Authentication | HTTP-only cookie + JWT (`jose`) |
-| Forms | `react-hook-form` + `zod` |
-| HTTP Client | `axios` |
-| Notifications | `sonner` |
-| Icons | `lucide-react` |
+| Forms          | `react-hook-form` + `zod`       |
+| HTTP Client    | `axios`                         |
+| Notifications  | `sonner`                        |
+| Icons          | `lucide-react`                  |
 
 ---
 
@@ -72,7 +72,7 @@ cp .env.example .env.local
 ```
 
 ```env
-NEXT_PUBLIC_API_URL=https://your-backend-api.vercel.app/api
+NEXT_PUBLIC_NEXT_PUBLIC_API_URL=https://your-backend-api.vercel.app/api
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=your-secure-password-here
 JWT_SECRET=your-random-jwt-secret-key
@@ -105,6 +105,7 @@ npm start
 - **Credentials are never exposed to the client bundle**
 
 Default credentials (change in `.env.local`):
+
 - Username: `admin`
 - Password: `adminpassword123`
 
@@ -115,7 +116,7 @@ Default credentials (change in `.env.local`):
 1. Create a **new Vercel project** pointing to the `dashboard/` subdirectory
 2. Set the **Root Directory** to `dashboard`
 3. Add all environment variables in the Vercel dashboard:
-   - `NEXT_PUBLIC_API_URL`
+   - `NEXT_PUBLIC_NEXT_PUBLIC_API_URL`
    - `ADMIN_USERNAME`
    - `ADMIN_PASSWORD`
    - `JWT_SECRET`
@@ -125,8 +126,8 @@ Default credentials (change in `.env.local`):
 
 ## 📡 Backend API Endpoints Used
 
-| Resource | Methods |
-|---|---|
+| Resource | Methods                                                                                                 |
+| -------- | ------------------------------------------------------------------------------------------------------- |
 | Projects | `GET /api/projects`, `POST /api/projects/create`, `PATCH /api/projects/:id`, `DELETE /api/projects/:id` |
-| Articles | `GET /api/blogs`, `POST /api/blogs/create`, `PATCH /api/blogs/:id`, `DELETE /api/blogs/:id` |
-| Messages | `GET /api/message`, `DELETE /api/message/:id` |
+| Articles | `GET /api/blogs`, `POST /api/blogs/create`, `PATCH /api/blogs/:id`, `DELETE /api/blogs/:id`             |
+| Messages | `GET /api/message`, `DELETE /api/message/:id`                                                           |
