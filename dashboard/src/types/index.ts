@@ -44,3 +44,15 @@ export interface AdminStats {
   totalMessages: number;
   unreadMessages: number;
 }
+
+export interface PortfolioSettings {
+  _id?: string;
+  siteName: string;
+  tagline: string;
+  contactEmail: string;
+  githubUrl: string;
+  facebookUrl: string;
+  linkedinUrl: string;
+  resumeUrl: string;
+  availability: string;
+}

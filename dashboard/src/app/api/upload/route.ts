@@ -15,12 +15,17 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate file type
-    const validTypes = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/svg+xml"];
+    const isResume = folder === "resume";
+    const validTypes = isResume
+      ? ["application/pdf"]
+      : ["image/jpeg", "image/png", "image/webp", "image/gif", "image/svg+xml"];
     if (!validTypes.includes(file.type)) {
       return NextResponse.json(
         {
           success: false,
-          message: "Invalid file format. Please upload JPEG, PNG, WEBP, GIF, or SVG.",
+          message: isResume
+            ? "Invalid file format. Please upload a PDF."
+            : "Invalid file format. Please upload JPEG, PNG, WEBP, GIF, or SVG.",
         },
         { status: 400 }
       );
@@ -44,7 +49,7 @@ export async function POST(request: NextRequest) {
       success: true,
       url: result.url,
       public_id: result.public_id,
-      message: "Image uploaded to Cloudinary successfully.",
+      message: isResume ? "Resume uploaded to Cloudinary successfully." : "Image uploaded to Cloudinary successfully.",
     });
   } catch (error: any) {
     console.error("Cloudinary upload error:", error);

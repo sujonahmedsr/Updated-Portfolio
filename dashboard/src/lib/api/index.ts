@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Project, Article, Message } from "@/types";
+import { Project, Article, Message, PortfolioSettings } from "@/types";
 
 const rawBaseUrl =
   process.env.NEXT_PUBLIC_API_BASE_URL ||
@@ -138,6 +138,17 @@ export async function deleteMessageApi(id: string): Promise<boolean> {
     console.error("Error deleting message:", error);
     return false;
   }
+}
+
+// Portfolio settings API
+export async function getSettingsApi(): Promise<PortfolioSettings> {
+  const res = await apiClient.get("/api/settings");
+  return res.data?.data || res.data;
+}
+
+export async function updateSettingsApi(data: Partial<PortfolioSettings>): Promise<PortfolioSettings> {
+  const res = await apiClient.patch("/api/settings", data);
+  return res.data?.data || res.data;
 }
 
 // Health Check API
