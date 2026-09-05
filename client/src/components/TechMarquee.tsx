@@ -24,7 +24,10 @@ export default function TechMarquee() {
       <div className="relative flex overflow-x-hidden">
         <div className="flex animate-marquee whitespace-nowrap gap-12 text-xs font-mono font-bold tracking-widest text-[#777]">
           {techItems.concat(techItems).map((tech, idx) => (
-            <div key={idx} className="flex items-center gap-12 hover:text-[#7CFF6B] transition-colors">
+            <div
+              key={idx}
+              className="flex items-center gap-12 hover:text-[#7CFF6B] transition-colors"
+            >
               <span>{tech}</span>
               <span className="text-[#7CFF6B] font-normal">●</span>
             </div>

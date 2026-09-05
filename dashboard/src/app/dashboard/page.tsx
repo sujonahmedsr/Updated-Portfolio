@@ -20,6 +20,21 @@ export default function DashboardOverviewPage() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
+
+  useEffect(() => {
+    const updateClock = () => setCurrentTime(new Date());
+    updateClock();
+    const timer = window.setInterval(updateClock, 60_000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const hour = currentTime?.getHours() ?? 12;
+  const greeting =
+    hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+  const formattedTime = currentTime
+    ? currentTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+    : "--:--";
 
   const fetchData = async () => {
     setLoading(true);
@@ -45,16 +60,20 @@ export default function DashboardOverviewPage() {
 
   return (
     <div className="space-y-8 font-sans">
-      
       {/* Header Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#1E1E1E]">
         <div>
           <h1 className="font-heading text-2xl sm:text-4xl font-bold text-[#F5F5F0]">
-            Good morning, Shofiqul.
+            {greeting}, Shofiqul.
           </h1>
           <p className="text-sm text-[#A1A1A1] mt-1 font-sans">
-            Here&apos;s a quick overview of your portfolio content, projects, and incoming client messages.
+            Here&apos;s a quick overview of your portfolio content, projects,
+            and incoming client messages.
           </p>
+          <span className="inline-flex items-center gap-2 mt-3 text-[11px] text-[#7CFF6B] font-mono">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#7CFF6B] animate-pulse" />
+            Local time {formattedTime}
+          </span>
         </div>
 
         <div className="flex items-center gap-3">
@@ -79,7 +98,6 @@ export default function DashboardOverviewPage() {
 
       {/* Metrics Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 font-mono">
-        
         {/* Total Projects */}
         <div className="p-6 rounded-xl bg-[#121212] border border-[#222222] space-y-3">
           <div className="flex items-center justify-between">
@@ -118,7 +136,8 @@ export default function DashboardOverviewPage() {
             {loading ? "..." : messages.length}
           </div>
           <div className="text-[11px] text-[#666] flex items-center gap-1">
-            <span className="text-[#7CFF6B]">● Submissions</span> from contact form
+            <span className="text-[#7CFF6B]">● Submissions</span> from contact
+            form
           </div>
         </div>
 
@@ -136,17 +155,20 @@ export default function DashboardOverviewPage() {
             Server API &amp; DB operational
           </div>
         </div>
-
       </div>
 
       {/* Two Column Layout: Recent Projects & Recent Messages */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        
         {/* Left Column: Recent Projects */}
         <div className="lg:col-span-7 space-y-4">
           <div className="flex items-center justify-between pb-2 border-b border-[#1E1E1E]">
-            <h3 className="font-heading text-lg font-bold text-[#F5F5F0]">Recent Projects</h3>
-            <Link href="/dashboard/projects" className="text-xs font-mono text-[#7CFF6B] hover:underline flex items-center gap-1">
+            <h3 className="font-heading text-lg font-bold text-[#F5F5F0]">
+              Recent Projects
+            </h3>
+            <Link
+              href="/dashboard/projects"
+              className="text-xs font-mono text-[#7CFF6B] hover:underline flex items-center gap-1"
+            >
               <span>View All</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
@@ -165,9 +187,13 @@ export default function DashboardOverviewPage() {
                 >
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-semibold text-[#F5F5F0] text-sm">{p.title}</span>
+                      <span className="font-semibold text-[#F5F5F0] text-sm">
+                        {p.title}
+                      </span>
                     </div>
-                    <p className="text-[#888] text-[11px] font-sans line-clamp-1">{p.description}</p>
+                    <p className="text-[#888] text-[11px] font-sans line-clamp-1">
+                      {p.description}
+                    </p>
                     <div className="flex items-center gap-2 text-[10px] text-[#666]">
                       <span>{p.technologies}</span>
                     </div>
@@ -192,8 +218,13 @@ export default function DashboardOverviewPage() {
         {/* Right Column: Recent Messages */}
         <div className="lg:col-span-5 space-y-4">
           <div className="flex items-center justify-between pb-2 border-b border-[#1E1E1E]">
-            <h3 className="font-heading text-lg font-bold text-[#F5F5F0]">Recent Submissions</h3>
-            <Link href="/dashboard/messages" className="text-xs font-mono text-[#7CFF6B] hover:underline flex items-center gap-1">
+            <h3 className="font-heading text-lg font-bold text-[#F5F5F0]">
+              Recent Submissions
+            </h3>
+            <Link
+              href="/dashboard/messages"
+              className="text-xs font-mono text-[#7CFF6B] hover:underline flex items-center gap-1"
+            >
               <span>Inbox</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
@@ -211,11 +242,17 @@ export default function DashboardOverviewPage() {
                   className="p-4 rounded-lg bg-[#121212] border border-[#222222] space-y-1.5"
                 >
                   <div className="flex items-center justify-between text-[11px]">
-                    <span className="font-bold text-[#F5F5F0]">{m.fullName}</span>
+                    <span className="font-bold text-[#F5F5F0]">
+                      {m.fullName}
+                    </span>
                     <span className="text-[#666]">{m.email}</span>
                   </div>
-                  <div className="text-[#7CFF6B] text-[11px] font-semibold">{m.subject}</div>
-                  <p className="text-[#A1A1A1] text-xs font-sans line-clamp-2">{m.message}</p>
+                  <div className="text-[#7CFF6B] text-[11px] font-semibold">
+                    {m.subject}
+                  </div>
+                  <p className="text-[#A1A1A1] text-xs font-sans line-clamp-2">
+                    {m.message}
+                  </p>
                 </div>
               ))
             ) : (
@@ -225,9 +262,7 @@ export default function DashboardOverviewPage() {
             )}
           </div>
         </div>
-
       </div>
-
     </div>
   );
 }

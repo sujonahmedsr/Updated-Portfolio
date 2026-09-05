@@ -5,6 +5,17 @@ import { revalidateTag } from "next/cache";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://shofiqul81severdb.vercel.app/api";
 
+export type PortfolioSettings = {
+  siteName: string;
+  tagline: string;
+  contactEmail: string;
+  githubUrl: string;
+  facebookUrl: string;
+  linkedinUrl: string;
+  resumeUrl: string;
+  availability: string;
+};
+
 export async function revalidateProjects() {
   revalidateTag("projects", "projects");
 }
@@ -22,6 +33,27 @@ export async function getProjects() {
   } catch (error) {
     console.error("Error fetching projects:", error);
     return [];
+  }
+}
+
+export async function getSettings(): Promise<PortfolioSettings> {
+  const fallback: PortfolioSettings = {
+    siteName: "Shofiqul Islam",
+    tagline: "Shopify Developer & Full-Stack Developer",
+    contactEmail: "",
+    githubUrl: "",
+    facebookUrl: "",
+    linkedinUrl: "",
+    resumeUrl: "/resume.pdf",
+    availability: "Open for Freelance & Contract Work",
+  };
+
+  try {
+    const res = await axios.get(`${API_URL}/settings`, { timeout: 8000 });
+    return { ...fallback, ...(res.data?.data || {}) };
+  } catch (error) {
+    console.error("Error fetching portfolio settings:", error);
+    return fallback;
   }
 }
 

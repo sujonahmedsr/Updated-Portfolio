@@ -2,8 +2,24 @@
 
 import Link from "next/link";
 import { Terminal, Check, ArrowUp } from "lucide-react";
+import type { PortfolioSettings } from "@/actions/revalidateData";
 
-export default function Footer() {
+const defaultSettings: PortfolioSettings = {
+  siteName: "Shofiqul Islam",
+  tagline: "Shopify Developer & Full-Stack Developer",
+  contactEmail: "",
+  githubUrl: "",
+  facebookUrl: "",
+  linkedinUrl: "",
+  resumeUrl: "/resume.pdf",
+  availability: "Available for selected projects",
+};
+
+export default function Footer({
+  settings = defaultSettings,
+}: {
+  settings?: PortfolioSettings;
+}) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -11,24 +27,48 @@ export default function Footer() {
   return (
     <footer className="bg-[#070707] border-t border-[#161616] py-12 font-mono text-xs text-[#888]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        
         {/* Top Footer Row */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pb-8 border-b border-[#1A1A1A]">
           <div>
-            <Link href="/" className="font-heading text-lg font-bold text-[#F5F5F0] hover:text-[#7CFF6B] transition-colors">
-              SHOFIQUL ISLAM
+            <Link
+              href="/"
+              className="font-heading text-lg font-bold text-[#F5F5F0] hover:text-[#7CFF6B] transition-colors"
+            >
+              {settings.siteName}
             </Link>
             <p className="text-xs text-[#666] mt-1 font-sans">
-              Shopify Developer &amp; Full-Stack Developer
+              {settings.tagline}
             </p>
           </div>
 
-          <div className="flex items-center gap-6 text-xs text-[#A1A1A1]">
-            <a href="#work" className="hover:text-[#7CFF6B] transition-colors">Work</a>
-            <a href="#shopify" className="hover:text-[#7CFF6B] transition-colors">Shopify</a>
-            <a href="#fullstack" className="hover:text-[#7CFF6B] transition-colors">Full-Stack</a>
-            <a href="#playground" className="hover:text-[#7CFF6B] transition-colors">Playground</a>
-            <a href="#contact" className="hover:text-[#7CFF6B] transition-colors">Contact</a>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-[#A1A1A1]">
+            <a href="#work" className="hover:text-[#7CFF6B] transition-colors">
+              Work
+            </a>
+            <a
+              href="#shopify"
+              className="hover:text-[#7CFF6B] transition-colors"
+            >
+              Shopify
+            </a>
+            <a
+              href="#fullstack"
+              className="hover:text-[#7CFF6B] transition-colors"
+            >
+              Full-Stack
+            </a>
+            <a
+              href="#playground"
+              className="hover:text-[#7CFF6B] transition-colors"
+            >
+              Playground
+            </a>
+            <a
+              href="#contact"
+              className="hover:text-[#7CFF6B] transition-colors"
+            >
+              Contact
+            </a>
           </div>
 
           <button
@@ -42,7 +82,6 @@ export default function Footer() {
 
         {/* Terminal Status & Copyright */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          
           {/* Decorative Terminal Line */}
           <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#0E0E0E] border border-[#1F1F1F] text-[11px] text-[#A1A1A1]">
             <Terminal className="w-3.5 h-3.5 text-[#7CFF6B]" />
@@ -53,11 +92,12 @@ export default function Footer() {
           </div>
 
           <div className="text-center sm:text-right text-[#555] text-[11px]">
-            <span>© {new Date().getFullYear()} Shofiqul Islam. Built with Next.js 15 &amp; TypeScript.</span>
+            <span>
+              © {new Date().getFullYear()} Shofiqul Islam. Built with Next.js 15
+              &amp; TypeScript.
+            </span>
           </div>
-
         </div>
-
       </div>
     </footer>
   );

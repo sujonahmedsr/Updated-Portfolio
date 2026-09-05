@@ -8,32 +8,54 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Article Details — Shofiqul Islam",
-  description: "Read in-depth articles on web development, Shopify, and full-stack architecture.",
+  description:
+    "Read in-depth articles on web development, Shopify, and full-stack architecture.",
 };
 
 const BlogDetails = async ({ params }: { params: any }) => {
   const { id } = await params;
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://shofiqul81severdb.vercel.app/api";
+  const API_URL =
+    process.env.NEXT_PUBLIC_API_URL ||
+    "https://shofiqul81severdb.vercel.app/api";
 
   let blog = null;
+  let settings = null;
+
   try {
-    const res = await fetch(`${API_URL}/blogs/${id}`, {
-      next: { tags: ["blogs"] },
-    });
-    const blogsRes = await res.json();
-    blog = blogsRes?.data?.result || blogsRes?.data;
+    const [blogRes, settingsRes] = await Promise.all([
+      fetch(`${API_URL}/blogs/${id}`, { next: { tags: ["blogs"] } }),
+      fetch(`${API_URL}/settings`, { next: { tags: ["settings"] } }).catch(
+        () => null,
+      ),
+    ]);
+
+    if (blogRes.ok) {
+      const blogsData = await blogRes.json();
+      blog = blogsData?.data?.result || blogsData?.data;
+    }
+
+    if (settingsRes && settingsRes.ok) {
+      const settingsData = await settingsRes.json();
+      settings = settingsData?.data?.result || settingsData?.data;
+    }
   } catch (err) {
-    console.error("Failed to fetch blog:", err);
+    console.error("Failed to fetch data:", err);
   }
+
+  const safeSettings = settings || {};
 
   if (!blog) {
     return (
       <div className="min-h-screen bg-[#0A0A0A] text-[#F5F5F0] flex flex-col justify-between">
-        <Navbar />
+        <Navbar settings={safeSettings} />
         <div className="max-w-xl mx-auto text-center py-32 px-4 space-y-4">
-          <h1 className="font-heading text-2xl font-bold text-[#FF5F56]">Article Not Found</h1>
-          <p className="text-sm font-mono text-[#888]">The requested article could not be found or may have been removed.</p>
+          <h1 className="font-heading text-2xl font-bold text-[#FF5F56]">
+            Article Not Found
+          </h1>
+          <p className="text-sm font-mono text-[#888]">
+            The requested article could not be found or may have been removed.
+          </p>
           <Link
             href="/blogs"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#161616] border border-[#262626] text-[#7CFF6B] font-mono text-xs hover:border-[#7CFF6B] transition-colors"
@@ -42,17 +64,16 @@ const BlogDetails = async ({ params }: { params: any }) => {
             <span>Back to Articles</span>
           </Link>
         </div>
-        <Footer />
+        <Footer settings={safeSettings} />
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-[#F5F5F0] selection:bg-[#7CFF6B] selection:text-black">
-      <Navbar />
+      <Navbar settings={safeSettings} />
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 pt-32 pb-24 space-y-8">
-        
         {/* Back Link */}
         <div>
           <Link
@@ -99,8 +120,10 @@ const BlogDetails = async ({ params }: { params: any }) => {
         {/* Content */}
         <article className="p-6 sm:p-8 rounded-xl bg-[#121212] border border-[#222222]">
           <div
-            className="text-[#D0D0C8] text-base leading-relaxed font-sans space-y-4"
-            dangerouslySetInnerHTML={{ __html: blog.description?.replace(/\n/g, "<br/>") || "" }}
+            className="max-w-full break-words text-[#D0D0C8] text-base leading-relaxed font-sans space-y-4 [&_img]:max-w-full [&_img]:h-auto [&_pre]:max-w-full [&_pre]:overflow-x-auto [&_table]:block [&_table]:max-w-full [&_table]:overflow-x-auto"
+            dangerouslySetInnerHTML={{
+              __html: blog.description?.replace(/\n/g, "<br/>") || "",
+            }}
           />
         </article>
 
@@ -114,10 +137,9 @@ const BlogDetails = async ({ params }: { params: any }) => {
             <span>Back to All Articles</span>
           </Link>
         </div>
-
       </main>
 
-      <Footer />
+      <Footer settings={safeSettings} />
     </div>
   );
 };

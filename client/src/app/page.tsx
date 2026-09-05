@@ -11,25 +11,34 @@ import TechStackSection from "@/components/TechStackSection";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import { getProjects, getSettings } from "@/actions/revalidateData";
 // import BlogsPage from "./blogs/page";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [projects, settings] = await Promise.all([
+    getProjects(),
+    getSettings(),
+  ]);
+
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F5F5F0] selection:bg-[#7CFF6B] selection:text-black">
       <Navbar />
       <Hero />
       <TechMarquee />
-      <SelectedWork />
+      <SelectedWork initialProjects={projects} />
       <ShopifyExpertise />
       <FullStackCapabilities />
       <DeveloperPlayground />
       <ProcessSection />
       <ExperienceTimeline />
       <TechStackSection />
-      <AboutSection />
+      <AboutSection
+        resumeUrl={settings.resumeUrl}
+        availability={settings.availability}
+      />
       {/* <BlogsPage /> */}
-      <ContactSection />
-      <Footer />
+      <ContactSection settings={settings} />
+      <Footer settings={settings} />
     </main>
   );
 }

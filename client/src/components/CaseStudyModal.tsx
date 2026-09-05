@@ -1,6 +1,14 @@
 "use client";
 
-import { X, ExternalLink, Github, CheckCircle2, Layers, Cpu, Target } from "lucide-react";
+import {
+  X,
+  ExternalLink,
+  Github,
+  CheckCircle2,
+  Layers,
+  Cpu,
+  Target,
+} from "lucide-react";
 
 export type ProjectDetails = {
   _id?: string;
@@ -29,14 +37,13 @@ export default function CaseStudyModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div className="bg-[#121212] border border-[#262626] rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto font-sans shadow-2xl relative">
-        
         {/* Header */}
         <div className="sticky top-0 bg-[#161616] px-6 py-4 border-b border-[#222222] flex items-center justify-between z-10">
-          <div>
+          <div className="min-w-0 pr-3">
             <span className="text-xs font-mono text-[#7CFF6B] uppercase tracking-wider block">
               {project.category}
             </span>
-            <h3 className="font-heading text-xl sm:text-2xl font-bold text-[#F5F5F0]">
+            <h3 className="break-words font-heading text-xl sm:text-2xl font-bold text-[#F5F5F0]">
               {project.title}
             </h3>
           </div>
@@ -51,10 +58,11 @@ export default function CaseStudyModal({
 
         {/* Content Body */}
         <div className="p-6 space-y-8 font-sans">
-          
           {/* Overview */}
           <div>
-            <h4 className="text-xs font-mono text-[#888] uppercase tracking-wider mb-2">PROJECT OVERVIEW</h4>
+            <h4 className="text-xs font-mono text-[#888] uppercase tracking-wider mb-2">
+              PROJECT OVERVIEW
+            </h4>
             <p className="text-[#D4D4D4] leading-relaxed text-sm sm:text-base">
               {project.description}
             </p>
@@ -62,7 +70,9 @@ export default function CaseStudyModal({
 
           {/* Key Technologies Tags */}
           <div>
-            <h4 className="text-xs font-mono text-[#888] uppercase tracking-wider mb-3">TECHNOLOGY STACK</h4>
+            <h4 className="text-xs font-mono text-[#888] uppercase tracking-wider mb-3">
+              TECHNOLOGY STACK
+            </h4>
             <div className="flex flex-wrap gap-2">
               {project.technologies.map((tech, idx) => (
                 <span
@@ -77,7 +87,6 @@ export default function CaseStudyModal({
 
           {/* Case Study Details Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-[#1F1F1F]">
-            
             {/* Challenge */}
             <div className="p-4 rounded-lg bg-[#161616] border border-[#222222] space-y-2">
               <div className="flex items-center gap-2 text-[#7CFF6B] font-mono text-xs font-semibold">
@@ -85,7 +94,8 @@ export default function CaseStudyModal({
                 <span>THE CHALLENGE</span>
               </div>
               <p className="text-xs text-[#A1A1A1] leading-relaxed">
-                {project.challenge || "Creating a high-performance storefront solution that balances bespoke visual design with seamless customer user experience."}
+                {project.challenge ||
+                  "Creating a high-performance storefront solution that balances bespoke visual design with seamless customer user experience."}
               </p>
             </div>
 
@@ -96,10 +106,10 @@ export default function CaseStudyModal({
                 <span>MY APPROACH</span>
               </div>
               <p className="text-xs text-[#A1A1A1] leading-relaxed">
-                {project.approach || "Architected modular code sections, streamlined state handling, and optimized asset delivery for maximum responsiveness."}
+                {project.approach ||
+                  "Architected modular code sections, streamlined state handling, and optimized asset delivery for maximum responsiveness."}
               </p>
             </div>
-
           </div>
 
           {/* What I Built */}
@@ -109,12 +119,14 @@ export default function CaseStudyModal({
               <span>WHAT I BUILT &amp; DELIVERED</span>
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm text-[#D4D4D4]">
-              {(project.whatIBuilt || [
-                "Custom liquid theme templates and reusable section blocks.",
-                "AJAX slide-out cart drawer with dynamic product recommendations.",
-                "Responsive mobile-first navigation and filter drawer.",
-                "Comprehensive site speed and Core Web Vitals optimization."
-              ]).map((item, idx) => (
+              {(
+                project.whatIBuilt || [
+                  "Custom liquid theme templates and reusable section blocks.",
+                  "AJAX slide-out cart drawer with dynamic product recommendations.",
+                  "Responsive mobile-first navigation and filter drawer.",
+                  "Comprehensive site speed and Core Web Vitals optimization.",
+                ]
+              ).map((item, idx) => (
                 <li key={idx} className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-[#7CFF6B] shrink-0 mt-0.5" />
                   <span>{item}</span>
@@ -125,7 +137,7 @@ export default function CaseStudyModal({
 
           {/* Action Links */}
           <div className="pt-6 border-t border-[#1F1F1F] flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-3">
               {project.liveLink && (
                 <a
                   href={project.liveLink}
@@ -156,9 +168,7 @@ export default function CaseStudyModal({
               Close Window
             </button>
           </div>
-
         </div>
-
       </div>
     </div>
   );

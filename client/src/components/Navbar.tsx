@@ -14,15 +14,22 @@ const navLinks = [
   { name: "About", href: "#about" },
 ];
 
-export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+type NavbarSettings = { availability?: string };
+
+export default function Navbar({
+  availability,
+  settings,
+}: {
+  availability?: string;
+  settings?: NavbarSettings;
+}) {
+  const displayedAvailability =
+    availability || settings?.availability || "AVAILABLE";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-
       const sections = navLinks.map((link) => link.href.substring(1));
       const scrollPosition = window.scrollY + 200;
 
@@ -44,13 +51,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#0A0A0A]/85 backdrop-blur-md border-b border-[#222222]/80 py-3 shadow-2xl"
-          : "bg-transparent py-5"
-      }`}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#0A0A0A]/85 backdrop-blur-md border-b border-[#222222]/80 py-3 shadow-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Brand Logo & Availability Indicator */}
         <div className="flex items-center gap-3">
@@ -65,12 +66,12 @@ export default function Navbar() {
           </Link>
           <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#121212] border border-[#222222] text-xs font-mono text-[#A1A1A1]">
             <span className="w-2 h-2 rounded-full bg-[#7CFF6B] animate-pulse"></span>
-            <span>AVAILABLE</span>
+            <span>{displayedAvailability}</span>
           </div>
         </div>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-7 text-sm font-mono text-[#A1A1A1]">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-7 text-xs xl:text-sm font-mono text-[#A1A1A1]">
           {navLinks.map((link) => {
             const isActive = activeSection === link.href.substring(1);
             return (
@@ -99,21 +100,25 @@ export default function Navbar() {
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 rounded-lg bg-[#161616] border border-[#262626] text-[#F5F5F0] hover:text-[#7CFF6B] focus:outline-none"
+            className="lg:hidden p-2 rounded-lg bg-[#161616] border border-[#262626] text-[#F5F5F0] hover:text-[#7CFF6B] focus:outline-none"
             aria-label="Toggle Navigation"
           >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileOpen ? (
+              <X className="w-5 h-5" />
+            ) : (
+              <Menu className="w-5 h-5" />
+            )}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu Drawer */}
       {mobileOpen && (
-        <div className="md:hidden bg-[#0A0A0A]/95 backdrop-blur-xl border-b border-[#222222] px-6 py-6 space-y-4 font-mono animate-in slide-in-from-top-4 duration-200">
+        <div className="lg:hidden bg-[#0A0A0A]/95 backdrop-blur-xl border-b border-[#222222] px-4 sm:px-6 py-6 space-y-4 font-mono animate-in slide-in-from-top-4 duration-200">
           <div className="flex items-center justify-between pb-3 border-b border-[#1A1A1A]">
             <div className="flex items-center gap-2 text-xs text-[#A1A1A1]">
               <span className="w-2 h-2 rounded-full bg-[#7CFF6B] animate-pulse"></span>
-              <span>Available for projects</span>
+              <span>{displayedAvailability}</span>
             </div>
             <span className="text-xs text-[#555]">MENU</span>
           </div>

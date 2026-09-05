@@ -9,13 +9,16 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Project Details — Shofiqul Islam",
-  description: "Detailed overview, architecture, and live links for this project by Shofiqul Islam.",
+  description:
+    "Detailed overview, architecture, and live links for this project by Shofiqul Islam.",
 };
 
 const ProjectDetailsPage = async ({ params }: { params: any }) => {
   const { id } = await params;
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://shofiqul81severdb.vercel.app/api";
+  const API_URL =
+    process.env.NEXT_PUBLIC_API_URL ||
+    "https://shofiqul81severdb.vercel.app/api";
 
   let project = null;
   try {
@@ -33,8 +36,12 @@ const ProjectDetailsPage = async ({ params }: { params: any }) => {
       <div className="min-h-screen bg-[#0A0A0A] text-[#F5F5F0] flex flex-col justify-between">
         <Navbar />
         <div className="max-w-xl mx-auto text-center py-32 px-4 space-y-4">
-          <h1 className="font-heading text-2xl font-bold text-[#FF5F56]">Project Not Found</h1>
-          <p className="text-sm font-mono text-[#888]">The requested project could not be found or may have been removed.</p>
+          <h1 className="font-heading text-2xl font-bold text-[#FF5F56]">
+            Project Not Found
+          </h1>
+          <p className="text-sm font-mono text-[#888]">
+            The requested project could not be found or may have been removed.
+          </p>
           <Link
             href="/#work"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#161616] border border-[#262626] text-[#7CFF6B] font-mono text-xs hover:border-[#7CFF6B] transition-colors"
@@ -53,7 +60,6 @@ const ProjectDetailsPage = async ({ params }: { params: any }) => {
       <Navbar />
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 pt-32 pb-20 space-y-8">
-        
         {/* Back Link */}
         <div>
           <Link
@@ -118,29 +124,36 @@ const ProjectDetailsPage = async ({ params }: { params: any }) => {
         {/* Technologies List */}
         {project.technologies && (
           <div className="p-6 rounded-xl bg-[#121212] border border-[#222222] space-y-3 font-mono">
-            <span className="text-xs text-[#888] uppercase tracking-wider block">Technologies &amp; Architecture</span>
+            <span className="text-xs text-[#888] uppercase tracking-wider block">
+              Technologies &amp; Architecture
+            </span>
             <div className="flex flex-wrap gap-2">
-              {project.technologies.split(",").map((tech: string, i: number) => (
-                <span
-                  key={i}
-                  className="px-3 py-1 rounded bg-[#1A1A1A] border border-[#262626] text-xs text-[#7CFF6B]"
-                >
-                  {tech.trim()}
-                </span>
-              ))}
+              {project.technologies
+                .split(",")
+                .map((tech: string, i: number) => (
+                  <span
+                    key={i}
+                    className="px-3 py-1 rounded bg-[#1A1A1A] border border-[#262626] text-xs text-[#7CFF6B]"
+                  >
+                    {tech.trim()}
+                  </span>
+                ))}
             </div>
           </div>
         )}
 
         {/* Description */}
         <div className="p-6 sm:p-8 rounded-xl bg-[#121212] border border-[#222222] space-y-4">
-          <h2 className="font-heading text-xl font-bold text-[#F5F5F0]">Project Overview</h2>
+          <h2 className="font-heading text-xl font-bold text-[#F5F5F0]">
+            Project Overview
+          </h2>
           <div
-            className="text-[#A1A1A1] text-sm sm:text-base leading-relaxed font-sans space-y-3"
-            dangerouslySetInnerHTML={{ __html: project.description?.replace(/\n/g, "<br/>") || "" }}
+            className="max-w-full break-words text-[#A1A1A1] text-sm sm:text-base leading-relaxed font-sans space-y-3 [&_img]:max-w-full [&_img]:h-auto [&_pre]:max-w-full [&_pre]:overflow-x-auto [&_table]:block [&_table]:max-w-full [&_table]:overflow-x-auto"
+            dangerouslySetInnerHTML={{
+              __html: project.description?.replace(/\n/g, "<br/>") || "",
+            }}
           />
         </div>
-
       </main>
 
       <Footer />

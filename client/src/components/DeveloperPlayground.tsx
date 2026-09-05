@@ -1,20 +1,67 @@
 "use client";
 
 import { useState } from "react";
-import { Terminal, Filter, Code2, Zap, Play, Search, Check, RefreshCw } from "lucide-react";
+import {
+  Terminal,
+  Filter,
+  Code2,
+  Zap,
+  Play,
+  Search,
+  Check,
+  RefreshCw,
+} from "lucide-react";
 
 // Mock Products for Filter Demo
 const demoProducts = [
-  { id: 1, name: "Silk Sleepwear Set", category: "Sleepwear", price: 189, tag: "Best Seller" },
-  { id: 2, name: "Minimalist Linen Robe", category: "Sleepwear", price: 145, tag: "New Arrival" },
-  { id: 3, name: "Organic Cotton Tee", category: "Apparel", price: 65, tag: "Essentials" },
-  { id: 4, name: "Cashmere Eye Mask", category: "Accessories", price: 48, tag: "Gift Idea" },
-  { id: 5, name: "Tailored Lounge Pants", category: "Apparel", price: 120, tag: "Popular" },
-  { id: 6, name: "Satin Pillowcase Set", category: "Accessories", price: 75, tag: "Top Rated" },
+  {
+    id: 1,
+    name: "Silk Sleepwear Set",
+    category: "Sleepwear",
+    price: 189,
+    tag: "Best Seller",
+  },
+  {
+    id: 2,
+    name: "Minimalist Linen Robe",
+    category: "Sleepwear",
+    price: 145,
+    tag: "New Arrival",
+  },
+  {
+    id: 3,
+    name: "Organic Cotton Tee",
+    category: "Apparel",
+    price: 65,
+    tag: "Essentials",
+  },
+  {
+    id: 4,
+    name: "Cashmere Eye Mask",
+    category: "Accessories",
+    price: 48,
+    tag: "Gift Idea",
+  },
+  {
+    id: 5,
+    name: "Tailored Lounge Pants",
+    category: "Apparel",
+    price: 120,
+    tag: "Popular",
+  },
+  {
+    id: 6,
+    name: "Satin Pillowcase Set",
+    category: "Accessories",
+    price: 75,
+    tag: "Top Rated",
+  },
 ];
 
 export default function DeveloperPlayground() {
-  const [activeTab, setActiveTab] = useState<"filter" | "api" | "component" | "vitals">("filter");
+  const [activeTab, setActiveTab] = useState<
+    "filter" | "api" | "component" | "vitals"
+  >("filter");
 
   // Filter State
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,8 +81,11 @@ export default function DeveloperPlayground() {
   // Filter Logic
   const filteredProducts = demoProducts
     .filter((p) => {
-      const matchSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchCategory = selectedCategory === "All" || p.category === selectedCategory;
+      const matchSearch = p.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const matchCategory =
+        selectedCategory === "All" || p.category === selectedCategory;
       return matchSearch && matchCategory;
     })
     .sort((a, b) => {
@@ -62,14 +112,26 @@ export default function DeveloperPlayground() {
                 totalProducts: 6,
                 page: 1,
                 items: [
-                  { id: "sp_01", title: "Silk Sleepwear Set", price: "$189.00", currency: "USD", available: true },
-                  { id: "sp_02", title: "Minimalist Linen Robe", price: "$145.00", currency: "USD", available: true }
-                ]
-              }
+                  {
+                    id: "sp_01",
+                    title: "Silk Sleepwear Set",
+                    price: "$189.00",
+                    currency: "USD",
+                    available: true,
+                  },
+                  {
+                    id: "sp_02",
+                    title: "Minimalist Linen Robe",
+                    price: "$145.00",
+                    currency: "USD",
+                    available: true,
+                  },
+                ],
+              },
             },
             null,
-            2
-          )
+            2,
+          ),
         );
       } else {
         setApiResult(
@@ -79,22 +141,24 @@ export default function DeveloperPlayground() {
               success: true,
               responseTime: "24ms",
               message: "Item added to Shopify cart session",
-              cart: { itemCount: 1, total: "$189.00" }
+              cart: { itemCount: 1, total: "$189.00" },
             },
             null,
-            2
-          )
+            2,
+          ),
         );
       }
     }, 400);
   };
 
   return (
-    <section id="playground" className="py-24 bg-[#0A0A0A] border-b border-[#1A1A1A]">
+    <section
+      id="playground"
+      className="py-6 sm:py-12 bg-[#0A0A0A] border-b border-[#1A1A1A]"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         {/* Section Header */}
-        <div className="max-w-3xl mb-16 space-y-4">
+        <div className="max-w-3xl mb-8 sm:mb-12 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#121212] border border-[#222222] text-xs font-mono text-[#7CFF6B]">
             <Code2 className="w-3.5 h-3.5" />
             <span>INTERACTIVE DEMONSTRATIONS</span>
@@ -103,20 +167,23 @@ export default function DeveloperPlayground() {
             DEVELOPER PLAYGROUND
           </h2>
           <p className="text-base text-[#A1A1A1] font-sans leading-relaxed">
-            Don&apos;t just take my word for it. Interact with live UI components, API explorers, and storefront modules built directly into this portfolio.
+            Don&apos;t just take my word for it. Interact with live UI
+            components, API explorers, and storefront modules built directly
+            into this portfolio.
           </p>
         </div>
 
         {/* Playground Shell */}
         <div className="rounded-xl bg-[#121212] border border-[#222222] shadow-2xl overflow-hidden font-mono">
-          
           {/* Header Bar */}
           <div className="bg-[#161616] px-6 py-4 border-b border-[#222222] flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-[#FF5F56]/80"></span>
               <span className="w-3 h-3 rounded-full bg-[#FFBD2E]/80"></span>
               <span className="w-3 h-3 rounded-full bg-[#27C93F]/80"></span>
-              <span className="ml-2 text-xs text-[#888]">developer-playground.tsx</span>
+              <span className="ml-2 text-xs text-[#888]">
+                developer-playground.tsx
+              </span>
             </div>
 
             {/* Navigation Tabs */}
@@ -173,13 +240,12 @@ export default function DeveloperPlayground() {
 
           {/* Playground Body */}
           <div className="p-6 min-h-[380px] bg-[#0E0E0E]">
-            
             {/* Demo 1: Interactive Product Filter */}
             {activeTab === "filter" && (
               <div className="space-y-6">
                 <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#1A1A1A]">
                   {/* Search Input */}
-                  <div className="relative flex-1 min-w-[200px]">
+                  <div className="relative flex-1 min-w-0 w-full sm:min-w-[200px]">
                     <Search className="w-4 h-4 text-[#666] absolute left-3 top-2.5" />
                     <input
                       type="text"
@@ -191,27 +257,31 @@ export default function DeveloperPlayground() {
                   </div>
 
                   {/* Category Buttons */}
-                  <div className="flex items-center gap-1.5">
-                    {["All", "Sleepwear", "Apparel", "Accessories"].map((cat) => (
-                      <button
-                        key={cat}
-                        onClick={() => setSelectedCategory(cat)}
-                        className={`px-2.5 py-1.5 rounded text-xs transition-colors ${
-                          selectedCategory === cat
-                            ? "bg-[#7CFF6B]/15 border border-[#7CFF6B] text-[#7CFF6B]"
-                            : "bg-[#161616] border border-[#262626] text-[#888] hover:text-[#F5F5F0]"
-                        }`}
-                      >
-                        {cat}
-                      </button>
-                    ))}
+                  <div className="flex flex-wrap items-center gap-1.5 w-full sm:w-auto">
+                    {["All", "Sleepwear", "Apparel", "Accessories"].map(
+                      (cat) => (
+                        <button
+                          key={cat}
+                          onClick={() => setSelectedCategory(cat)}
+                          className={`px-2.5 py-1.5 rounded text-xs transition-colors ${
+                            selectedCategory === cat
+                              ? "bg-[#7CFF6B]/15 border border-[#7CFF6B] text-[#7CFF6B]"
+                              : "bg-[#161616] border border-[#262626] text-[#888] hover:text-[#F5F5F0]"
+                          }`}
+                        >
+                          {cat}
+                        </button>
+                      ),
+                    )}
                   </div>
 
                   {/* Sort Dropdown */}
                   <select
                     value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value as "low" | "high" | "featured")}
-                    className="px-3 py-2 rounded bg-[#161616] border border-[#262626] text-xs text-[#A1A1A1] focus:outline-none focus:border-[#7CFF6B]"
+                    onChange={(e) =>
+                      setSortBy(e.target.value as "low" | "high" | "featured")
+                    }
+                    className="w-full sm:w-auto px-3 py-2 rounded bg-[#161616] border border-[#262626] text-xs text-[#A1A1A1] focus:outline-none focus:border-[#7CFF6B]"
                   >
                     <option value="featured">Featured Sort</option>
                     <option value="low">Price: Low to High</option>
@@ -233,13 +303,18 @@ export default function DeveloperPlayground() {
                             {product.tag}
                           </span>
                         </div>
-                        <h4 className="text-sm font-semibold text-[#F5F5F0] mb-1">{product.name}</h4>
-                        <div className="text-xs font-mono text-[#7CFF6B] font-bold">${product.price}.00 USD</div>
+                        <h4 className="text-sm font-semibold text-[#F5F5F0] mb-1">
+                          {product.name}
+                        </h4>
+                        <div className="text-xs font-mono text-[#7CFF6B] font-bold">
+                          ${product.price}.00 USD
+                        </div>
                       </div>
                     ))
                   ) : (
                     <div className="col-span-full py-8 text-center text-xs text-[#666]">
-                      No products match your filter parameters. Try clearing your search.
+                      No products match your filter parameters. Try clearing
+                      your search.
                     </div>
                   )}
                 </div>
@@ -255,7 +330,11 @@ export default function DeveloperPlayground() {
                     onChange={(e) => {
                       const m = e.target.value as "GET" | "POST";
                       setApiMethod(m);
-                      setApiEndpoint(m === "GET" ? "/api/v1/products?limit=3" : "/api/v1/cart/add");
+                      setApiEndpoint(
+                        m === "GET"
+                          ? "/api/v1/products?limit=3"
+                          : "/api/v1/cart/add",
+                      );
                     }}
                     className="px-3 py-1.5 rounded bg-[#1C1C1C] border border-[#2A2A2A] text-xs font-bold text-[#7CFF6B] focus:outline-none"
                   >
@@ -275,7 +354,11 @@ export default function DeveloperPlayground() {
                     disabled={apiLoading}
                     className="px-4 py-1.5 rounded bg-[#7CFF6B] text-black font-semibold text-xs hover:bg-[#68e057] transition-all flex items-center gap-1.5"
                   >
-                    {apiLoading ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Play className="w-3.5 h-3.5 fill-current" />}
+                    {apiLoading ? (
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <Play className="w-3.5 h-3.5 fill-current" />
+                    )}
                     <span>Send Request</span>
                   </button>
                 </div>
@@ -284,7 +367,9 @@ export default function DeveloperPlayground() {
                 <div className="p-4 rounded-lg bg-[#0E0E0E] border border-[#222222] min-h-[220px]">
                   <div className="flex items-center justify-between text-[11px] text-[#666] mb-2 pb-2 border-b border-[#1A1A1A]">
                     <span>RESPONSE PREVIEW</span>
-                    {apiResult && <span className="text-[#7CFF6B]">200 OK — 16ms</span>}
+                    {apiResult && (
+                      <span className="text-[#7CFF6B]">200 OK — 16ms</span>
+                    )}
                   </div>
 
                   {apiLoading ? (
@@ -298,7 +383,8 @@ export default function DeveloperPlayground() {
                     </pre>
                   ) : (
                     <div className="text-xs text-[#555] py-8 text-center">
-                      Click &quot;Send Request&quot; above to simulate an asynchronous REST API call.
+                      Click &quot;Send Request&quot; above to simulate an
+                      asynchronous REST API call.
                     </div>
                   )}
                 </div>
@@ -314,7 +400,9 @@ export default function DeveloperPlayground() {
                     <button
                       onClick={() => setColumnsCount(2)}
                       className={`px-3 py-1 rounded transition-colors ${
-                        columnsCount === 2 ? "bg-[#7CFF6B] text-black font-bold" : "bg-[#1E1E1E] text-[#888]"
+                        columnsCount === 2
+                          ? "bg-[#7CFF6B] text-black font-bold"
+                          : "bg-[#1E1E1E] text-[#888]"
                       }`}
                     >
                       2 Columns
@@ -322,7 +410,9 @@ export default function DeveloperPlayground() {
                     <button
                       onClick={() => setColumnsCount(3)}
                       className={`px-3 py-1 rounded transition-colors ${
-                        columnsCount === 3 ? "bg-[#7CFF6B] text-black font-bold" : "bg-[#1E1E1E] text-[#888]"
+                        columnsCount === 3
+                          ? "bg-[#7CFF6B] text-black font-bold"
+                          : "bg-[#1E1E1E] text-[#888]"
                       }`}
                     >
                       3 Columns
@@ -337,16 +427,24 @@ export default function DeveloperPlayground() {
                       onChange={(e) => setShowBadge(e.target.checked)}
                       className="accent-[#7CFF6B]"
                     />
-                    <label htmlFor="badgeToggle" className="text-[#D4D4D4] cursor-pointer">
+                    <label
+                      htmlFor="badgeToggle"
+                      className="text-[#D4D4D4] cursor-pointer"
+                    >
                       Show Promotional Badge
                     </label>
                   </div>
                 </div>
 
                 {/* Live Section Rendering */}
-                <div className={`grid grid-cols-1 ${columnsCount === 2 ? "sm:grid-cols-2" : "sm:grid-cols-3"} gap-4`}>
+                <div
+                  className={`grid grid-cols-1 ${columnsCount === 2 ? "sm:grid-cols-2" : "sm:grid-cols-3"} gap-4`}
+                >
                   {[1, 2, 3].slice(0, columnsCount).map((idx) => (
-                    <div key={idx} className="p-4 rounded-lg bg-[#161616] border border-[#262626] font-sans space-y-2">
+                    <div
+                      key={idx}
+                      className="p-4 rounded-lg bg-[#161616] border border-[#262626] font-sans space-y-2"
+                    >
                       <div className="w-full h-24 rounded bg-[#222222] flex items-center justify-center text-xs font-mono text-[#666]">
                         Liquid Block #{idx}
                       </div>
@@ -355,8 +453,12 @@ export default function DeveloperPlayground() {
                           PROMO TAG
                         </span>
                       )}
-                      <h4 className="text-xs font-semibold text-[#F5F5F0]">Liquid Section Component #{idx}</h4>
-                      <p className="text-[11px] text-[#888]">Configurable via Shopify Schema</p>
+                      <h4 className="text-xs font-semibold text-[#F5F5F0]">
+                        Liquid Section Component #{idx}
+                      </h4>
+                      <p className="text-[11px] text-[#888]">
+                        Configurable via Shopify Schema
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -368,24 +470,48 @@ export default function DeveloperPlayground() {
               <div className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="p-4 rounded-lg bg-[#141414] border border-[#222222] space-y-1">
-                    <span className="text-[10px] text-[#888] block">FIRST CONTENTFUL PAINT</span>
-                    <span className="text-xl font-bold text-[#7CFF6B]">0.7s</span>
-                    <span className="text-[10px] text-[#555] block">Fast (Target &lt; 1.8s)</span>
+                    <span className="text-[10px] text-[#888] block">
+                      FIRST CONTENTFUL PAINT
+                    </span>
+                    <span className="text-xl font-bold text-[#7CFF6B]">
+                      0.7s
+                    </span>
+                    <span className="text-[10px] text-[#555] block">
+                      Fast (Target &lt; 1.8s)
+                    </span>
                   </div>
                   <div className="p-4 rounded-lg bg-[#141414] border border-[#222222] space-y-1">
-                    <span className="text-[10px] text-[#888] block">LARGEST CONTENTFUL PAINT</span>
-                    <span className="text-xl font-bold text-[#7CFF6B]">1.1s</span>
-                    <span className="text-[10px] text-[#555] block">Optimal (&lt; 2.5s)</span>
+                    <span className="text-[10px] text-[#888] block">
+                      LARGEST CONTENTFUL PAINT
+                    </span>
+                    <span className="text-xl font-bold text-[#7CFF6B]">
+                      1.1s
+                    </span>
+                    <span className="text-[10px] text-[#555] block">
+                      Optimal (&lt; 2.5s)
+                    </span>
                   </div>
                   <div className="p-4 rounded-lg bg-[#141414] border border-[#222222] space-y-1">
-                    <span className="text-[10px] text-[#888] block">CUMULATIVE LAYOUT SHIFT</span>
-                    <span className="text-xl font-bold text-[#7CFF6B]">0.00</span>
-                    <span className="text-[10px] text-[#555] block">Zero Layout Shift</span>
+                    <span className="text-[10px] text-[#888] block">
+                      CUMULATIVE LAYOUT SHIFT
+                    </span>
+                    <span className="text-xl font-bold text-[#7CFF6B]">
+                      0.00
+                    </span>
+                    <span className="text-[10px] text-[#555] block">
+                      Zero Layout Shift
+                    </span>
                   </div>
                   <div className="p-4 rounded-lg bg-[#141414] border border-[#222222] space-y-1">
-                    <span className="text-[10px] text-[#888] block">INTERACTION TO NEXT PAINT</span>
-                    <span className="text-xl font-bold text-[#7CFF6B]">38ms</span>
-                    <span className="text-[10px] text-[#555] block">Ultra Smooth</span>
+                    <span className="text-[10px] text-[#888] block">
+                      INTERACTION TO NEXT PAINT
+                    </span>
+                    <span className="text-xl font-bold text-[#7CFF6B]">
+                      38ms
+                    </span>
+                    <span className="text-[10px] text-[#555] block">
+                      Ultra Smooth
+                    </span>
                   </div>
                 </div>
 
@@ -398,11 +524,8 @@ export default function DeveloperPlayground() {
                 </div>
               </div>
             )}
-
           </div>
-
         </div>
-
       </div>
     </section>
   );

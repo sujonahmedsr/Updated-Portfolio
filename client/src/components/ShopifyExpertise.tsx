@@ -6,68 +6,73 @@ const shopifyCapabilities = [
   {
     icon: <Code className="w-6 h-6 text-[#7CFF6B]" />,
     title: "Custom Theme Development",
-    description: "Architecting bespoke Shopify themes using Liquid 2.0, JSON templates, reusable section blocks, and native Metafields.",
+    description:
+      "Architecting bespoke Shopify themes using Liquid 2.0, JSON templates, reusable section blocks, and native Metafields.",
     features: [
       "Shopify Liquid 2.0 Architecture",
       "Modular Sections & Blocks",
       "JSON Page Templates",
       "Metafields & Metaobjects Integration",
       "Dynamic Data Sources",
-      "Theme Customization & Upgrades"
-    ]
+      "Theme Customization & Upgrades",
+    ],
   },
   {
     icon: <ShoppingBag className="w-6 h-6 text-[#7CFF6B]" />,
     title: "Storefront UX & Conversion",
-    description: "Designing intuitive, high-converting e-commerce experiences engineered specifically for desktop and mobile shoppers.",
+    description:
+      "Designing intuitive, high-converting e-commerce experiences engineered specifically for desktop and mobile shoppers.",
     features: [
       "Custom Product Detail Pages (PDP)",
       "Slide-out AJAX Cart Drawers",
       "Instant Collection Filters",
       "Color Swatches & Option Selectors",
       "Mobile-First Responsive Layouts",
-      "Conversion-Driven Micro UX"
-    ]
+      "Conversion-Driven Micro UX",
+    ],
   },
   {
     icon: <Gauge className="w-6 h-6 text-[#7CFF6B]" />,
     title: "Performance Optimization",
-    description: "Optimizing theme assets and liquid code to achieve sub-1.5 second page load times and top Core Web Vitals scores.",
+    description:
+      "Optimizing theme assets and liquid code to achieve sub-1.5 second page load times and top Core Web Vitals scores.",
     features: [
       "LCP (Largest Contentful Paint) Reduction",
       "CLS (Layout Shift) Zeroing",
       "Image WebP / AVIF Optimization",
       "Script Deferral & App Cleanups",
       "Lazy Loading Assets",
-      "Lighthouse Storefront Audits"
-    ]
+      "Lighthouse Storefront Audits",
+    ],
   },
   {
     icon: <Globe className="w-6 h-6 text-[#7CFF6B]" />,
     title: "Store Configuration & Markets",
-    description: "Setting up global e-commerce infrastructures with multi-currency support, international markets, and technical SEO.",
+    description:
+      "Setting up global e-commerce infrastructures with multi-currency support, international markets, and technical SEO.",
     features: [
       "Shopify Markets & Multi-Currency",
       "Multi-language Localization",
       "Shipping & Payment Setup",
       "Custom Domain & DNS Configuration",
       "Structured JSON-LD Data for SEO",
-      "Third-Party App Integrations"
-    ]
-  }
+      "Third-Party App Integrations",
+    ],
+  },
 ];
 
 export default function ShopifyExpertise() {
   return (
-    <section id="shopify" className="py-24 bg-[#0A0A0A] border-b border-[#1A1A1A] relative overflow-hidden">
-      
+    <section
+      id="shopify"
+      className="py-6 sm:py-12 bg-[#0A0A0A] border-b border-[#1A1A1A] relative overflow-hidden"
+    >
       {/* Background Subtle Gradient */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#7CFF6B]/5 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        
         {/* Section Header */}
-        <div className="max-w-3xl mb-16 space-y-4">
+        <div className="max-w-3xl mb-8 sm:mb-12 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#121212] border border-[#222222] text-xs font-mono text-[#7CFF6B]">
             <ShoppingBag className="w-3.5 h-3.5" />
             <span>PRIMARY SPECIALIZATION</span>
@@ -76,12 +81,14 @@ export default function ShopifyExpertise() {
             SHOPIFY DEVELOPMENT
           </h2>
           <p className="text-base text-[#A1A1A1] font-sans leading-relaxed">
-            I specialize in crafting high-end custom Shopify storefronts that combine rich aesthetics with fast loading speeds, seamless mobile usability, and clean Liquid architecture.
+            I specialize in crafting high-end custom Shopify storefronts that
+            combine rich aesthetics with fast loading speeds, seamless mobile
+            usability, and clean Liquid architecture.
           </p>
         </div>
 
         {/* Capabilities Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {shopifyCapabilities.map((item, idx) => (
             <div
               key={idx}
@@ -111,11 +118,9 @@ export default function ShopifyExpertise() {
                   ))}
                 </ul>
               </div>
-
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );

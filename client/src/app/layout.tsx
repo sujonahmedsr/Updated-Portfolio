@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
+import Spotlight from "@/components/Spotlight";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
     description:
       "Building premium Shopify storefronts and modern web applications with a focus on performance, usability, and clean development.",
     type: "website",
-    url: "https://shofiqul.dev",
+    url: "https://shofiqdev81.vercel.app/",
   },
 };
 
@@ -52,10 +53,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning={true}>
+    <html
+      lang="en"
+      className="dark scroll-smooth"
+      suppressHydrationWarning={true}
+    >
       <body
         className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} font-sans bg-[#0A0A0A] text-[#F5F5F0] antialiased selection:bg-[#7CFF6B] selection:text-black`}
       >
+        <Spotlight />
         {children}
         <Toaster position="bottom-right" theme="dark" />
       </body>

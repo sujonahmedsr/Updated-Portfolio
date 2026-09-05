@@ -5,7 +5,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import axios from "axios";
 import { toast } from "sonner";
-import { Mail, ArrowUpRight, Github, Facebook, Send, Download, Sparkles } from "lucide-react";
+import {
+  Mail,
+  ArrowUpRight,
+  Github,
+  Facebook,
+  Linkedin,
+  Send,
+  Download,
+  Sparkles,
+} from "lucide-react";
+import type { PortfolioSettings } from "@/actions/revalidateData";
 
 const contactSchema = z.object({
   fullName: z.string().min(2, "Full name must be at least 2 characters."),
@@ -16,7 +26,11 @@ const contactSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactSchema>;
 
-export default function ContactSection() {
+export default function ContactSection({
+  settings,
+}: {
+  settings: PortfolioSettings;
+}) {
   const {
     register,
     handleSubmit,
@@ -26,17 +40,23 @@ export default function ContactSection() {
     resolver: zodResolver(contactSchema),
   });
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://shofiqul81severdb.vercel.app/api";
+  const API_URL =
+    process.env.NEXT_PUBLIC_API_URL ||
+    "https://shofiqul81severdb.vercel.app/api";
 
   const onSubmit = async (data: ContactFormData) => {
     const toastId = toast.loading("Sending message...");
     try {
       const res = await axios.post(`${API_URL}/message/create`, data);
       if (res.data && res.data.success !== false) {
-        toast.success("Message sent successfully! I will respond promptly.", { id: toastId });
+        toast.success("Message sent successfully! I will respond promptly.", {
+          id: toastId,
+        });
         reset();
       } else {
-        toast.error("Failed to send message. Please try again.", { id: toastId });
+        toast.error("Failed to send message. Please try again.", {
+          id: toastId,
+        });
       }
     } catch (err) {
       console.error("Error sending contact message:", err);
@@ -45,15 +65,15 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-[#0A0A0A] border-b border-[#1A1A1A] relative">
-      
+    <section
+      id="contact"
+      className="py-6 sm:py-12 bg-[#0A0A0A] border-b border-[#1A1A1A] relative"
+    >
       {/* Background Accent Glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-[#7CFF6B]/5 blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[min(500px,100vw)] h-[240px] bg-[#7CFF6B]/5 blur-[100px] pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12">
           {/* Left Column: Heading & Contact Info */}
           <div className="lg:col-span-6 space-y-8">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#121212] border border-[#222222] text-xs font-mono text-[#7CFF6B]">
@@ -66,27 +86,33 @@ export default function ContactSection() {
                 LET&apos;S BUILD SOMETHING USEFUL.
               </h2>
               <p className="text-base text-[#A1A1A1] font-sans leading-relaxed">
-                Have a Shopify store, web application, or product idea in mind? Let&apos;s turn it into a polished digital experience.
+                Have a Shopify store, web application, or product idea in mind?
+                Let&apos;s turn it into a polished digital experience.
               </p>
             </div>
 
             {/* Quick Contact Links */}
             <div className="space-y-4 font-mono text-xs">
-              
               <a
-                href="mailto:sujonahmeds81@gmail.com"
+                href={
+                  settings.contactEmail
+                    ? `mailto:${settings.contactEmail}`
+                    : "#contact"
+                }
                 className="p-4 rounded-lg bg-[#121212] border border-[#222222] hover:border-[#7CFF6B]/50 transition-all flex items-center justify-between group"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex min-w-0 items-center gap-3">
                   <Mail className="w-4 h-4 text-[#7CFF6B]" />
-                  <span className="text-[#F5F5F0]">sujonahmeds81@gmail.com</span>
+                  <span className="min-w-0 break-words text-[#F5F5F0]">
+                    {settings.contactEmail || "Email available on request"}
+                  </span>
                 </div>
                 <ArrowUpRight className="w-4 h-4 text-[#666] group-hover:text-[#7CFF6B] transition-colors" />
               </a>
 
               <div className="flex flex-wrap gap-4 pt-2">
                 <a
-                  href="https://github.com/sujonahmedsr"
+                  href={settings.githubUrl || "#contact"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-4 py-3 rounded-lg bg-[#121212] border border-[#222222] hover:border-[#7CFF6B] text-[#F5F5F0] transition-all flex items-center gap-2"
@@ -96,7 +122,7 @@ export default function ContactSection() {
                 </a>
 
                 <a
-                  href="https://www.facebook.com/sujonahmeds81"
+                  href={settings.facebookUrl || "#contact"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-4 py-3 rounded-lg bg-[#121212] border border-[#222222] hover:border-[#7CFF6B] text-[#F5F5F0] transition-all flex items-center gap-2"
@@ -105,8 +131,20 @@ export default function ContactSection() {
                   <span>Facebook</span>
                 </a>
 
+                {settings.linkedinUrl && (
+                  <a
+                    href={settings.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-3 rounded-lg bg-[#121212] border border-[#222222] hover:border-[#7CFF6B] text-[#F5F5F0] transition-all flex items-center gap-2"
+                  >
+                    <Linkedin className="w-4 h-4 text-[#7CFF6B]" />
+                    <span>LinkedIn</span>
+                  </a>
+                )}
+
                 <a
-                  href="/resume.pdf"
+                  href={settings.resumeUrl || "/resume.pdf"}
                   download="Shofiqul_Islam_Resume.pdf"
                   className="px-4 py-3 rounded-lg bg-[#121212] border border-[#222222] hover:border-[#7CFF6B] text-[#F5F5F0] transition-all flex items-center gap-2"
                 >
@@ -114,24 +152,27 @@ export default function ContactSection() {
                   <span>Resume</span>
                 </a>
               </div>
-
             </div>
           </div>
 
           {/* Right Column: Contact Form */}
           <div className="lg:col-span-6">
             <div className="p-8 rounded-xl bg-[#121212] border border-[#222222] font-sans shadow-2xl space-y-6">
-              
               <div className="flex items-center justify-between pb-4 border-b border-[#1E1E1E]">
-                <h3 className="font-heading text-lg font-bold text-[#F5F5F0]">Start a Project</h3>
-                <span className="text-xs font-mono text-[#7CFF6B]">GET IN TOUCH</span>
+                <h3 className="font-heading text-lg font-bold text-[#F5F5F0]">
+                  Start a Project
+                </h3>
+                <span className="text-xs font-mono text-[#7CFF6B]">
+                  GET IN TOUCH
+                </span>
               </div>
 
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                
                 {/* Full Name */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-mono text-[#A1A1A1]">FULL NAME</label>
+                  <label className="text-xs font-mono text-[#A1A1A1]">
+                    FULL NAME
+                  </label>
                   <input
                     {...register("fullName")}
                     type="text"
@@ -139,13 +180,17 @@ export default function ContactSection() {
                     className="w-full px-4 py-3 rounded-lg bg-[#161616] border border-[#262626] text-sm text-[#F5F5F0] placeholder-[#555] focus:outline-none focus:border-[#7CFF6B] transition-colors"
                   />
                   {errors.fullName && (
-                    <span className="text-xs font-mono text-[#FF5F56]">{errors.fullName.message}</span>
+                    <span className="text-xs font-mono text-[#FF5F56]">
+                      {errors.fullName.message}
+                    </span>
                   )}
                 </div>
 
                 {/* Email */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-mono text-[#A1A1A1]">EMAIL ADDRESS</label>
+                  <label className="text-xs font-mono text-[#A1A1A1]">
+                    EMAIL ADDRESS
+                  </label>
                   <input
                     {...register("email")}
                     type="email"
@@ -153,13 +198,17 @@ export default function ContactSection() {
                     className="w-full px-4 py-3 rounded-lg bg-[#161616] border border-[#262626] text-sm text-[#F5F5F0] placeholder-[#555] focus:outline-none focus:border-[#7CFF6B] transition-colors"
                   />
                   {errors.email && (
-                    <span className="text-xs font-mono text-[#FF5F56]">{errors.email.message}</span>
+                    <span className="text-xs font-mono text-[#FF5F56]">
+                      {errors.email.message}
+                    </span>
                   )}
                 </div>
 
                 {/* Subject */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-mono text-[#A1A1A1]">PROJECT SUBJECT</label>
+                  <label className="text-xs font-mono text-[#A1A1A1]">
+                    PROJECT SUBJECT
+                  </label>
                   <input
                     {...register("subject")}
                     type="text"
@@ -167,13 +216,17 @@ export default function ContactSection() {
                     className="w-full px-4 py-3 rounded-lg bg-[#161616] border border-[#262626] text-sm text-[#F5F5F0] placeholder-[#555] focus:outline-none focus:border-[#7CFF6B] transition-colors"
                   />
                   {errors.subject && (
-                    <span className="text-xs font-mono text-[#FF5F56]">{errors.subject.message}</span>
+                    <span className="text-xs font-mono text-[#FF5F56]">
+                      {errors.subject.message}
+                    </span>
                   )}
                 </div>
 
                 {/* Message */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-mono text-[#A1A1A1]">PROJECT DETAILS / MESSAGE</label>
+                  <label className="text-xs font-mono text-[#A1A1A1]">
+                    PROJECT DETAILS / MESSAGE
+                  </label>
                   <textarea
                     {...register("message")}
                     rows={4}
@@ -181,7 +234,9 @@ export default function ContactSection() {
                     className="w-full px-4 py-3 rounded-lg bg-[#161616] border border-[#262626] text-sm text-[#F5F5F0] placeholder-[#555] focus:outline-none focus:border-[#7CFF6B] transition-colors resize-none"
                   />
                   {errors.message && (
-                    <span className="text-xs font-mono text-[#FF5F56]">{errors.message.message}</span>
+                    <span className="text-xs font-mono text-[#FF5F56]">
+                      {errors.message.message}
+                    </span>
                   )}
                 </div>
 
@@ -194,14 +249,10 @@ export default function ContactSection() {
                   <Send className="w-4 h-4" />
                   <span>Send Message</span>
                 </button>
-
               </form>
-
             </div>
           </div>
-
         </div>
-
       </div>
     </section>
   );

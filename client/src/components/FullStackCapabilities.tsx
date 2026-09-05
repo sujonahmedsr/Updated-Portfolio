@@ -6,7 +6,8 @@ const fullStackCategories = [
   {
     icon: <Layout className="w-6 h-6 text-[#7CFF6B]" />,
     title: "Frontend Engineering",
-    description: "Building responsive, modern, and interactive user interfaces with React and Next.js.",
+    description:
+      "Building responsive, modern, and interactive user interfaces with React and Next.js.",
     techs: [
       "React.js",
       "Next.js 15 (App Router)",
@@ -15,43 +16,47 @@ const fullStackCategories = [
       "Redux Toolkit & RTK Query",
       "Tailwind CSS",
       "HTML5 & Semantic Web",
-      "CSS3 & Responsive Layouts"
-    ]
+      "CSS3 & Responsive Layouts",
+    ],
   },
   {
     icon: <Server className="w-6 h-6 text-[#7CFF6B]" />,
     title: "Backend Development",
-    description: "Designing scalable server-side applications, REST APIs, and authentication mechanisms.",
+    description:
+      "Designing scalable server-side applications, REST APIs, and authentication mechanisms.",
     techs: [
       "Node.js",
       "Express.js Framework",
       "RESTful API Design",
       "GraphQL APIs",
       "JWT Authentication & Middleware",
-      "API Architecture & Validation"
-    ]
+      "API Architecture & Validation",
+    ],
   },
   {
     icon: <Database className="w-6 h-6 text-[#7CFF6B]" />,
     title: "Database & ORM",
-    description: "Modeling data structures and managing reliable database persistence layer.",
+    description:
+      "Modeling data structures and managing reliable database persistence layer.",
     techs: [
       "MongoDB NoSQL Database",
       "Mongoose ODM",
       "PostgreSQL Relational DB",
       "Prisma ORM",
-      "Data Indexing & Aggregations"
-    ]
-  }
+      "Data Indexing & Aggregations",
+    ],
+  },
 ];
 
 export default function FullStackCapabilities() {
   return (
-    <section id="fullstack" className="py-24 bg-[#0A0A0A] border-b border-[#1A1A1A]">
+    <section
+      id="fullstack"
+      className="py-6 sm:py-12 bg-[#0A0A0A] border-b border-[#1A1A1A]"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         {/* Section Header */}
-        <div className="max-w-3xl mb-16 space-y-4">
+        <div className="max-w-3xl mb-8 sm:mb-12 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#121212] border border-[#222222] text-xs font-mono text-[#A1A1A1]">
             <span className="w-2 h-2 rounded-full bg-[#7CFF6B]"></span>
             <span>SECONDARY SPECIALIZATION</span>
@@ -60,12 +65,14 @@ export default function FullStackCapabilities() {
             BEYOND THE STOREFRONT
           </h2>
           <p className="text-base text-[#A1A1A1] font-sans leading-relaxed">
-            In addition to custom Shopify development, I possess robust full-stack development capabilities to build custom web applications, APIs, and dashboard systems.
+            In addition to custom Shopify development, I possess robust
+            full-stack development capabilities to build custom web
+            applications, APIs, and dashboard systems.
           </p>
         </div>
 
         {/* Categories Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           {fullStackCategories.map((cat, idx) => (
             <div
               key={idx}
@@ -99,11 +106,9 @@ export default function FullStackCapabilities() {
                   ))}
                 </div>
               </div>
-
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
