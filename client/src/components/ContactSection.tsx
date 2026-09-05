@@ -86,9 +86,25 @@ export default function ContactSection({
                 LET&apos;S BUILD SOMETHING USEFUL.
               </h2>
               <p className="text-base text-[#A1A1A1] font-sans leading-relaxed">
-                Have a Shopify store, web application, or product idea in mind?
-                Let&apos;s turn it into a polished digital experience.
+                Have a Shopify project, store improvement, or custom feature in
+                mind? Let&apos;s discuss what you need.
               </p>
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              {/* <a
+                href="#contact-form"
+                className="inline-flex items-center gap-2 rounded-md bg-[#7CFF6B] px-5 py-3 font-mono text-sm font-semibold text-black hover:bg-[#68e057] transition-all"
+              >
+                <span>Start a Project</span>
+                <ArrowUpRight className="h-4 w-4" />
+              </a> */}
+              <a
+                href="#work"
+                className="inline-flex items-center gap-2 rounded-md border border-[#262626] bg-[#121212] px-5 py-3 font-mono text-sm text-[#F5F5F0] hover:border-[#7CFF6B] hover:text-[#7CFF6B] transition-all"
+              >
+                <span>View My Work</span>
+              </a>
             </div>
 
             {/* Quick Contact Links */}
@@ -157,7 +173,10 @@ export default function ContactSection({
 
           {/* Right Column: Contact Form */}
           <div className="lg:col-span-6">
-            <div className="p-8 rounded-xl bg-[#121212] border border-[#222222] font-sans shadow-2xl space-y-6">
+            <div
+              id="contact-form"
+              className="p-8 rounded-xl bg-[#121212] border border-[#222222] font-sans shadow-2xl space-y-6 scroll-mt-24"
+            >
               <div className="flex items-center justify-between pb-4 border-b border-[#1E1E1E]">
                 <h3 className="font-heading text-lg font-bold text-[#F5F5F0]">
                   Start a Project

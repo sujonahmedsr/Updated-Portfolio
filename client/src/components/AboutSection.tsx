@@ -16,96 +16,105 @@ export default function AboutSection({
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
-          {/* Left Column: Headline & Editorial Copy */}
+          {/* Left Column */}
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#121212] border border-[#222222] text-xs font-mono text-[#7CFF6B]">
               <User className="w-3.5 h-3.5" />
               <span>ABOUT THE DEVELOPER</span>
             </div>
 
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#F5F5F0] leading-tight">
-              A developer who enjoys turning complex requirements into simple
-              digital experiences.
+            <h2 className="font-heading text-1.6xl sm:text-2.5xl lg:text-3xl font-bold tracking-tight text-[#F5F5F0] leading-tight">
+              I focus on building practical, reliable, and well-crafted
+              e-commerce experiences.
             </h2>
 
             <div className="space-y-4 text-base text-[#A1A1A1] font-sans leading-relaxed font-light">
               <p>
-                My primary focus is{" "}
-                <strong className="text-[#F5F5F0] font-semibold">
-                  Shopify Development
-                </strong>
-                , where I craft custom Liquid storefronts, reusable theme
-                section architecture, and speed-optimized e-commerce
-                experiences.
+                My work is centered around understanding the problem first, then
+                building a solution that fits the business, the users, and the
+                existing technical setup. I care about clean implementation,
+                thoughtful user experience, and functionality that works
+                reliably in real-world use.
               </p>
+
               <p>
-                Alongside my Shopify specialization, I possess solid{" "}
-                <strong className="text-[#F5F5F0] font-semibold">
-                  Full-Stack Development
-                </strong>{" "}
-                skills using React, Next.js, Node.js, and database systems to
-                construct modern web applications.
+                I pay close attention to the details that shape a storefront —
+                responsive behavior, product discovery, interactions,
+                performance, accessibility, and maintainable code. Rather than
+                adding unnecessary complexity, I aim to keep solutions
+                purposeful and easy to maintain.
               </p>
+
               <p>
-                I prioritize clean architecture, responsive layout precision,
-                Core Web Vitals performance, and clear developer-to-client
-                communication.
+                I’m also continuously expanding my technical capabilities beyond
+                e-commerce, exploring modern frontend, backend, and database
+                technologies through hands-on projects and application
+                development.
               </p>
             </div>
 
             <div className="pt-4 flex flex-wrap gap-4 font-mono text-xs text-[#D4D4D4]">
               <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#121212] border border-[#222222]">
                 <CheckCircle2 className="w-4 h-4 text-[#7CFF6B]" />
-                <span>Performance-First Approach</span>
+                <span>Clean &amp; Maintainable</span>
               </div>
+
               <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#121212] border border-[#222222]">
                 <CheckCircle2 className="w-4 h-4 text-[#7CFF6B]" />
-                <span>Clean &amp; Reusable Code</span>
+                <span>Responsive &amp; User-Focused</span>
               </div>
+
               <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#121212] border border-[#222222]">
                 <CheckCircle2 className="w-4 h-4 text-[#7CFF6B]" />
-                <span>Client &amp; UX Mindset</span>
+                <span>Performance Minded</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Digital Metadata Card */}
+          {/* Right Column */}
           <div className="lg:col-span-5">
             <div className="p-8 rounded-xl bg-[#121212] border border-[#222222] font-mono space-y-6 shadow-2xl relative">
               <div className="flex items-center justify-between pb-4 border-b border-[#1E1E1E]">
                 <span className="text-xs text-[#888]">
-                  DEVELOPER_IDENTITY.JSON
+                  DEVELOPER_PROFILE.JSON
                 </span>
                 <span className="text-xs text-[#7CFF6B]">● ACTIVE</span>
               </div>
 
               <div className="space-y-4 text-xs">
                 <div>
-                  <span className="text-[#666] block">FULL NAME</span>
+                  <span className="text-[#666] block">NAME</span>
                   <span className="text-[#F5F5F0] font-bold text-sm">
                     Shofiqul Islam Sujon
                   </span>
                 </div>
+
                 <div>
-                  <span className="text-[#666] block">PRIMARY ROLE</span>
+                  <span className="text-[#666] block">SPECIALIZATION</span>
                   <span className="text-[#7CFF6B] font-bold">
-                    Shopify Developer
+                    Shopify &amp; E-commerce
                   </span>
                 </div>
+
                 <div>
-                  <span className="text-[#666] block">SECONDARY ROLE</span>
-                  <span className="text-[#F5F5F0]">Full-Stack Developer</span>
+                  <span className="text-[#666] block">APPROACH</span>
+                  <span className="text-[#D4D4D4]">
+                    Problem-first &bull; Practical &bull; Detail-focused
+                  </span>
                 </div>
+
                 <div>
-                  <span className="text-[#666] block">EXPERIENCE</span>
-                  <span className="text-[#F5F5F0]">~1.5+ Years</span>
-                </div>
-                <div>
-                  <span className="text-[#666] block">CORE ENGINE</span>
+                  <span className="text-[#666] block">PRIORITIES</span>
                   <span className="break-words text-[#D4D4D4]">
-                    Shopify Liquid • Next.js • React • Node.js
+                    UX • Performance • Reliability • Maintainability
                   </span>
                 </div>
+
+                <div>
+                  <span className="text-[#666] block">EXPANDING INTO</span>
+                  <span className="text-[#F5F5F0]">Full-Stack Development</span>
+                </div>
+
                 <div>
                   <span className="text-[#666] block">AVAILABILITY</span>
                   <span className="break-words text-[#7CFF6B]">
@@ -120,7 +129,7 @@ export default function AboutSection({
                   download="Shofiqul_Islam_Resume.pdf"
                   className="w-full py-2.5 rounded bg-[#1C1C1C] border border-[#2A2A2A] text-[#F5F5F0] hover:border-[#7CFF6B] hover:text-[#7CFF6B] transition-all flex items-center justify-center gap-2 text-xs"
                 >
-                  <span>Download Resume (PDF)</span>
+                  <span>Download Resume</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
               </div>

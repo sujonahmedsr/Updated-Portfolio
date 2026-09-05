@@ -1,59 +1,59 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, Terminal, Zap, Check, Layers3 } from "lucide-react";
+import { ArrowUpRight, Terminal, Zap, Check, ShoppingBag } from "lucide-react";
 
 export default function Hero() {
   const [activeTab, setActiveTab] = useState<
-    "nextjs" | "liquid" | "performance"
-  >("nextjs");
+    "shopify" | "liquid" | "performance"
+  >("shopify");
 
   return (
-    <section className="relative min-h-screen pt-28 pb-16 sm:pt-32 sm:pb-20 overflow-hidden bg-grid-pattern bg-radial-gradient flex items-center">
+    <section className="relative min-h-0 lg:min-h-screen pt-28 pb-10 sm:pt-32 sm:pb-14 overflow-hidden bg-grid-pattern bg-radial-gradient flex items-center">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Brand & Hero Copy */}
+          {/* Left Column */}
           <div className="lg:col-span-7 space-y-7 sm:space-y-8 min-w-0">
-            {/* Live Status Badge */}
-            {/* <div className="inline-flex max-w-full flex-wrap items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#121212] border border-[#222222] text-[10px] sm:text-xs font-mono text-[#A1A1A1]">
+            {/* Availability Badge */}
+            <div className="inline-flex max-w-full flex-wrap items-center gap-2.5 rounded-full border border-[#222222] bg-[#121212] px-3.5 py-1.5 text-[10px] font-mono text-[#A1A1A1] sm:text-xs">
               <span className="w-2 h-2 rounded-full bg-[#7CFF6B] animate-pulse"></span>
+
               <span className="text-[#F5F5F0]">STATUS:</span>
+
               <span className="text-[#7CFF6B]">
-                AVAILABLE FOR NEXT.JS &amp; SHOPIFY PROJECTS
+                AVAILABLE FOR SHOPIFY PROJECTS
               </span>
-            </div> */}
+            </div>
 
             {/* Main Headline */}
             <div className="space-y-2">
               <h1 className="font-heading text-[clamp(2.25rem,8vw,3.5rem)] font-bold tracking-tight text-[#F5F5F0] leading-[1.05] break-words [text-wrap:balance]">
-                SHOPIFY DEVELOPER
+                SHOPIFY &amp; E-COMMERCE
                 <span className="block text-[#7CFF6B] font-mono text-[clamp(1.55rem,5.5vw,2.75rem)] mt-2 font-semibold break-words">
-                  &amp; FULL-STACK DEVELOPER
+                  DEVELOPER
                 </span>
               </h1>
             </div>
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg text-[#A1A1A1] max-w-2xl leading-relaxed font-sans font-light">
-              I specialize in building lightning-fast{" "}
+              I build and customize Shopify storefronts with{" "}
               <span className="text-[#F5F5F0] font-medium">
-                Next.js Web Applications
-              </span>{" "}
-              and premium{" "}
-              <span className="text-[#F5F5F0] font-medium">
-                Headless Shopify Storefronts
-              </span>{" "}
-              with extreme focus on performance, scalability, and modern UI/UX.
+                custom Liquid development
+              </span>
+              , product experiences, integrations, and performance-focused
+              improvements designed around real business requirements.
             </p>
 
-            {/* CTA System */}
+            {/* CTA */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <a
                 href="#work"
                 className="px-6 py-3.5 rounded-md bg-[#7CFF6B] text-black font-mono font-semibold text-sm hover:bg-[#68e057] transition-all transform hover:-translate-y-0.5 shadow-xl shadow-[#7CFF6B]/15 inline-flex items-center gap-2"
               >
-                <span>View My Projects</span>
+                <span>View My Work</span>
               </a>
+
               <a
                 href="#contact"
                 className="px-6 py-3.5 rounded-md bg-[#121212] border border-[#262626] text-[#F5F5F0] font-mono font-medium text-sm hover:border-[#7CFF6B] hover:text-[#7CFF6B] transition-all inline-flex items-center gap-2"
@@ -63,30 +63,36 @@ export default function Hero() {
               </a>
             </div>
 
-            {/* Credibility Metadata Bar */}
+            {/* Credibility Metadata */}
             <div className="pt-6 border-t border-[#1A1A1A] grid grid-cols-2 sm:grid-cols-3 gap-6 font-mono text-xs text-[#A1A1A1]">
               <div>
                 <span className="block text-[#7CFF6B] font-bold text-sm">
-                  NEXT.JS 15 &amp; REACT
+                  120+ PROJECTS
                 </span>
-                <span className="text-[#666]">Primary Tech Stack</span>
+                <span className="text-[#666]">Shopify &amp; E-commerce</span>
               </div>
+
               <div>
                 <span className="block text-[#F5F5F0] font-bold text-sm">
-                  HEADLESS SHOPIFY
+                  SHOPIFY &amp; LIQUID
                 </span>
-                <span className="text-[#666]">Storefront API &amp; Liquid</span>
+                <span className="text-[#666]">
+                  Themes, Sections &amp; Features
+                </span>
               </div>
+
               <div className="col-span-2 sm:col-span-1">
                 <span className="block text-[#F5F5F0] font-bold text-sm">
-                  NODE.JS &amp; TAILWIND
+                  PERFORMANCE &amp; UX
                 </span>
-                <span className="text-[#666]">Full-Stack Ecosystem</span>
+                <span className="text-[#666]">
+                  Responsive &amp; Optimized Stores
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Digital Workshop Visual */}
+          {/* Right Column */}
           <div className="lg:col-span-5">
             <div className="rounded-xl bg-[#121212] border border-[#222222] shadow-2xl overflow-hidden font-mono">
               {/* Workshop Window Header */}
@@ -95,29 +101,32 @@ export default function Hero() {
                   <span className="w-3 h-3 rounded-full bg-[#FF5F56]/80"></span>
                   <span className="w-3 h-3 rounded-full bg-[#FFBD2E]/80"></span>
                   <span className="w-3 h-3 rounded-full bg-[#27C93F]/80"></span>
+
                   <span className="ml-2 min-w-0 truncate text-xs text-[#666]">
-                    nextjs-app-router.v15
+                    shopify-development.workspace
                   </span>
                 </div>
+
                 <div className="flex items-center gap-1.5 text-[10px] text-[#7CFF6B] bg-[#7CFF6B]/10 px-2 py-0.5 rounded border border-[#7CFF6B]/20">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#7CFF6B] animate-pulse"></span>
-                  <span>LIVE DEMO</span>
+                  <span>ACTIVE</span>
                 </div>
               </div>
 
-              {/* Workspace Navigation Tabs (UPDATED ONLY HERE) */}
+              {/* Workspace Tabs */}
               <div className="grid grid-cols-3 border-b border-[#222222] bg-[#0E0E0E] text-[11px] sm:text-xs">
                 <button
-                  onClick={() => setActiveTab("nextjs")}
+                  onClick={() => setActiveTab("shopify")}
                   className={`min-w-0 py-2.5 px-2 sm:px-3 flex items-center justify-center gap-1.5 sm:gap-2 transition-colors border-r border-[#222222] ${
-                    activeTab === "nextjs"
+                    activeTab === "shopify"
                       ? "bg-[#121212] text-[#7CFF6B] font-medium border-b-2 border-b-[#7CFF6B]"
                       : "text-[#888] hover:text-[#F5F5F0]"
                   }`}
                 >
-                  <Layers3 className="w-3.5 h-3.5 shrink-0" />
-                  <span className="truncate">Next.js</span>
+                  <ShoppingBag className="w-3.5 h-3.5 shrink-0" />
+                  <span className="truncate">Shopify</span>
                 </button>
+
                 <button
                   onClick={() => setActiveTab("liquid")}
                   className={`min-w-0 py-2.5 px-2 sm:px-3 flex items-center justify-center gap-1.5 sm:gap-2 transition-colors border-r border-[#222222] ${
@@ -129,6 +138,7 @@ export default function Hero() {
                   <Terminal className="w-3.5 h-3.5 shrink-0" />
                   <span className="truncate">Liquid Systems</span>
                 </button>
+
                 <button
                   onClick={() => setActiveTab("performance")}
                   className={`min-w-0 py-2.5 px-2 sm:px-3 flex items-center justify-center gap-1.5 sm:gap-2 transition-colors ${
@@ -138,127 +148,105 @@ export default function Hero() {
                   }`}
                 >
                   <Zap className="w-3.5 h-3.5 shrink-0" />
-                  <span className="truncate">Performance Lab</span>
+                  <span className="truncate">Performance</span>
                 </button>
               </div>
 
-              {/* Tab Content Display */}
+              {/* Tab Content */}
               <div className="h-[430px] sm:h-[450px] p-4 sm:p-5 flex flex-col justify-between bg-[#121212] overflow-hidden">
-                {/* Tab 1: Primary Next.js Stack Preview */}
-                {activeTab === "nextjs" && (
+                {/* Shopify Tab */}
+                {activeTab === "shopify" && (
                   <div className="space-y-4 font-mono text-xs">
                     <div className="flex min-w-0 items-center justify-between gap-3 text-[#888] text-[11px]">
-                      <span className="truncate">app/api/shopify/route.ts</span>
+                      <span className="truncate">
+                        Shopify / Online Store 2.0
+                      </span>
+
                       <span className="shrink-0 text-[#7CFF6B]">
-                        Next.js 15 App Router
+                        Storefront Development
                       </span>
                     </div>
-                    <div className="h-[270px] rounded-lg bg-[#0E0E0E] border border-[#222222] overflow-auto p-4 text-[#D4D4D4] font-mono text-xs leading-relaxed shadow-inner">
-                      <p className="text-[#6A9955] font-italic">
-                        {"// Next.js Server Component (DB / REST API)"}
+
+                    <div className="h-[270px] rounded-lg bg-[#0E0E0E] border border-[#222222] overflow-auto p-4 text-[#D4D4D4] leading-relaxed">
+                      <p className="text-[#6A9955]">
+                        {"// Custom Shopify storefront architecture"}
                       </p>
 
-                      <p className="mt-2">
-                        <span className="text-[#569CD6]">
-                          export default async function
+                      <p className="mt-3">
+                        <span className="text-[#569CD6]">section</span>{" "}
+                        <span className="text-[#DCDCAA]">
+                          featured-products
                         </span>{" "}
-                        <span className="text-[#DCDCAA]">ProductsPage</span>()
-                        &#123;
+                        {"{"}
                       </p>
 
-                      {/* Backend API Fetch */}
-                      <p className="pl-4 mt-1">
-                        <span className="text-[#569CD6]">const</span>{" "}
-                        <span className="text-[#9CDCFE]">res</span> ={" "}
-                        <span className="text-[#C586C0]">await</span>{" "}
-                        <span className="text-[#DCDCAA]">fetch</span>(
-                        <span className="text-[#CE9178]">
-                          &apos;https://api.example.com/products&apos;
-                        </span>
-                        , &#123;
+                      <p className="pl-4">
+                        <span className="text-[#569CD6]">settings</span>:
                       </p>
+
                       <p className="pl-8">
-                        <span className="text-[#9CDCFE]">next</span>: &#123;{" "}
-                        <span className="text-[#9CDCFE]">revalidate</span>:{" "}
-                        <span className="text-[#B5CEA8]">3600</span> &#125;{" "}
-                        <span className="text-[#6A9955]">{"// ISR Cache"}</span>
-                      </p>
-                      <p className="pl-4">&#125;);</p>
-
-                      <p className="pl-4 mt-1">
-                        <span className="text-[#569CD6]">const</span>{" "}
-                        <span className="text-[#9CDCFE]">products</span> ={" "}
-                        <span className="text-[#C586C0]">await</span>{" "}
-                        <span className="text-[#9CDCFE]">res</span>.
-                        <span className="text-[#DCDCAA]">json</span>();
-                      </p>
-
-                      {/* JSX Render */}
-                      <p className="pl-4 mt-3">
-                        <span className="text-[#C586C0]">return</span> (
-                      </p>
-
-                      <p className="pl-8 text-[#808080]">
-                        &lt;<span className="text-[#4EC9B0]">div</span>{" "}
-                        className=
-                        <span className="text-[#CE9178]">
-                          &quot;grid grid-cols-3 gap-4&quot;
+                        <span className="text-[#9CDCFE]">product</span>
+                        <span className="text-[#D4D4D4]">
+                          {" "}
+                          → dynamic picker
                         </span>
-                        &gt;
                       </p>
 
-                      <p className="pl-12 text-[#808080]">
-                        &#123;<span className="text-[#9CDCFE]">products</span>.
-                        <span className="text-[#DCDCAA]">map</span>((
-                        <span className="text-[#9CDCFE]">item</span>) =&gt; (
+                      <p className="pl-8">
+                        <span className="text-[#9CDCFE]">heading</span>
+                        <span className="text-[#D4D4D4]"> → customizable</span>
                       </p>
 
-                      <p className="pl-16 text-[#808080]">
-                        &lt;<span className="text-[#4EC9B0]">ProductCard</span>{" "}
-                        key=&#123;<span className="text-[#9CDCFE]">item</span>.
-                        <span className="text-[#9CDCFE]">id</span>&#125;
-                        product=&#123;
-                        <span className="text-[#9CDCFE]">item</span>&#125; /&gt;
+                      <p className="pl-8">
+                        <span className="text-[#9CDCFE]">layout</span>
+                        <span className="text-[#D4D4D4]"> → responsive</span>
                       </p>
 
-                      <p className="pl-12 text-[#808080]">))&#125;</p>
-
-                      <p className="pl-8 text-[#808080]">
-                        &lt;/<span className="text-[#4EC9B0]">div</span>&gt;
+                      <p className="mt-3">
+                        <span className="text-[#569CD6]">render</span>(
+                        <span className="text-[#CE9178]">
+                          &quot;product-card&quot;
+                        </span>
+                        );
                       </p>
 
-                      <p className="pl-4">);</p>
+                      <p className="mt-3 text-[#7CFF6B]">
+                        Reusable • Responsive • Maintainable
+                      </p>
 
-                      <p>&#125;</p>
+                      <p className="mt-3">{"}"}</p>
                     </div>
+
                     <div className="grid grid-cols-2 gap-3 shrink-0">
                       <div className="p-3 rounded bg-[#161616] border border-[#262626]">
                         <span className="text-[#7CFF6B] block font-bold">
-                          REACT SERVER COMPONENTS
+                          ONLINE STORE 2.0
                         </span>
                         <span className="text-[#666] text-[10px]">
-                          Zero-bundle-size rendering
+                          Flexible theme architecture
                         </span>
                       </div>
+
                       <div className="p-3 rounded bg-[#161616] border border-[#262626]">
                         <span className="text-[#7CFF6B] block font-bold">
-                          HEADLESS SHOPIFY
+                          CUSTOM FEATURES
                         </span>
                         <span className="text-[#666] text-[10px]">
-                          Storefront API &amp; GraphQL
+                          Built around business requirements
                         </span>
                       </div>
                     </div>
                   </div>
                 )}
 
-                {/* Tab 2: Shopify Liquid Systems */}
+                {/* Liquid Tab */}
                 {activeTab === "liquid" && (
                   <div className="space-y-3 font-mono text-xs">
                     <div className="flex min-w-0 items-center justify-between gap-3 text-[#888] text-[11px]">
                       <span className="truncate">
                         sections/featured-product.liquid
                       </span>
+
                       <span className="shrink-0 text-[#7CFF6B]">
                         Shopify Liquid
                       </span>
@@ -270,6 +258,7 @@ export default function Hero() {
                           "{% comment %} Dynamic product section {% endcomment %}"
                         }
                       </p>
+
                       <p>
                         &#123;% <span className="text-[#569CD6]">assign</span>{" "}
                         <span className="text-[#9CDCFE]">featured_product</span>{" "}
@@ -279,6 +268,7 @@ export default function Hero() {
                         </span>{" "}
                         %&#125;
                       </p>
+
                       <p className="pl-4">
                         &lt;<span className="text-[#4EC9B0]">article</span>{" "}
                         className=
@@ -287,18 +277,23 @@ export default function Hero() {
                         </span>
                         &gt;
                       </p>
+
                       <p className="pl-8 text-[#CE9178]">
                         &lt;<span className="text-[#4EC9B0]">h3</span>
                         &gt;&#123;&#123; featured_product.title
                         &#125;&#125;&lt;/
                         <span className="text-[#4EC9B0]">h3</span>&gt;
                       </p>
+
                       <p className="pl-8 text-[#CE9178]">
                         &#123;&#123; featured_product.price | money &#125;&#125;
                       </p>
+
                       <p className="pl-8 text-[#CE9178]">
-                        &lt;/<span className="text-[#4EC9B0]">article</span>&gt;
+                        &lt;/
+                        <span className="text-[#4EC9B0]">article</span>&gt;
                       </p>
+
                       <p className="pt-2 text-[#7CFF6B]">
                         &#123;% <span className="text-[#F5F5F0]">schema</span>{" "}
                         %&#125; product picker + theme settings &#123;%{" "}
@@ -306,76 +301,110 @@ export default function Hero() {
                         %&#125;
                       </p>
                     </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="p-3 rounded bg-[#161616] border border-[#262626]">
+                        <span className="text-[#7CFF6B] block font-bold">
+                          LIQUID
+                        </span>
+                        <span className="text-[#666] text-[10px]">
+                          Dynamic storefront logic
+                        </span>
+                      </div>
+
+                      <div className="p-3 rounded bg-[#161616] border border-[#262626]">
+                        <span className="text-[#7CFF6B] block font-bold">
+                          SECTIONS
+                        </span>
+                        <span className="text-[#666] text-[10px]">
+                          Reusable theme components
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 )}
 
-                {/* Tab 3: Performance Lab */}
+                {/* Performance Tab */}
                 {activeTab === "performance" && (
                   <div className="space-y-4 font-mono text-xs">
                     <div className="flex items-center justify-between gap-3 text-[#888]">
-                      <span>LIGHTHOUSE / CORE WEB VITALS</span>
+                      <span>SHOPIFY / STOREFRONT OPTIMIZATION</span>
+
                       <span className="text-[#7CFF6B] font-bold">
-                        100 / 100
+                        OPTIMIZED
                       </span>
                     </div>
 
                     <div className="grid grid-cols-2 gap-3">
                       <div className="p-3 rounded bg-[#161616] border border-[#262626]">
                         <span className="text-[#666] text-[10px] block">
-                          LCP (Largest Contentful Paint)
+                          IMAGE DELIVERY
                         </span>
+
                         <span className="text-[#7CFF6B] text-lg font-bold">
-                          0.8s
+                          WEBP / AVIF
                         </span>
+
                         <span className="text-[#444] text-[10px] block">
-                          Blazing Fast Next.js SSR
+                          Optimized storefront assets
                         </span>
                       </div>
+
                       <div className="p-3 rounded bg-[#161616] border border-[#262626]">
                         <span className="text-[#666] text-[10px] block">
-                          CLS (Cumulative Layout Shift)
+                          JAVASCRIPT
                         </span>
+
                         <span className="text-[#7CFF6B] text-lg font-bold">
-                          0.00
+                          OPTIMIZED
                         </span>
+
                         <span className="text-[#444] text-[10px] block">
-                          Zero Layout Shift
+                          Reduce unnecessary execution
                         </span>
                       </div>
+
                       <div className="p-3 rounded bg-[#161616] border border-[#262626]">
                         <span className="text-[#666] text-[10px] block">
-                          INP (Interaction Speed)
+                          LOADING
                         </span>
+
                         <span className="text-[#7CFF6B] text-lg font-bold">
-                          28ms
+                          LAZY
                         </span>
+
                         <span className="text-[#444] text-[10px] block">
-                          Instant Response
+                          Smarter resource loading
                         </span>
                       </div>
+
                       <div className="p-3 rounded bg-[#161616] border border-[#262626]">
                         <span className="text-[#666] text-[10px] block">
-                          SEO &amp; BEST PRACTICES
+                          CORE WEB VITALS
                         </span>
+
                         <span className="text-[#7CFF6B] text-lg font-bold">
-                          100%
+                          FOCUSED
                         </span>
+
                         <span className="text-[#444] text-[10px] block">
-                          Fully Optimized Stack
+                          Performance-aware development
                         </span>
                       </div>
                     </div>
                   </div>
                 )}
 
-                {/* Status Bar Footer */}
+                {/* Status Bar */}
                 <div className="pt-3 border-t border-[#1E1E1E] flex min-w-0 items-center justify-between gap-3 text-[11px] text-[#666]">
                   <div className="flex items-center gap-1.5">
                     <Check className="w-3.5 h-3.5 text-[#7CFF6B]" />
-                    <span>Next.js 15 App Router + React 19</span>
+
+                    <span>Shopify • Liquid • Online Store 2.0</span>
                   </div>
+
                   <span className="shrink-0 truncate text-[#A1A1A1]">
-                    Headless Shopify &amp; Liquid
+                    Custom &amp; Optimized
                   </span>
                 </div>
               </div>

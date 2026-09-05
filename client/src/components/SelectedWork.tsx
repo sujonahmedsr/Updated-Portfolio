@@ -22,7 +22,7 @@ function mapProjects(items: ProjectInput[]): ProjectDetails[] {
   return items.map((item) => ({
     _id: item._id,
     title: item.title || "UNTITLED PROJECT",
-    category: item.category || "FULL-STACK",
+    category: item.category || "",
     description: item.description || "",
     image: item.image,
     liveLink: item.liveLink,
@@ -110,12 +110,12 @@ export default function SelectedWork({
 
                       {/* Top Badge Over Image (only on sm+) */}
                       <div className="hidden sm:flex absolute top-4 left-4 right-4 items-center justify-between text-xs font-mono z-10 pointer-events-none">
-                        <span className="px-2.5 py-1 rounded bg-black/70 backdrop-blur-md text-[#666] border border-white/10">
+                        <span className="px-2.5 py-1 rounded bg-black/70 backdrop-blur-md text-[#f5f5f5] border border-white/10">
                           PROJECT 0{index + 1}
                         </span>
-                        <span className="px-2.5 py-1 rounded bg-black/70 backdrop-blur-md text-[#7CFF6B] border border-white/10">
+                        {/* <span className="px-2.5 py-1 rounded bg-black/70 backdrop-blur-md text-[#7CFF6B] border border-white/10">
                           {project.category}
-                        </span>
+                        </span> */}
                       </div>
 
                       {/* Bottom Badge Over Image (only on sm+) */}

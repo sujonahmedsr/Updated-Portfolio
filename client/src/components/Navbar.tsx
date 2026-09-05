@@ -7,12 +7,10 @@ import { Menu, X, ArrowUpRight, Code2 } from "lucide-react";
 
 const navLinks = [
   { name: "Work", href: "#work" },
-  { name: "Shopify", href: "#shopify" },
-  { name: "Full-Stack", href: "#fullstack" },
-  { name: "Playground", href: "#playground" },
+  { name: "Services", href: "#shopify" },
   { name: "Experience", href: "#experience" },
-  { name: "Stack", href: "#stack" },
   { name: "About", href: "#about" },
+  { name: "Contact", href: "#contact" },
 ];
 
 type NavbarSettings = { availability?: string };

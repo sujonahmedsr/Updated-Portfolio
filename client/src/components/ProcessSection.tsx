@@ -8,35 +8,35 @@ const processSteps = [
     title: "DISCOVER",
     icon: <Compass className="w-5 h-5 text-[#7CFF6B]" />,
     description:
-      "Understand the business requirements, target audience, brand identity, and technical constraints before writing code.",
+      "Understand the requirements, business goals, target users, existing setup, and technical constraints before development begins.",
   },
   {
     num: "02",
-    title: "DESIGN",
+    title: "PLAN",
     icon: <Palette className="w-5 h-5 text-[#7CFF6B]" />,
     description:
-      "Translate product specifications into clear, intuitive user flows, responsive layouts, and modern visual interfaces.",
+      "Define the structure, user experience, functionality, and technical approach needed to solve the problem clearly.",
   },
   {
     num: "03",
     title: "BUILD",
     icon: <Code className="w-5 h-5 text-[#7CFF6B]" />,
     description:
-      "Develop clean, maintainable, and modular code using Shopify Liquid, React, Next.js, and TypeScript best practices.",
+      "Turn the plan into clean, responsive, and maintainable code with a focus on usability, reliability, and scalability.",
   },
   {
     num: "04",
-    title: "OPTIMIZE",
+    title: "TEST & REFINE",
     icon: <Gauge className="w-5 h-5 text-[#7CFF6B]" />,
     description:
-      "Rigorously audit site speed, Core Web Vitals, mobile responsiveness, accessibility, and organic SEO metadata.",
+      "Test functionality, responsiveness, usability, performance, and cross-device behavior, then refine where needed.",
   },
   {
     num: "05",
-    title: "LAUNCH",
+    title: "DELIVER",
     icon: <Rocket className="w-5 h-5 text-[#7CFF6B]" />,
     description:
-      "Deploy to production, perform cross-browser testing, establish tracking, and provide ongoing technical support.",
+      "Prepare the final solution for launch, verify the implementation, and provide support for necessary post-launch improvements.",
   },
 ];
 
@@ -47,45 +47,52 @@ export default function ProcessSection() {
         {/* Section Header */}
         <div className="max-w-3xl mb-8 sm:mb-12 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#121212] border border-[#222222] text-xs font-mono text-[#A1A1A1]">
-            <span className="w-2 h-2 rounded-full bg-[#7CFF6B]"></span>
+            <span className="w-2 h-2 rounded-full bg-[#7CFF6B]" />
             <span>METHODOLOGY</span>
           </div>
+
           <h2 className="font-heading text-3xl sm:text-5xl font-bold tracking-tight text-[#F5F5F0]">
             HOW I WORK
           </h2>
+
           <p className="text-base text-[#A1A1A1] font-sans leading-relaxed">
-            A structured, transparent problem-solving workflow engineered to
-            convert business objectives into high-performing digital products.
+            A simple, structured workflow focused on understanding the problem,
+            building the right solution, and delivering reliable results.
           </p>
         </div>
 
-        {/* 5-Step Process Timeline Grid */}
+        {/* 5-Step Process */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-          {processSteps.map((step, idx) => (
+          {processSteps.map((step) => (
             <div
-              key={idx}
+              key={step.num}
               className="p-6 rounded-xl bg-[#121212] border border-[#222222] hover:border-[#7CFF6B]/40 transition-all duration-300 flex flex-col justify-between space-y-6 group"
             >
               <div className="space-y-4">
+                {/* Number + Icon */}
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-xl font-bold text-[#7CFF6B]">
                     {step.num}
                   </span>
+
                   <div className="w-8 h-8 rounded-lg bg-[#161616] border border-[#262626] flex items-center justify-center group-hover:border-[#7CFF6B]/50 transition-colors">
                     {step.icon}
                   </div>
                 </div>
 
+                {/* Title */}
                 <h3 className="font-heading text-lg font-bold text-[#F5F5F0] group-hover:text-[#7CFF6B] transition-colors">
                   {step.title}
                 </h3>
 
+                {/* Description */}
                 <p className="text-xs text-[#A1A1A1] font-sans leading-relaxed">
                   {step.description}
                 </p>
               </div>
 
-              <div className="w-full h-0.5 bg-[#1F1F1F] group-hover:bg-[#7CFF6B]/40 transition-colors"></div>
+              {/* Bottom Accent */}
+              <div className="w-full h-0.5 bg-[#1F1F1F] group-hover:bg-[#7CFF6B]/40 transition-colors" />
             </div>
           ))}
         </div>
