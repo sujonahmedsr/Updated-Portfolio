@@ -1,3 +1,7 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
+
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 // import TechMarquee from "@/components/TechMarquee";
@@ -33,8 +37,8 @@ export default async function HomePage() {
       <ExperienceTimeline />
       <TechStackSection />
       <AboutSection
-        resumeUrl={settings.resumeUrl}
-        availability={settings.availability}
+        resumeUrl={settings?.resumeUrl}
+        availability={settings?.availability}
       />
       {/* <BlogsPage /> */}
       <ContactSection settings={settings} />
