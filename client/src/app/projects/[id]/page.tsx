@@ -6,6 +6,7 @@ import React from "react";
 import { ExternalLink, Github, ArrowLeft, Code2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { sanitizeRichHtml } from "@/lib/sanitizeHtml";
 
 export const metadata: Metadata = {
   title: "Project Details — Shofiqul Islam",
@@ -148,9 +149,9 @@ const ProjectDetailsPage = async ({ params }: { params: any }) => {
             Project Overview
           </h2>
           <div
-            className="max-w-full break-words text-[#A1A1A1] text-sm sm:text-base leading-relaxed font-sans space-y-3 [&_img]:max-w-full [&_img]:h-auto [&_pre]:max-w-full [&_pre]:overflow-x-auto [&_table]:block [&_table]:max-w-full [&_table]:overflow-x-auto"
+            className="rich-content max-w-full break-words font-sans"
             dangerouslySetInnerHTML={{
-              __html: project.description?.replace(/\n/g, "<br/>") || "",
+              __html: sanitizeRichHtml(project.description),
             }}
           />
         </div>

@@ -9,6 +9,7 @@ import * as z from "zod";
 import { ArrowLeft, Save, Eye, Edit3, RefreshCw } from "lucide-react";
 import { getSingleArticleApi, updateArticleApi } from "@/lib/api";
 import ImageUploader from "@/components/ImageUploader";
+import RichTextEditor from "@/components/RichTextEditor";
 import { toast } from "sonner";
 
 const articleSchema = z.object({
@@ -94,7 +95,6 @@ export default function EditArticlePage() {
 
   return (
     <div className="space-y-6 font-sans">
-      
       {/* Header */}
       <div className="flex items-center justify-between pb-4 border-b border-[#1E1E1E]">
         <div className="flex items-center gap-3">
@@ -105,8 +105,12 @@ export default function EditArticlePage() {
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div>
-            <span className="text-xs font-mono text-[#7CFF6B]">ARTICLES / EDIT</span>
-            <h1 className="font-heading text-2xl font-bold text-[#F5F5F0]">Edit Article</h1>
+            <span className="text-xs font-mono text-[#7CFF6B]">
+              ARTICLES / EDIT
+            </span>
+            <h1 className="font-heading text-2xl font-bold text-[#F5F5F0]">
+              Edit Article
+            </h1>
           </div>
         </div>
       </div>
@@ -140,19 +144,21 @@ export default function EditArticlePage() {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-
         {activeTab === "edit" ? (
           <div className="p-8 rounded-xl bg-[#121212] border border-[#222222] space-y-6 shadow-2xl">
-            
             <div className="space-y-1.5">
-              <label className="text-xs font-mono text-[#A1A1A1] block">ARTICLE TITLE</label>
+              <label className="text-xs font-mono text-[#A1A1A1] block">
+                ARTICLE TITLE
+              </label>
               <input
                 {...register("title")}
                 type="text"
                 className="w-full px-4 py-3 rounded-lg bg-[#161616] border border-[#262626] text-sm text-[#F5F5F0] focus:outline-none focus:border-[#7CFF6B] font-mono"
               />
               {errors.title && (
-                <span className="text-xs font-mono text-[#FF5F56]">{errors.title.message}</span>
+                <span className="text-xs font-mono text-[#FF5F56]">
+                  {errors.title.message}
+                </span>
               )}
             </div>
 
@@ -172,22 +178,32 @@ export default function EditArticlePage() {
             />
 
             <div className="space-y-1.5">
-              <label className="text-xs font-mono text-[#A1A1A1] block">ARTICLE CONTENT</label>
-              <textarea
-                {...register("description")}
-                rows={16}
-                className="w-full px-4 py-3 rounded-lg bg-[#161616] border border-[#262626] text-sm text-[#F5F5F0] focus:outline-none focus:border-[#7CFF6B] font-mono resize-y leading-relaxed"
+              <label className="text-xs font-mono text-[#A1A1A1] block">
+                ARTICLE CONTENT
+              </label>
+              <Controller
+                name="description"
+                control={control}
+                render={({ field }) => (
+                  <RichTextEditor
+                    value={field.value}
+                    onChange={field.onChange}
+                    folder="articles"
+                    error={errors.description?.message}
+                  />
+                )}
               />
-              {errors.description && (
-                <span className="text-xs font-mono text-[#FF5F56]">{errors.description.message}</span>
-              )}
             </div>
 
             <div className="pt-4 border-t border-[#1E1E1E] space-y-4">
-              <div className="text-xs font-mono text-[#A1A1A1] uppercase tracking-widest">SEO Settings</div>
+              <div className="text-xs font-mono text-[#A1A1A1] uppercase tracking-widest">
+                SEO Settings
+              </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-mono text-[#666] block">SEO TITLE (Optional)</label>
+                <label className="text-xs font-mono text-[#666] block">
+                  SEO TITLE (Optional)
+                </label>
                 <input
                   {...register("seoTitle")}
                   type="text"
@@ -196,7 +212,9 @@ export default function EditArticlePage() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-mono text-[#666] block">META DESCRIPTION (Optional)</label>
+                <label className="text-xs font-mono text-[#666] block">
+                  META DESCRIPTION (Optional)
+                </label>
                 <textarea
                   {...register("seoDescription")}
                   rows={2}
@@ -204,17 +222,25 @@ export default function EditArticlePage() {
                 />
               </div>
             </div>
-
           </div>
         ) : (
           <div className="p-8 rounded-xl bg-[#121212] border border-[#7CFF6B]/30 shadow-2xl">
             <div className="border-b border-[#1E1E1E] pb-4 mb-6">
-              <span className="text-xs font-mono text-[#7CFF6B]">ARTICLE PREVIEW</span>
-              <h2 className="font-heading text-2xl font-bold text-[#F5F5F0] mt-1">{watchedTitle || "Untitled Article"}</h2>
+              <span className="text-xs font-mono text-[#7CFF6B]">
+                ARTICLE PREVIEW
+              </span>
+              <h2 className="font-heading text-2xl font-bold text-[#F5F5F0] mt-1">
+                {watchedTitle || "Untitled Article"}
+              </h2>
             </div>
-            <pre className="whitespace-pre-wrap text-sm text-[#A1A1A1] font-sans leading-relaxed">
-              {watchedDescription || "Article content will appear here..."}
-            </pre>
+            <div
+              className="rich-editor-content max-w-none"
+              dangerouslySetInnerHTML={{
+                __html:
+                  watchedDescription ||
+                  "<p>Article content will appear here...</p>",
+              }}
+            />
           </div>
         )}
 
@@ -234,9 +260,7 @@ export default function EditArticlePage() {
             <span>{isSubmitting ? "Saving..." : "Update Article"}</span>
           </button>
         </div>
-
       </form>
-
     </div>
   );
 }

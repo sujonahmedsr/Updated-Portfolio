@@ -9,8 +9,8 @@
   }
 
   body {
-    background-color: #0A0A0A;
-    color: #F5F5F0;
+    background-color: #0a0a0a;
+    color: #f5f5f0;
     font-family: var(--font-inter), sans-serif;
     overflow-x: hidden;
   }
@@ -38,7 +38,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0A0A0A;
+  background: #0a0a0a;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -47,10 +47,167 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #7CFF6B;
+  background: #7cff6b;
 }
 
 ::selection {
-  background-color: #7CFF6B;
-  color: #0A0A0A;
+  background-color: #7cff6b;
+  color: #0a0a0a;
+}
+
+.rich-editor-shell {
+  overflow: hidden;
+  border: 1px solid #262626;
+  border-radius: 0.75rem;
+  background: #161616;
+}
+
+.rich-editor-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid #262626;
+  background: #121212;
+}
+
+.rich-editor-toolbar-button,
+.rich-editor-upload {
+  display: inline-flex;
+  min-width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
+  color: #a1a1a1;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+.rich-editor-toolbar-button:hover,
+.rich-editor-toolbar-button.is-active,
+.rich-editor-upload:hover,
+.rich-editor-upload.is-uploading {
+  border-color: rgba(124, 255, 107, 0.35);
+  background: rgba(124, 255, 107, 0.1);
+  color: #7cff6b;
+}
+
+.rich-editor-toolbar-button svg,
+.rich-editor-upload svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.rich-editor-divider {
+  width: 1px;
+  height: 1.25rem;
+  margin: 0 0.25rem;
+  background: #333;
+}
+
+.rich-editor-content {
+  padding: 1.25rem 1.5rem;
+  outline: none;
+  color: #d0d0c8;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.rich-editor-content p.is-editor-empty:first-child::before {
+  float: left;
+  height: 0;
+  color: #555;
+  content: "Start writing your rich content...";
+  pointer-events: none;
+}
+
+.rich-editor-content h1,
+.rich-editor-content h2,
+.rich-editor-content h3 {
+  margin: 1.25rem 0 0.5rem;
+  color: #f5f5f0;
+  font-family: var(--font-space-grotesk), sans-serif;
+  line-height: 1.25;
+}
+
+.rich-editor-content h1 {
+  font-size: 1.875rem;
+}
+.rich-editor-content h2 {
+  font-size: 1.5rem;
+}
+.rich-editor-content h3 {
+  font-size: 1.25rem;
+}
+.rich-editor-content p {
+  margin: 0 0 0.75rem;
+}
+.rich-editor-content ul,
+.rich-editor-content ol {
+  margin: 0 0 1rem 1.5rem;
+  padding-left: 1rem;
+}
+.rich-editor-content ul {
+  list-style: disc;
+}
+.rich-editor-content ol {
+  list-style: decimal;
+}
+.rich-editor-content a {
+  color: #7cff6b;
+  text-decoration: underline;
+}
+.rich-editor-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1rem auto;
+  border-radius: 0.625rem;
+}
+.rich-editor-content blockquote {
+  margin: 1rem 0;
+  border-left: 3px solid #7cff6b;
+  padding-left: 1rem;
+  color: #a1a1a1;
+}
+.rich-editor-content code {
+  border-radius: 0.25rem;
+  background: #0a0a0a;
+  padding: 0.15rem 0.35rem;
+  color: #7cff6b;
+}
+.rich-editor-content pre {
+  overflow-x: auto;
+  margin: 1rem 0;
+  border: 1px solid #262626;
+  border-radius: 0.5rem;
+  background: #0a0a0a;
+  padding: 1rem;
+}
+.rich-editor-content pre code {
+  padding: 0;
+}
+.rich-editor-content hr {
+  margin: 1.5rem 0;
+  border-color: #333;
+}
+.rich-editor-content [data-rich-callout] {
+  margin: 1rem 0;
+  border: 1px solid rgba(124, 255, 107, 0.45);
+  border-radius: 0.625rem;
+  background: rgba(124, 255, 107, 0.06);
+  padding: 0.75rem 1rem;
+}
+.rich-editor-content [data-rich-callout] p:last-child {
+  margin-bottom: 0;
 }

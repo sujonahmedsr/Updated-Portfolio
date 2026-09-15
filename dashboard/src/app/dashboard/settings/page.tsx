@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import {
@@ -44,12 +44,12 @@ export default function SettingsPage() {
   const [saving, setSaving] = useState(false);
   const [uploadingResume, setUploadingResume] = useState(false);
 
-  useState(() => {
+  useEffect(() => {
     getSettingsApi()
       .then(setSettings)
       .catch(() => toast.error("Failed to load portfolio settings."))
       .finally(() => setSettingsLoading(false));
-  });
+  }, []);
 
   const updateField = (field: keyof PortfolioSettings, value: string) => {
     setSettings((current) => ({ ...current, [field]: value }));

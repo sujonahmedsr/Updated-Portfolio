@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { ArrowUpRight, ExternalLink, Sparkles } from "lucide-react";
 import CaseStudyModal, { ProjectDetails } from "./CaseStudyModal";
+import { getRichTextExcerpt } from "@/lib/sanitizeHtml";
 type ProjectInput = {
   _id?: string;
   title?: string;
@@ -172,7 +173,7 @@ export default function SelectedWork({
                       {project.title}
                     </h3>
                     <p className="text-sm text-[#A1A1A1] leading-relaxed mb-6 font-sans line-clamp-2 sm:line-clamp-2">
-                      {project.description}
+                      {getRichTextExcerpt(project.description, 220)}
                     </p>
 
                     {/* Technology Tags */}

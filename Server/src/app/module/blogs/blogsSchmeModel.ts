@@ -9,7 +9,7 @@ const blogsSchema = new Schema<blogsInterface>({
     },
     image: {
         type: String,
-        required: [true, 'Image field is required']
+        default: null
     },
     description: {
         type: String,

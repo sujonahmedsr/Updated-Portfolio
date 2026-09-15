@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { getRichTextExcerpt } from "@/lib/sanitizeHtml";
 
 export type TBlog = {
   _id: string;
@@ -38,7 +39,7 @@ const BlogsCard = ({ blog }: { blog: TBlog }) => {
             {blog.title}
           </h3>
           <p className="text-xs text-[#888] font-sans line-clamp-3 leading-relaxed">
-            {blog.description?.slice(0, 180)}...
+            {getRichTextExcerpt(blog.description)}
           </p>
         </div>
       </div>

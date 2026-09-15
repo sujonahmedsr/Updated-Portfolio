@@ -9,6 +9,7 @@ import {
   Cpu,
   Target,
 } from "lucide-react";
+import { sanitizeRichHtml } from "@/lib/sanitizeHtml";
 
 export type ProjectDetails = {
   _id?: string;
@@ -63,9 +64,12 @@ export default function CaseStudyModal({
             <h4 className="text-xs font-mono text-[#888] uppercase tracking-wider mb-2">
               PROJECT OVERVIEW
             </h4>
-            <p className="text-[#D4D4D4] leading-relaxed text-sm sm:text-base">
-              {project.description}
-            </p>
+            <div
+              className="rich-content text-sm sm:text-base"
+              dangerouslySetInnerHTML={{
+                __html: sanitizeRichHtml(project.description),
+              }}
+            />
           </div>
 
           {/* Key Technologies Tags */}

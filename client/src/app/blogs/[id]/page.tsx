@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, Calendar } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { sanitizeRichHtml } from "@/lib/sanitizeHtml";
 
 export const metadata: Metadata = {
   title: "Article Details — Shofiqul Islam",
@@ -120,9 +121,9 @@ const BlogDetails = async ({ params }: { params: any }) => {
         {/* Content */}
         <article className="p-6 sm:p-8 rounded-xl bg-[#121212] border border-[#222222]">
           <div
-            className="max-w-full break-words text-[#D0D0C8] text-base leading-relaxed font-sans space-y-4 [&_img]:max-w-full [&_img]:h-auto [&_pre]:max-w-full [&_pre]:overflow-x-auto [&_table]:block [&_table]:max-w-full [&_table]:overflow-x-auto"
+            className="rich-content max-w-full break-words font-sans"
             dangerouslySetInnerHTML={{
-              __html: blog.description?.replace(/\n/g, "<br/>") || "",
+              __html: sanitizeRichHtml(blog.description),
             }}
           />
         </article>

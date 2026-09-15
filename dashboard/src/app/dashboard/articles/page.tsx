@@ -15,6 +15,7 @@ import {
 import { getArticlesApi, deleteArticleApi } from "@/lib/api";
 import { Article } from "@/types";
 import { toast } from "sonner";
+import { getRichTextExcerpt } from "@/lib/richText";
 
 export default function ArticlesListPage() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -50,14 +51,15 @@ export default function ArticlesListPage() {
     setDeletingId(null);
   };
 
-  const filteredArticles = articles.filter((a) =>
-    a.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (a.description && a.description.toLowerCase().includes(searchTerm.toLowerCase()))
+  const filteredArticles = articles.filter(
+    (a) =>
+      a.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (a.description &&
+        a.description.toLowerCase().includes(searchTerm.toLowerCase())),
   );
 
   return (
     <div className="space-y-6 font-sans">
-      
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#1E1E1E]">
         <div>
@@ -116,15 +118,24 @@ export default function ArticlesListPage() {
                 <tr className="bg-[#161616] border-b border-[#222222] text-[#888] text-[11px] uppercase tracking-wider">
                   <th className="py-3.5 px-4 font-semibold">Article Title</th>
                   <th className="py-3.5 px-4 font-semibold">Status</th>
-                  <th className="py-3.5 px-4 font-semibold text-right">Actions</th>
+                  <th className="py-3.5 px-4 font-semibold text-right">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#1A1A1A]">
                 {filteredArticles.map((a) => (
-                  <tr key={a._id} className="hover:bg-[#161616]/50 transition-colors">
+                  <tr
+                    key={a._id}
+                    className="hover:bg-[#161616]/50 transition-colors"
+                  >
                     <td className="py-4 px-4 font-medium text-[#F5F5F0]">
-                      <div className="font-bold text-sm text-[#F5F5F0]">{a.title}</div>
-                      <p className="text-[11px] text-[#777] font-sans line-clamp-1 mt-0.5">{a.description}</p>
+                      <div className="font-bold text-sm text-[#F5F5F0]">
+                        {a.title}
+                      </div>
+                      <p className="text-[11px] text-[#777] font-sans line-clamp-1 mt-0.5">
+                        {getRichTextExcerpt(a.description, 140)}
+                      </p>
                     </td>
 
                     <td className="py-4 px-4">
@@ -177,10 +188,13 @@ export default function ArticlesListPage() {
           <div className="bg-[#121212] border border-[#262626] rounded-xl max-w-md w-full p-6 space-y-4 font-sans">
             <div className="flex items-center gap-3 text-[#FF5F56]">
               <AlertTriangle className="w-6 h-6" />
-              <h3 className="font-heading text-lg font-bold text-[#F5F5F0]">Confirm Delete</h3>
+              <h3 className="font-heading text-lg font-bold text-[#F5F5F0]">
+                Confirm Delete
+              </h3>
             </div>
             <p className="text-xs text-[#A1A1A1] leading-relaxed font-sans">
-              Are you sure you want to delete this article? This action cannot be undone.
+              Are you sure you want to delete this article? This action cannot
+              be undone.
             </p>
             <div className="flex justify-end gap-3 pt-2 font-mono text-xs">
               <button
@@ -199,7 +213,6 @@ export default function ArticlesListPage() {
           </div>
         </div>
       )}
-
     </div>
   );
 }

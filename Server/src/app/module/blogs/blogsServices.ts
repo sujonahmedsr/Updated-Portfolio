@@ -3,11 +3,15 @@ import AppError from "../../errors/AppError";
 import QuiryBuilder from "../../QuiryBuilder/QuiryBuilder";
 import { blogsInterface } from "./blogsInterface";
 import { blogsModel } from "./blogsSchmeModel";
+import { sanitizeRichHtml } from "../../utils/sanitizeHtml";
 
 
 // create post 
 const createBlog = async (payload: blogsInterface) => {
-    const result = await blogsModel.create(payload)
+    const result = await blogsModel.create({
+        ...payload,
+        description: sanitizeRichHtml(payload.description),
+    })
     return result
 }
 // get all products 
@@ -40,7 +44,10 @@ const getSingleBlogs = async (id: string) => {
 }
 // update single Blogs 
 const updateSingleBlogs = async (id: string, body: blogsInterface) => {
-    const result = await blogsModel.findByIdAndUpdate(id, body, { new: true })
+    const result = await blogsModel.findByIdAndUpdate(id, {
+        ...body,
+        ...(typeof body.description === 'string' ? { description: sanitizeRichHtml(body.description) } : {}),
+    }, { new: true, runValidators: true })
     if (!result) {
         throw new AppError(StatusCodes.NOT_FOUND, 'This Blogs is not found !')
     }

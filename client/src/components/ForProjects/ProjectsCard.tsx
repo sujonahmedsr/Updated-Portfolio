@@ -1,8 +1,9 @@
-import React from 'react';
-import { Card } from '../ui/card';
-import Image from 'next/image';
-import Link from 'next/link';
-import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
+import React from "react";
+import { Card } from "../ui/card";
+import Image from "next/image";
+import Link from "next/link";
+import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
+import { getRichTextExcerpt } from "@/lib/sanitizeHtml";
 
 export type TProject = {
   _id: string;
@@ -19,13 +20,13 @@ const ProjectsCard = ({ project }: { project: TProject }) => {
     <Card className="bg-white p-5 rounded shadow-lg hover:shadow-2xl transition-all dark:bg-gray-800 flex flex-col justify-between">
       <div>
         <Image
-          src={project?.image || '/placeholder.png'}
-          alt={project?.title || 'Project image'}
+          src={project?.image || "/placeholder.png"}
+          alt={project?.title || "Project image"}
           width={500}
           height={500}
           className="rounded w-full h-64 object-cover"
         />
-        
+
         <div className="flex items-center justify-between py-4">
           {/* Live Demo Link */}
           <a
@@ -51,7 +52,7 @@ const ProjectsCard = ({ project }: { project: TProject }) => {
         <div className="text-start">
           <h3 className="text-xl font-semibold">{project?.title}</h3>
           <p className="text-gray-600 text-sm my-2 dark:text-gray-300">
-            {project?.description ? `${project.description.slice(0, 120)}...` : ''}
+            {getRichTextExcerpt(project?.description, 120)}
           </p>
         </div>
       </div>

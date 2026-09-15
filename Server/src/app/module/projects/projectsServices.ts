@@ -3,11 +3,15 @@ import AppError from "../../errors/AppError";
 import QuiryBuilder from "../../QuiryBuilder/QuiryBuilder";
 import { projectsInterface } from "./projectsInterface";
 import { projectsModel } from "./projectsSchmeModel";
+import { sanitizeRichHtml } from "../../utils/sanitizeHtml";
 
 
 // create post 
 const createProject = async (payload: projectsInterface) => {
-    const result = await projectsModel.create(payload)
+    const result = await projectsModel.create({
+        ...payload,
+        description: sanitizeRichHtml(payload.description),
+    })
     return result
 }
 // get all products 
@@ -40,7 +44,10 @@ const getSingleProjects = async (id: string) => {
 }
 // update single projects 
 const updateSingleProjects = async (id: string, body: projectsInterface) => {
-    const result = await projectsModel.findByIdAndUpdate(id, body, { new: true })
+    const result = await projectsModel.findByIdAndUpdate(id, {
+        ...body,
+        ...(typeof body.description === 'string' ? { description: sanitizeRichHtml(body.description) } : {}),
+    }, { new: true, runValidators: true })
     if (!result) {
         throw new AppError(StatusCodes.NOT_FOUND, 'This projects is not found !')
     }

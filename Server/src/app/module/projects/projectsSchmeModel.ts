@@ -9,7 +9,7 @@ const projectsSchema = new Schema<projectsInterface>({
     },
     image: {
         type: String,
-        required: [true, 'Image field is required']
+        default: null
     },
     description: {
         type: String,
@@ -17,11 +17,11 @@ const projectsSchema = new Schema<projectsInterface>({
     },
     githubLink: {
         type: String,
-        required: [true, 'githubLink field is required']
+        default: ''
     },
     liveLink: {
         type: String,
-        required: [true, 'liveLink field is required']
+        default: ''
     },
     technologies: {
         type: String,
