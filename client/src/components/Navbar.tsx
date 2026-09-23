@@ -83,19 +83,19 @@ export default function Navbar({
           <Link
             href="/"
             aria-label="Shofiqul Islam Sujon - Shopify Developer Portfolio Home"
-            className="font-heading text-xl font-bold tracking-tight text-[#F5F5F0] hover:text-[#7CFF6B] transition-colors flex items-center gap-2"
+            className="group flex items-center gap-2.5 transition-all"
           >
-            <span className="w-8 h-8 rounded-lg bg-[#161616] border border-[#262626] flex items-center justify-center text-[#7CFF6B]">
+            {/* <span className="w-8 h-8 rounded-lg bg-[#161616] border border-[#262626] flex items-center justify-center text-[#7CFF6B] group-hover:border-[#7CFF6B]/50 transition-colors shadow-sm">
               <Code2 className="w-4 h-4" />
-            </span>
-            <span className="tracking-wide">
-              SHOFIQUL <span className="text-[#7CFF6B]">SUJON</span>
+            </span> */}
+            <span className="font-handwriting text-2xl sm:text-[28px] font-bold text-[#F5F5F0] group-hover:text-[#7CFF6B] transition-colors leading-none tracking-wide">
+              Shofiqul Islam Sujon
             </span>
           </Link>
-          <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#121212] border border-[#222222] text-xs font-mono text-[#A1A1A1]">
+          {/* <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#121212] border border-[#222222] text-xs font-mono text-[#A1A1A1]">
             <span className="w-2 h-2 rounded-full bg-[#7CFF6B] animate-pulse"></span>
             <span>{displayedAvailability}</span>
-          </div>
+          </div> */}
         </div>
 
         {/* Desktop Navigation Links */}

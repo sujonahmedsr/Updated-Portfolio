@@ -14,6 +14,7 @@ export default {
   			sans: ['var(--font-inter)', 'sans-serif'],
   			heading: ['var(--font-space-grotesk)', 'sans-serif'],
   			mono: ['var(--font-mono)', 'monospace'],
+  			handwriting: ['var(--font-handwriting)', 'cursive'],
   		},
   		colors: {
   			background: '#0A0A0A',

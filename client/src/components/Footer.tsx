@@ -32,7 +32,7 @@ export default function Footer({
           <div>
             <Link
               href="/"
-              className="font-heading text-lg font-bold text-[#F5F5F0] hover:text-[#7CFF6B] transition-colors"
+              className="font-handwriting text-2xl font-bold text-[#F5F5F0] hover:text-[#7CFF6B] transition-colors"
             >
               {settings.siteName}
             </Link>
@@ -49,19 +49,16 @@ export default function Footer({
               href="#shopify"
               className="hover:text-[#7CFF6B] transition-colors"
             >
-              Shopify
+              Services
             </a>
             <a
-              href="#fullstack"
+              href="#experience"
               className="hover:text-[#7CFF6B] transition-colors"
             >
-              Full-Stack
+              Experience
             </a>
-            <a
-              href="#playground"
-              className="hover:text-[#7CFF6B] transition-colors"
-            >
-              Playground
+            <a href="#about" className="hover:text-[#7CFF6B] transition-colors">
+              About
             </a>
             <a
               href="#contact"
