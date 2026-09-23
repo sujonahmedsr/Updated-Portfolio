@@ -38,14 +38,14 @@ export async function getProjects() {
 
 export async function getSettings(): Promise<PortfolioSettings> {
   const fallback: PortfolioSettings = {
-    siteName: "Shofiqul Islam",
-    tagline: "Shopify Developer & Full-Stack Developer",
+    siteName: "Shofiqul Islam Sujon",
+    tagline: "Shopify Developer & E-Commerce Specialist",
     contactEmail: "",
     githubUrl: "",
     facebookUrl: "",
     linkedinUrl: "",
     resumeUrl: "/resume.pdf",
-    availability: "Open for Freelance & Contract Work",
+    availability: "Open for Freelance & Shopify Projects",
   };
 
   try {

@@ -27,28 +27,40 @@ export default function Hero() {
 
             {/* Main Headline */}
             <div className="space-y-2">
-              <h1 className="font-heading text-[clamp(2.25rem,8vw,3.5rem)] font-bold tracking-tight text-[#F5F5F0] leading-[1.05] break-words [text-wrap:balance]">
-                SHOPIFY &amp; E-COMMERCE
-                <span className="block text-[#7CFF6B] font-mono text-[clamp(1.55rem,5.5vw,2.75rem)] mt-2 font-semibold break-words">
-                  DEVELOPER
+              <span className="block font-mono text-xs sm:text-sm text-[#7CFF6B] font-semibold tracking-wider uppercase">
+                Hello, I&apos;m Shofiqul Islam Sujon
+              </span>
+              <h1 className="font-heading text-[clamp(2.25rem,7.5vw,3.5rem)] font-bold tracking-tight text-[#F5F5F0] leading-[1.08] break-words [text-wrap:balance]">
+                SHOPIFY DEVELOPER &amp;
+                <span className="block text-[#7CFF6B] font-mono text-[clamp(1.55rem,5.2vw,2.75rem)] mt-2 font-semibold break-words">
+                  E-COMMERCE SPECIALIST
                 </span>
               </h1>
             </div>
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg text-[#A1A1A1] max-w-2xl leading-relaxed font-sans font-light">
-              I build and customize Shopify storefronts with{" "}
-              <span className="text-[#F5F5F0] font-medium">
+              I&apos;m{" "}
+              <strong className="text-[#F5F5F0] font-medium">
+                Shofiqul Islam Sujon
+              </strong>
+              , a specialized{" "}
+              <strong className="text-[#F5F5F0] font-medium">
+                Shopify Developer
+              </strong>
+              . I build and customize high-performing Shopify storefronts with{" "}
+              <span className="text-[#7CFF6B] font-medium">
                 custom Liquid development
               </span>
-              , product experiences, integrations, and performance-focused
-              improvements designed around real business requirements.
+              , theme architecture, speed optimization, and seamless business
+              integrations.
             </p>
 
             {/* CTA */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <a
                 href="#work"
+                aria-label="View Shopify projects by Shofiqul Islam Sujon"
                 className="px-6 py-3.5 rounded-md bg-[#7CFF6B] text-black font-mono font-semibold text-sm hover:bg-[#68e057] transition-all transform hover:-translate-y-0.5 shadow-xl shadow-[#7CFF6B]/15 inline-flex items-center gap-2"
               >
                 <span>View My Work</span>
@@ -56,6 +68,7 @@ export default function Hero() {
 
               <a
                 href="#contact"
+                aria-label="Contact Shopify Developer Shofiqul Islam Sujon"
                 className="px-6 py-3.5 rounded-md bg-[#121212] border border-[#262626] text-[#F5F5F0] font-mono font-medium text-sm hover:border-[#7CFF6B] hover:text-[#7CFF6B] transition-all inline-flex items-center gap-2"
               >
                 <span>Let&apos;s Talk</span>

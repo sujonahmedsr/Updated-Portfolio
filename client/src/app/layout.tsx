@@ -3,6 +3,7 @@ import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import Spotlight from "@/components/Spotlight";
+import StructuredData from "@/components/StructuredData";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -22,28 +23,79 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "700"],
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://shofiqdev81.vercel.app";
+
 export const metadata: Metadata = {
-  title: "Shofiqul Islam — Shopify Developer & Full-Stack Developer",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Shofiqul Islam Sujon — Shopify Developer & E-Commerce Expert",
+    template: "%s | Shofiqul Islam Sujon",
+  },
   description:
-    "Shopify Developer and Full-Stack Developer specializing in custom Shopify storefronts, Liquid, React, Next.js, Node.js, performance optimization, and modern web experiences.",
+    "Official portfolio of Shofiqul Islam Sujon — Professional Shopify Developer & E-Commerce Specialist. 120+ custom Shopify stores built with Liquid, Next.js, and speed optimization.",
+  applicationName: "Shofiqul Islam Sujon Portfolio",
+  authors: [{ name: "Shofiqul Islam Sujon", url: siteUrl }],
+  creator: "Shofiqul Islam Sujon",
+  publisher: "Shofiqul Islam Sujon",
   keywords: [
+    "Shofiqul Islam Sujon",
+    "Shopify Developer Shofiqul Islam Sujon",
     "Shopify Developer",
-    "Liquid",
-    "Shopify Storefronts",
+    "Shopify Expert",
+    "Liquid Developer",
+    "Shopify Store Speed Optimization",
+    "Custom Shopify Theme Development",
+    "Headless Shopify Next.js",
     "Full-Stack Developer",
-    "React",
-    "Next.js",
-    "Node.js",
-    "TypeScript",
-    "Tailwind CSS",
+    "Frontend Developer",
+    "React Developer",
+    "Next.js Developer",
+    "Shofiqul Islam",
+    "Sujon Shopify",
+    "Ecommerce Specialist Bangladesh",
   ],
-  authors: [{ name: "Shofiqul Islam" }],
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
-    title: "Shofiqul Islam — Shopify Developer & Full-Stack Developer",
-    description:
-      "Building premium Shopify storefronts and modern web applications with a focus on performance, usability, and clean development.",
     type: "website",
-    url: "https://shofiqdev81.vercel.app/",
+    locale: "en_US",
+    url: siteUrl,
+    siteName: "Shofiqul Islam Sujon — Portfolio",
+    title: "Shofiqul Islam Sujon — Shopify Developer & E-Commerce Expert",
+    description:
+      "Explore 120+ Shopify projects, custom Liquid themes, performance optimization case studies, and full-stack solutions by Shofiqul Islam Sujon.",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Shofiqul Islam Sujon — Shopify Developer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shofiqul Islam Sujon — Shopify Developer & E-Commerce Expert",
+    description:
+      "Professional Shopify Developer & Full-Stack Specialist with 120+ stores built. Custom Liquid, theme customization, and speed optimization.",
+    images: ["/opengraph-image"],
+    creator: "@shofiqdev81",
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
   },
 };
 
@@ -58,6 +110,9 @@ export default function RootLayout({
       className="dark scroll-smooth"
       suppressHydrationWarning={true}
     >
+      <head>
+        <StructuredData />
+      </head>
       <body
         className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} font-sans bg-[#0A0A0A] text-[#F5F5F0] antialiased selection:bg-[#7CFF6B] selection:text-black`}
       >

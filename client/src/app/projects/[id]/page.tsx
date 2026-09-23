@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,23 +7,107 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { sanitizeRichHtml } from "@/lib/sanitizeHtml";
 
-export const metadata: Metadata = {
-  title: "Project Details — Shofiqul Islam",
-  description:
-    "Detailed overview, architecture, and live links for this project by Shofiqul Islam.",
+type PageProps = {
+  params: Promise<{ id: string }>;
 };
 
-const ProjectDetailsPage = async ({ params }: { params: any }) => {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { id } = await params;
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://shofiqdev81.vercel.app";
+  const API_URL =
+    process.env.NEXT_PUBLIC_API_URL ||
+    "https://shofiqul81severdb.vercel.app/api";
+
+  try {
+    const res = await fetch(`${API_URL}/projects/${id}`, {
+      next: { revalidate: 60, tags: ["projects"] },
+    });
+
+    if (!res.ok) {
+      return {
+        title: "Project Details | Shofiqul Islam Sujon",
+      };
+    }
+
+    const projectRes = await res.json();
+    const project = projectRes?.data?.result || projectRes?.data;
+
+    if (!project) {
+      return {
+        title: "Project Not Found | Shofiqul Islam Sujon",
+      };
+    }
+
+    const title = `${project.title} — Shopify Project by Shofiqul Islam Sujon`;
+    const plainDesc = project.description
+      ? project.description.replace(/<[^>]*>?/gm, "").slice(0, 160)
+      : `Case study for ${project.title}, built by professional Shopify Developer Shofiqul Islam Sujon.`;
+
+    const techKeywords =
+      typeof project.technologies === "string"
+        ? project.technologies.split(",").map((t: string) => t.trim())
+        : Array.isArray(project.technologies)
+          ? project.technologies
+          : [];
+
+    return {
+      title,
+      description: plainDesc,
+      keywords: [
+        project.title,
+        "Shofiqul Islam Sujon",
+        "Shopify Developer Shofiqul Islam Sujon",
+        "Shopify Case Study",
+        ...techKeywords,
+      ],
+      alternates: {
+        canonical: `/projects/${id}`,
+      },
+      openGraph: {
+        title,
+        description: plainDesc,
+        url: `${siteUrl}/projects/${id}`,
+        siteName: "Shofiqul Islam Sujon Portfolio",
+        type: "article",
+        images: project.image
+          ? [
+              {
+                url: project.image,
+                alt: `${project.title} — Shofiqul Islam Sujon`,
+              },
+            ]
+          : undefined,
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description: plainDesc,
+        images: project.image ? [project.image] : undefined,
+      },
+    };
+  } catch {
+    return {
+      title: "Project Details | Shofiqul Islam Sujon — Shopify Developer",
+    };
+  }
+}
+
+const ProjectDetailsPage = async ({ params }: PageProps) => {
   const { id } = await params;
 
   const API_URL =
     process.env.NEXT_PUBLIC_API_URL ||
     "https://shofiqul81severdb.vercel.app/api";
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://shofiqdev81.vercel.app";
 
   let project = null;
   try {
     const res = await fetch(`${API_URL}/projects/${id}`, {
-      next: { tags: ["projects"] },
+      next: { revalidate: 60, tags: ["projects"] },
     });
     const projectRes = await res.json();
     project = projectRes?.data?.result || projectRes?.data;
@@ -56,8 +139,30 @@ const ProjectDetailsPage = async ({ params }: { params: any }) => {
     );
   }
 
+  const projectSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: project.title,
+    applicationCategory: "WebApplication",
+    operatingSystem: "Web",
+    author: {
+      "@type": "Person",
+      name: "Shofiqul Islam Sujon",
+      url: siteUrl,
+    },
+    image: project.image,
+    description: project.description
+      ? project.description.replace(/<[^>]*>?/gm, "").slice(0, 200)
+      : undefined,
+    url: `${siteUrl}/projects/${id}`,
+  };
+
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-[#F5F5F0] selection:bg-[#7CFF6B] selection:text-black">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
+      />
       <Navbar />
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 pt-32 pb-20 space-y-8">
@@ -76,7 +181,7 @@ const ProjectDetailsPage = async ({ params }: { params: any }) => {
         <div className="space-y-3 pb-6 border-b border-[#1E1E1E]">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#121212] border border-[#222222] text-xs font-mono text-[#7CFF6B]">
             <Code2 className="w-3.5 h-3.5" />
-            <span>CASE STUDY</span>
+            <span>CASE STUDY BY SHOFIQUL ISLAM SUJON</span>
           </div>
           <h1 className="font-heading text-3xl sm:text-5xl font-bold tracking-tight text-[#F5F5F0]">
             {project.title}
@@ -88,7 +193,7 @@ const ProjectDetailsPage = async ({ params }: { params: any }) => {
           <div className="relative rounded-2xl overflow-hidden border border-[#222222] bg-[#121212] aspect-video">
             <Image
               src={project.image}
-              alt={project.title}
+              alt={`${project.title} — Shopify Project by Shofiqul Islam Sujon`}
               fill
               className="object-cover"
               priority
@@ -129,16 +234,17 @@ const ProjectDetailsPage = async ({ params }: { params: any }) => {
               Technologies &amp; Architecture
             </span>
             <div className="flex flex-wrap gap-2">
-              {project.technologies
-                .split(",")
-                .map((tech: string, i: number) => (
-                  <span
-                    key={i}
-                    className="px-3 py-1 rounded bg-[#1A1A1A] border border-[#262626] text-xs text-[#7CFF6B]"
-                  >
-                    {tech.trim()}
-                  </span>
-                ))}
+              {(typeof project.technologies === "string"
+                ? project.technologies.split(",")
+                : project.technologies
+              ).map((tech: string, i: number) => (
+                <span
+                  key={i}
+                  className="px-3 py-1 rounded bg-[#1A1A1A] border border-[#262626] text-xs text-[#7CFF6B]"
+                >
+                  {tech.trim()}
+                </span>
+              ))}
             </div>
           </div>
         )}
@@ -146,7 +252,7 @@ const ProjectDetailsPage = async ({ params }: { params: any }) => {
         {/* Description */}
         <div className="p-6 sm:p-8 rounded-xl bg-[#121212] border border-[#222222] space-y-4">
           <h2 className="font-heading text-xl font-bold text-[#F5F5F0]">
-            Project Overview
+            Project Overview &amp; Implementation Details
           </h2>
           <div
             className="rich-content max-w-full break-words font-sans"

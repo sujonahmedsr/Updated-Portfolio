@@ -100,7 +100,7 @@ export default function SelectedWork({
                     <div className="relative w-full aspect-video overflow-hidden rounded-lg">
                       <Image
                         src={project.image}
-                        alt={project.title}
+                        alt={`${project.title} — Shopify and web project by Shofiqul Islam Sujon`}
                         fill
                         sizes="(max-width: 1024px) 100vw, 50vw"
                         className="object-cover object-top group-hover:scale-105 transition-transform duration-500"

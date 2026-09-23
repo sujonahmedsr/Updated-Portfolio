@@ -8,8 +8,19 @@ import Footer from "@/components/Footer";
 import { BookOpen } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Articles & Insights — Shofiqul Islam",
-  description: "Technical writings on Shopify development, Liquid architecture, React, Next.js, and web performance.",
+  title: "Articles & Shopify Engineering Insights",
+  description:
+    "Technical writings and tutorials on Shopify development, custom Liquid architecture, Next.js, and e-commerce performance by Shofiqul Islam Sujon.",
+  keywords: [
+    "Shopify Tutorials",
+    "Liquid Architecture",
+    "Shofiqul Islam Sujon Articles",
+    "Shopify Development Guides",
+    "Next.js E-commerce",
+  ],
+  alternates: {
+    canonical: "/blogs",
+  },
 };
 
 const BlogsPage = async () => {
@@ -20,7 +31,6 @@ const BlogsPage = async () => {
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24 space-y-12 flex-1 w-full">
-        
         {/* Header */}
         <div className="space-y-4 max-w-2xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#121212] border border-[#222222] text-xs font-mono text-[#7CFF6B]">
@@ -31,7 +41,8 @@ const BlogsPage = async () => {
             Articles &amp; Insights
           </h1>
           <p className="text-sm font-sans text-[#A1A1A1] leading-relaxed">
-            Practical tutorials, Shopify optimization breakdowns, full-stack architectural explorations, and development notes.
+            Practical tutorials, Shopify optimization breakdowns, full-stack
+            architectural explorations, and development notes.
           </p>
         </div>
 
@@ -43,12 +54,15 @@ const BlogsPage = async () => {
             ))
           ) : (
             <div className="col-span-full p-16 text-center rounded-xl bg-[#121212] border border-[#222222] space-y-2">
-              <p className="text-sm font-mono text-[#888]">No published articles yet.</p>
-              <p className="text-xs text-[#555]">New Shopify and Full-Stack deep dives are published regularly.</p>
+              <p className="text-sm font-mono text-[#888]">
+                No published articles yet.
+              </p>
+              <p className="text-xs text-[#555]">
+                New Shopify and Full-Stack deep dives are published regularly.
+              </p>
             </div>
           )}
         </div>
-
       </main>
 
       <Footer />

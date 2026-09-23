@@ -82,12 +82,15 @@ export default function Navbar({
         <div className="flex items-center gap-3">
           <Link
             href="/"
+            aria-label="Shofiqul Islam Sujon - Shopify Developer Portfolio Home"
             className="font-heading text-xl font-bold tracking-tight text-[#F5F5F0] hover:text-[#7CFF6B] transition-colors flex items-center gap-2"
           >
             <span className="w-8 h-8 rounded-lg bg-[#161616] border border-[#262626] flex items-center justify-center text-[#7CFF6B]">
               <Code2 className="w-4 h-4" />
             </span>
-            <span>SHOFIQUL</span>
+            <span className="tracking-wide">
+              SHOFIQUL <span className="text-[#7CFF6B]">SUJON</span>
+            </span>
           </Link>
           <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#121212] border border-[#222222] text-xs font-mono text-[#A1A1A1]">
             <span className="w-2 h-2 rounded-full bg-[#7CFF6B] animate-pulse"></span>

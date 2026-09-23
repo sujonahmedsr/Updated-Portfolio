@@ -24,32 +24,37 @@ export default function AboutSection({
             </div>
 
             <h2 className="font-heading text-1.6xl sm:text-2.5xl lg:text-3xl font-bold tracking-tight text-[#F5F5F0] leading-tight">
-              I focus on building practical, reliable, and well-crafted
-              e-commerce experiences.
+              Shofiqul Islam Sujon — Building practical, reliable, and
+              high-converting Shopify stores.
             </h2>
 
             <div className="space-y-4 text-base text-[#A1A1A1] font-sans leading-relaxed font-light">
               <p>
-                My work is centered around understanding the problem first, then
-                building a solution that fits the business, the users, and the
-                existing technical setup. I care about clean implementation,
-                thoughtful user experience, and functionality that works
-                reliably in real-world use.
+                I am{" "}
+                <strong className="text-[#F5F5F0] font-medium">
+                  Shofiqul Islam Sujon
+                </strong>
+                , an experienced{" "}
+                <strong className="text-[#F5F5F0] font-medium">
+                  Shopify Developer
+                </strong>
+                . My work is centered around understanding business goals first,
+                then building custom Liquid solutions that scale seamlessly for
+                store owners and deliver smooth shopping journeys for customers.
               </p>
 
               <p>
-                I pay close attention to the details that shape a storefront —
-                responsive behavior, product discovery, interactions,
-                performance, accessibility, and maintainable code. Rather than
-                adding unnecessary complexity, I aim to keep solutions
-                purposeful and easy to maintain.
+                With over 120+ successful projects, I pay close attention to
+                every detail of the storefront — responsive behavior, dynamic
+                product filtering, checkout optimization, Core Web Vitals
+                performance, and clean maintainable code.
               </p>
 
               <p>
-                I’m also continuously expanding my technical capabilities beyond
-                e-commerce, exploring modern frontend, backend, and database
-                technologies through hands-on projects and application
-                development.
+                In addition to Shopify and Liquid engineering, I also build
+                modern full-stack web applications using Next.js, React,
+                TypeScript, and Node.js, delivering fast, scalable, and modern
+                digital products.
               </p>
             </div>
 

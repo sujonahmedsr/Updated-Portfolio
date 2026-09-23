@@ -5,14 +5,14 @@ import { Terminal, Check, ArrowUp } from "lucide-react";
 import type { PortfolioSettings } from "@/actions/revalidateData";
 
 const defaultSettings: PortfolioSettings = {
-  siteName: "Shofiqul Islam",
-  tagline: "Shopify Developer & Full-Stack Developer",
+  siteName: "Shofiqul Islam Sujon",
+  tagline: "Shopify Developer & Full-Stack Specialist",
   contactEmail: "",
   githubUrl: "",
   facebookUrl: "",
   linkedinUrl: "",
   resumeUrl: "/resume.pdf",
-  availability: "Available for selected projects",
+  availability: "Available for selected Shopify projects",
 };
 
 export default function Footer({
@@ -93,8 +93,8 @@ export default function Footer({
 
           <div className="text-center sm:text-right text-[#555] text-[11px]">
             <span>
-              © {new Date().getFullYear()} Shofiqul Islam. Built with Next.js 15
-              &amp; TypeScript.
+              © {new Date().getFullYear()} Shofiqul Islam Sujon — Shopify
+              Developer &amp; Full-Stack Specialist.
             </span>
           </div>
         </div>
