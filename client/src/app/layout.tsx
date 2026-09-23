@@ -95,7 +95,9 @@ export const metadata: Metadata = {
     creator: "@shofiqdev81",
   },
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    google:
+      process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||
+      "hbRZi01SdWq2f6mFmWEgEo7XWvDgH-Uzgt_N1Kba0tk",
   },
 };
 
@@ -111,6 +113,10 @@ export default function RootLayout({
       suppressHydrationWarning={true}
     >
       <head>
+        <meta
+          name="google-site-verification"
+          content="hbRZi01SdWq2f6mFmWEgEo7XWvDgH-Uzgt_N1Kba0tk"
+        />
         <StructuredData />
       </head>
       <body
