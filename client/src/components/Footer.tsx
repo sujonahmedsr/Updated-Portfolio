@@ -90,8 +90,8 @@ export default function Footer({
 
           <div className="text-center sm:text-right text-[#555] text-[11px]">
             <span>
-              © {new Date().getFullYear()} Shofiqul Islam Sujon — Shopify
-              Developer &amp; Full-Stack Specialist.
+              © {new Date().getFullYear()} Shofiqul Islam Sujon — Full Stack
+              Developer &amp; Shopify Specialist.
             </span>
           </div>
         </div>
