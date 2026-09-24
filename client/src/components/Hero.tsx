@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowUpRight, Zap, Check, ShoppingBag, Sparkles } from "lucide-react";
+import { ArrowUpRight, Zap, ShoppingBag } from "lucide-react";
 
 export default function Hero() {
   return (

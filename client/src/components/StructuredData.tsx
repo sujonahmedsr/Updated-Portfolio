@@ -53,8 +53,13 @@ export default function StructuredData() {
     "@type": "WebSite",
     "@id": `${siteUrl}/#website`,
     url: siteUrl,
-    name: "Shofiqul Islam Sujon — Shopify Developer Portfolio",
-    alternateName: "Shopify Developer Shofiqul Islam Sujon",
+    name: "Shofiqul Islam Sujon",
+    alternateName: [
+      "Shofiqul Islam",
+      "Shofiqul Sujon",
+      "Sujon",
+      "Shopify Developer Shofiqul Islam Sujon",
+    ],
     description:
       "Official portfolio of Shofiqul Islam Sujon, specialized Shopify Developer and Full-Stack Web Developer with 120+ projects delivered.",
     publisher: {

@@ -40,10 +40,21 @@ export const metadata: Metadata = {
   },
   description:
     "Official portfolio of Shofiqul Islam Sujon — Professional Shopify Developer & E-Commerce Specialist. 120+ custom Shopify stores built with Liquid, Next.js, and speed optimization.",
-  applicationName: "Shofiqul Islam Sujon Portfolio",
+  applicationName: "Shofiqul Islam Sujon",
   authors: [{ name: "Shofiqul Islam Sujon", url: siteUrl }],
   creator: "Shofiqul Islam Sujon",
   publisher: "Shofiqul Islam Sujon",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   keywords: [
     "Shofiqul Islam Sujon",
     "Shopify Developer Shofiqul Islam Sujon",
@@ -79,7 +90,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    siteName: "Shofiqul Islam Sujon — Portfolio",
+    siteName: "Shofiqul Islam Sujon",
     title: "Shofiqul Islam Sujon — Shopify Developer & E-Commerce Expert",
     description:
       "Explore 120+ Shopify projects, custom Liquid themes, performance optimization case studies, and full-stack solutions by Shofiqul Islam Sujon.",
@@ -122,6 +133,18 @@ export default function RootLayout({
         <meta
           name="google-site-verification"
           content="hbRZi01SdWq2f6mFmWEgEo7XWvDgH-Uzgt_N1Kba0tk"
+        />
+        <meta
+          name="apple-mobile-web-app-title"
+          content="Shofiqul Islam Sujon"
+        />
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" sizes="any" />
+        <link rel="icon" href="/icon-48.png" type="image/png" sizes="48x48" />
+        <link rel="icon" href="/favicon.ico" sizes="32x32" />
+        <link
+          rel="apple-touch-icon"
+          href="/apple-touch-icon.png"
+          sizes="180x180"
         />
         <StructuredData />
       </head>
