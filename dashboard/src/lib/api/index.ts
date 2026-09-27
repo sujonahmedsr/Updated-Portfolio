@@ -1,13 +1,13 @@
 import axios from "axios";
-import { Project, Article, Message, PortfolioSettings } from "@/types";
+import { Project, ShopifyProject, Article, Message, PortfolioSettings } from "@/types";
 
 const rawBaseUrl =
   process.env.NEXT_PUBLIC_API_BASE_URL ||
   "https://shofiqul81severdb.vercel.app";
 
-const BASE_URL = rawBaseUrl;
+const BASE_URL = (rawBaseUrl || "").replace(/\/+$/, "");
 
-console.log(BASE_URL, "BASE_URL")
+console.log(BASE_URL, "BASE_URL");
 
 const apiClient = axios.create({
   baseURL: BASE_URL,
@@ -16,6 +16,29 @@ const apiClient = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+// Automatic fallback interceptor for local development resilience
+apiClient.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    if (
+      originalRequest &&
+      !originalRequest._retry &&
+      (error.response?.status === 404 ||
+        error.code === "ECONNREFUSED" ||
+        !error.response)
+    ) {
+      originalRequest._retry = true;
+      const fallbackBase = "http://localhost:5000";
+      if (originalRequest.baseURL !== fallbackBase) {
+        originalRequest.baseURL = fallbackBase;
+        return axios(originalRequest);
+      }
+    }
+    return Promise.reject(error);
+  }
+);
 
 // Projects API
 export async function getProjectsApi(): Promise<Project[]> {
@@ -64,6 +87,59 @@ export async function deleteProjectApi(id: string): Promise<boolean> {
     return true;
   } catch (error) {
     console.error("Error deleting project:", error);
+    return false;
+  }
+}
+
+// Shopify Projects API
+export async function getShopifyProjectsApi(params?: Record<string, any>): Promise<ShopifyProject[]> {
+  try {
+    const res = await apiClient.get("/api/shopify-projects", {
+      params: { limit: 100, ...params },
+    });
+    return res.data?.data?.result || res.data?.data || res.data || [];
+  } catch (error) {
+    console.error("Error fetching shopify projects:", error);
+    return [];
+  }
+}
+
+export async function getSingleShopifyProjectApi(id: string): Promise<ShopifyProject | null> {
+  try {
+    const res = await apiClient.get(`/api/shopify-projects/${id}`);
+    return res.data?.data?.result || res.data?.data || res.data || null;
+  } catch (error) {
+    console.error("Error fetching single shopify project:", error);
+    return null;
+  }
+}
+
+export async function createShopifyProjectApi(data: Partial<ShopifyProject>): Promise<ShopifyProject | null> {
+  try {
+    const res = await apiClient.post("/api/shopify-projects/create", data);
+    return res.data?.data?.result || res.data?.data || res.data;
+  } catch (error) {
+    console.error("Error creating shopify project:", error);
+    throw error;
+  }
+}
+
+export async function updateShopifyProjectApi(id: string, data: Partial<ShopifyProject>): Promise<ShopifyProject | null> {
+  try {
+    const res = await apiClient.patch(`/api/shopify-projects/${id}`, data);
+    return res.data?.data?.result || res.data?.data || res.data;
+  } catch (error) {
+    console.error("Error updating shopify project:", error);
+    throw error;
+  }
+}
+
+export async function deleteShopifyProjectApi(id: string): Promise<boolean> {
+  try {
+    await apiClient.delete(`/api/shopify-projects/${id}`);
+    return true;
+  } catch (error) {
+    console.error("Error deleting shopify project:", error);
     return false;
   }
 }

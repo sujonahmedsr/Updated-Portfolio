@@ -211,3 +211,24 @@
 .rich-editor-content [data-rich-callout] p:last-child {
   margin-bottom: 0;
 }
+
+/* ─── Shopify Full-Page Screenshot Slow Smooth Hover Scroll ─── */
+.shopify-screen-container {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.shopify-screen-container .shopify-screen-img,
+.shopify-card-wrapper .shopify-screen-img {
+  object-fit: cover !important;
+  object-position: top !important;
+  transition: object-position 2.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  will-change: object-position;
+}
+
+.shopify-screen-container:hover .shopify-screen-img,
+.shopify-card-wrapper:hover .shopify-screen-img {
+  object-position: bottom !important;
+  transition: object-position 4s ease-in-out !important;
+}

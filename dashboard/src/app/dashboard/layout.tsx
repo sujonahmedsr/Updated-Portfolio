@@ -19,6 +19,7 @@ import {
   Wifi,
   WifiOff,
   Wallet,
+  ShoppingBag,
 } from "lucide-react";
 import { checkServerHealthApi } from "@/lib/api";
 
@@ -38,6 +39,11 @@ const sidebarNav = [
     section: "CONTENT",
     items: [
       { label: "Projects", href: "/dashboard/projects", icon: FolderKanban },
+      {
+        label: "Shopify Projects",
+        href: "/dashboard/shopify-projects",
+        icon: ShoppingBag,
+      },
       { label: "Articles / Blog", href: "/dashboard/articles", icon: FileText },
     ],
   },
@@ -75,16 +81,23 @@ export default function DashboardLayout({
 
   const visibleNav =
     role === "viewer"
-      ? sidebarNav
-          .filter((section) => section.section === "MAIN")
-          .map((section) => ({
-            ...section,
-            items: section.items.filter(
-              (item) =>
-                item.href === "/dashboard" ||
-                item.href === "/dashboard/personal",
-            ),
-          }))
+      ? [
+          {
+            section: "DEMO VIEW",
+            items: [
+              {
+                label: "Portfolio Showcase",
+                href: "/dashboard/read-only",
+                icon: LayoutDashboard,
+              },
+              {
+                label: "Personal workspace",
+                href: "/dashboard/personal",
+                icon: Wallet,
+              },
+            ],
+          },
+        ]
       : sidebarNav;
 
   useEffect(() => {
@@ -125,9 +138,9 @@ export default function DashboardLayout({
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#F5F5F0] flex flex-col font-sans">
+    <div className="h-screen bg-[#0A0A0A] text-[#F5F5F0] flex flex-col font-sans overflow-hidden">
       {/* Top Navigation Bar */}
-      <header className="h-16 border-b border-[#1E1E1E] bg-[#0E0E0E] sticky top-0 z-40 px-4 sm:px-6 flex items-center justify-between">
+      <header className="h-16 border-b border-[#1E1E1E] bg-[#0E0E0E] shrink-0 z-40 px-4 sm:px-6 flex items-center justify-between">
         {/* Left: Mobile Menu & Logo & Breadcrumbs */}
         <div className="flex items-center gap-4">
           <button
@@ -197,9 +210,9 @@ export default function DashboardLayout({
         </div>
       </header>
 
-      <div className="flex-1 flex overflow-hidden">
-        {/* Desktop Sidebar Navigation */}
-        <aside className="hidden md:flex flex-col w-64 border-r border-[#1E1E1E] bg-[#0C0C0C] p-4 justify-between font-mono text-xs shrink-0">
+      <div className="flex-1 flex overflow-hidden min-h-0">
+        {/* Desktop Sidebar Navigation (Fixed / Sticky with independent scroll) */}
+        <aside className="hidden md:flex flex-col w-64 border-r border-[#1E1E1E] bg-[#0C0C0C] p-4 justify-between font-mono text-xs shrink-0 overflow-y-auto">
           <div className="space-y-6">
             {visibleNav.map((sec, idx) => (
               <div key={idx} className="space-y-2">

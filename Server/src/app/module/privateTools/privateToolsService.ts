@@ -70,8 +70,15 @@ const setHidden = async (kind: Kind, id: string, hidden: boolean) => {
   return result;
 };
 
+const deletePermanently = async (kind: Kind, id: string) => {
+  assertId(id);
+  const result = await models[kind].findByIdAndDelete(id);
+  if (!result) throw Object.assign(new Error("Record not found"), { statusCode: 404 });
+  return result;
+};
+
 export const privateToolsService = {
   getExpenses, createExpense, updateExpense,
   getNotes, createNote, updateNote,
-  getGoals, createGoal, updateGoal, setHidden,
+  getGoals, createGoal, updateGoal, setHidden, deletePermanently,
 };

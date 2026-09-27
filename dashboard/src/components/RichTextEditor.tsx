@@ -56,7 +56,7 @@ const extensions = [
 interface RichTextEditorProps {
   value: string;
   onChange: (value: string) => void;
-  folder: "projects" | "articles";
+  folder: "projects" | "articles" | "shopify-projects" | "general";
   error?: string;
   minHeight?: string;
 }

@@ -4,6 +4,7 @@ const expenseSchema = new Schema({
   title: { type: String, required: true, trim: true, maxlength: 120 },
   amount: { type: Number, required: true, min: 0.01 },
   category: { type: String, required: true, trim: true, maxlength: 60 },
+  tags: { type: [String], default: [] },
   spentAt: { type: Date, required: true },
   note: { type: String, default: "", maxlength: 1000 },
   hiddenAt: { type: Date, default: null },

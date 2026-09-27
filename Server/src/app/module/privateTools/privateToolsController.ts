@@ -16,7 +16,7 @@ const updateExpense = asyncFunc(async (req: Request, res: Response) => {
   res.status(StatusCodes.OK).json({ success: true, data: result });
 });
 const hideExpense = asyncFunc(async (req: Request, res: Response) => {
-  const result = await privateToolsService.setHidden("expense", req.params.id, true);
+  const result = await privateToolsService.deletePermanently("expense", req.params.id);
   res.status(StatusCodes.OK).json({ success: true, data: result });
 });
 const restoreExpense = asyncFunc(async (req: Request, res: Response) => {
@@ -37,7 +37,7 @@ const updateNote = asyncFunc(async (req: Request, res: Response) => {
   res.status(StatusCodes.OK).json({ success: true, data: result });
 });
 const hideNote = asyncFunc(async (req: Request, res: Response) => {
-  const result = await privateToolsService.setHidden("note", req.params.id, true);
+  const result = await privateToolsService.deletePermanently("note", req.params.id);
   res.status(StatusCodes.OK).json({ success: true, data: result });
 });
 const restoreNote = asyncFunc(async (req: Request, res: Response) => {
@@ -58,7 +58,7 @@ const updateGoal = asyncFunc(async (req: Request, res: Response) => {
   res.status(StatusCodes.OK).json({ success: true, data: result });
 });
 const hideGoal = asyncFunc(async (req: Request, res: Response) => {
-  const result = await privateToolsService.setHidden("goal", req.params.id, true);
+  const result = await privateToolsService.deletePermanently("goal", req.params.id);
   res.status(StatusCodes.OK).json({ success: true, data: result });
 });
 const restoreGoal = asyncFunc(async (req: Request, res: Response) => {

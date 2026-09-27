@@ -17,7 +17,7 @@ import {
 interface ImageUploaderProps {
   value: string;
   onChange: (url: string) => void;
-  folder?: "projects" | "articles" | "general";
+  folder?: "projects" | "articles" | "general" | "shopify-projects";
   label?: string;
   error?: string;
 }
