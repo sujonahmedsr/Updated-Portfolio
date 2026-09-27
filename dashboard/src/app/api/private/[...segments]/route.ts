@@ -32,6 +32,18 @@ async function forward(request: Request, context: RouteContext) {
       signal: AbortSignal.timeout(12000),
     });
     const responseBody = await response.text();
+    if (response.status === 401) {
+      return NextResponse.json(
+        { message: "Dashboard and backend PRIVATE_DATA_API_KEY values must match" },
+        { status: 502, headers: { "cache-control": "no-store" } },
+      );
+    }
+    if (response.status === 503) {
+      return NextResponse.json(
+        { message: "Backend PRIVATE_DATA_API_KEY is not configured; set it to match the dashboard value" },
+        { status: 503, headers: { "cache-control": "no-store" } },
+      );
+    }
     return new NextResponse(responseBody, {
       status: response.status,
       headers: { "content-type": response.headers.get("content-type") || "application/json", "cache-control": "no-store" },

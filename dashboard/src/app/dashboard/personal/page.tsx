@@ -7,7 +7,6 @@ import {
   Check,
   Clock3,
   Edit3,
-  Eye,
   EyeOff,
   Plus,
   RotateCcw,
@@ -269,40 +268,43 @@ export default function PersonalWorkspacePage() {
   ];
 
   return (
-    <div className="space-y-7 text-[#F4F2E9]">
-      <header className="flex flex-wrap items-end justify-between gap-4 border-b border-[#30332D] pb-5">
+    <div className="space-y-6 text-[#F5F5F0]">
+      <header className="flex flex-wrap items-end justify-between gap-4 border-b border-[#1E1E1E] pb-5">
         <div>
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#B8C48A]">
-            Private workspace / Local to dashboard
+          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#7CFF6B]">
+            Personal workspace
           </p>
-          <h1 className="mt-2 text-3xl font-semibold">
-            Personal operating system
+          <h1 className="mt-2 font-heading text-2xl font-bold sm:text-3xl">
+            Personal workspace
           </h1>
-          <p className="mt-2 text-sm text-[#A5AA9A]">
-            Expenses, daily capture, and goals. Nothing here is published to
-            your portfolio.{readOnly ? " Demo account: view only." : ""}
+          <p className="mt-2 text-sm text-[#A1A1A1]">
+            Private expenses, notes, and goals.
+            {readOnly ? " Read-only demo." : ""}
           </p>
         </div>
-        <label className="flex items-center gap-2 text-sm text-[#C4C8BB]">
+        <label className="flex items-center gap-2 text-sm text-[#A1A1A1]">
           <input
             type="checkbox"
             checked={showHidden}
             onChange={(event) => setShowHidden(event.target.checked)}
-            className="accent-[#C1D879]"
+            className="accent-[#7CFF6B]"
           />{" "}
           Show hidden items
         </label>
       </header>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div role="tablist" className="flex border-b border-[#30332D]">
+        <div
+          role="tablist"
+          className="inline-flex rounded-md border border-[#262626] bg-[#121212] p-1"
+        >
           {tabs.map((item) => (
             <button
               key={item.id}
               role="tab"
               aria-selected={tab === item.id}
               onClick={() => setTab(item.id)}
-              className={`border-b-2 px-4 py-3 text-sm ${tab === item.id ? "border-[#C1D879] text-[#E4F0B4]" : "border-transparent text-[#969C8D] hover:text-white"}`}
+              className={`rounded px-3 py-2 text-sm transition-colors ${tab === item.id ? "bg-[#7CFF6B]/10 text-[#7CFF6B]" : "text-[#888] hover:text-[#F5F5F0]"}`}
             >
               {item.label}
             </button>
@@ -312,7 +314,7 @@ export default function PersonalWorkspacePage() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => moveMonth(-1)}
-              className="rounded border border-[#3B4036] p-2 hover:text-[#D8E89C]"
+              className="rounded-md border border-[#262626] bg-[#121212] p-2 text-[#A1A1A1] transition-colors hover:border-[#7CFF6B]/50 hover:text-[#7CFF6B]"
               aria-label="Previous month"
             >
               <ArrowLeft size={16} />
@@ -322,14 +324,14 @@ export default function PersonalWorkspacePage() {
               type="month"
               value={month}
               onChange={(event) => setMonth(event.target.value)}
-              className="border-b border-[#4A5042] bg-transparent px-2 py-2 text-sm [color-scheme:dark]"
+              className="rounded-md border border-[#262626] bg-[#121212] px-3 py-2 text-sm text-[#F5F5F0] outline-none focus:border-[#7CFF6B] [color-scheme:dark]"
             />
-            <span className="hidden text-sm text-[#ADB19F] sm:inline">
+            <span className="hidden text-sm text-[#A1A1A1] sm:inline">
               {monthLabel}
             </span>
             <button
               onClick={() => moveMonth(1)}
-              className="rounded border border-[#3B4036] p-2 hover:text-[#D8E89C]"
+              className="rounded-md border border-[#262626] bg-[#121212] p-2 text-[#A1A1A1] transition-colors hover:border-[#7CFF6B]/50 hover:text-[#7CFF6B]"
               aria-label="Next month"
             >
               <ArrowRight size={16} />
@@ -346,7 +348,7 @@ export default function PersonalWorkspacePage() {
               <Metric label="ENTRIES" value={String(expenses.length)} />
               <Metric label="CURRENT MONTH" value={monthLabel} />
             </div>
-            <div className="overflow-x-auto border-y border-[#30332D]">
+            <div className="overflow-x-auto border-y border-[#1E1E1E]">
               <table className="w-full min-w-[650px] text-left text-sm">
                 <thead className="text-[11px] uppercase text-[#959B8D]">
                   <tr>
@@ -366,7 +368,7 @@ export default function PersonalWorkspacePage() {
                     <tr>
                       <td
                         colSpan={readOnly ? 4 : 5}
-                        className="py-10 text-center text-[#929889]"
+                        className="py-10 text-center text-[#777]"
                       >
                         Loading ledger…
                       </td>
@@ -387,7 +389,7 @@ export default function PersonalWorkspacePage() {
                         <td className="py-3 text-right tabular-nums">
                           {currency(item.amount)}
                         </td>
-                        <td className="py-3 text-right tabular-nums text-[#CFDF94]">
+                        <td className="py-3 text-right tabular-nums text-[#7CFF6B]">
                           {currency(item.running)}
                         </td>
                         {!readOnly && (
@@ -445,7 +447,7 @@ export default function PersonalWorkspacePage() {
             <form
               key={editingExpense?._id || "new-expense"}
               onSubmit={saveExpense}
-              className="h-fit space-y-4 border-l border-[#30332D] pl-0 xl:pl-6"
+              className="h-fit space-y-4 border-l border-[#1E1E1E] pl-0 xl:pl-6"
             >
               <h2 className="font-medium">
                 {editingExpense ? "Edit expense" : "Add expense"}
@@ -491,7 +493,7 @@ export default function PersonalWorkspacePage() {
                 defaultValue={editingExpense?.note}
               />
               <div className="flex gap-2">
-                <button className="inline-flex items-center gap-2 bg-[#D9E7A6] px-4 py-2.5 text-sm font-semibold text-[#23271D]">
+                <button className="inline-flex items-center gap-2 rounded-md bg-[#7CFF6B] px-4 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-[#68E057]">
                   <Plus size={16} />
                   {editingExpense ? "Save changes" : "Add expense"}
                 </button>
@@ -514,16 +516,16 @@ export default function PersonalWorkspacePage() {
         <section className="grid gap-7 xl:grid-cols-[minmax(0,1fr)_360px]">
           <div className="space-y-3">
             {loading ? (
-              <p className="py-10 text-center text-[#929889]">Loading notes…</p>
+              <p className="py-10 text-center text-[#777]">Loading notes…</p>
             ) : notes.length ? (
               notes.map((note) => (
                 <article
                   key={note._id}
-                  className="border-b border-[#30332D] py-4"
+                  className="border-b border-[#1E1E1E] py-4"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className="font-mono text-[11px] text-[#B8C48A]">
+                      <p className="font-mono text-[11px] text-[#7CFF6B]">
                         {localDate(note.noteDate)}
                       </p>
                       <h2 className="mt-1 text-lg font-medium">{note.title}</h2>
@@ -559,7 +561,7 @@ export default function PersonalWorkspacePage() {
                 </article>
               ))
             ) : (
-              <p className="py-10 text-center text-[#929889]">
+              <p className="py-10 text-center text-[#777]">
                 No {showHidden ? "hidden " : ""}notes in this month.
               </p>
             )}
@@ -568,7 +570,7 @@ export default function PersonalWorkspacePage() {
             <form
               key={editingNote?._id || "new-note"}
               onSubmit={saveNote}
-              className="h-fit space-y-4 border-l border-[#30332D] pl-0 xl:pl-6"
+              className="h-fit space-y-4 border-l border-[#1E1E1E] pl-0 xl:pl-6"
             >
               <h2 className="font-medium">
                 {editingNote ? "Edit daily note" : "Capture a daily note"}
@@ -590,7 +592,7 @@ export default function PersonalWorkspacePage() {
                 }
                 required
               />
-              <label className="block space-y-1.5 text-xs text-[#B5BAAA]">
+              <label className="block space-y-1.5 text-xs text-[#A1A1A1]">
                 Note
                 <textarea
                   name="content"
@@ -598,11 +600,11 @@ export default function PersonalWorkspacePage() {
                   required
                   rows={8}
                   maxLength={12000}
-                  className="w-full resize-y border border-[#42473D] bg-[#141712] px-3 py-2.5 text-sm text-white outline-none focus:border-[#C1D879]"
+                  className="w-full resize-y rounded-md border border-[#262626] bg-[#121212] px-3 py-2.5 text-sm text-white outline-none focus:border-[#7CFF6B]"
                 />
               </label>
               <div className="flex gap-2">
-                <button className="inline-flex items-center gap-2 bg-[#D9E7A6] px-4 py-2.5 text-sm font-semibold text-[#23271D]">
+                <button className="inline-flex items-center gap-2 rounded-md bg-[#7CFF6B] px-4 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-[#68E057]">
                   <Plus size={16} />
                   Save note
                 </button>
@@ -625,7 +627,7 @@ export default function PersonalWorkspacePage() {
         <section className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_340px]">
           <div className="relative space-y-0 before:absolute before:bottom-3 before:left-[9px] before:top-3 before:w-px before:bg-[#41483A]">
             {loading ? (
-              <p className="pl-8 py-10 text-[#929889]">Loading goals…</p>
+              <p className="pl-8 py-10 text-[#777]">Loading goals…</p>
             ) : goals.length ? (
               goals.map((goal) => {
                 const remaining = Math.ceil(
@@ -635,9 +637,9 @@ export default function PersonalWorkspacePage() {
                 return (
                   <article key={goal._id} className="relative pb-7 pl-8">
                     <span
-                      className={`absolute left-0 top-1.5 h-[19px] w-[19px] rounded-full border-[5px] border-[#141712] ${goal.status === "completed" ? "bg-[#C1D879]" : overdue ? "bg-[#D47F70]" : "bg-[#B5C28B]"}`}
+                      className={`absolute left-0 top-1.5 h-[19px] w-[19px] rounded-full border-[5px] border-[#0A0A0A] ${goal.status === "completed" ? "bg-[#7CFF6B]" : overdue ? "bg-[#FF5F56]" : "bg-[#7CFF6B]"}`}
                     />
-                    <div className="border-b border-[#30332D] pb-5">
+                    <div className="border-b border-[#1E1E1E] pb-5">
                       <div className="flex flex-wrap items-start justify-between gap-3">
                         <div>
                           <div className="flex items-center gap-2">
@@ -645,7 +647,7 @@ export default function PersonalWorkspacePage() {
                               {goal.title}
                             </h2>
                             {goal.status === "completed" && (
-                              <Check size={15} className="text-[#C1D879]" />
+                              <Check size={15} className="text-[#7CFF6B]" />
                             )}
                           </div>
                           <p className="mt-1 text-sm text-[#A7AD9B]">
@@ -653,7 +655,7 @@ export default function PersonalWorkspacePage() {
                           </p>
                         </div>
                         <span
-                          className={`inline-flex items-center gap-1.5 font-mono text-xs ${overdue ? "text-[#E29A8D]" : "text-[#C5D791]"}`}
+                          className={`inline-flex items-center gap-1.5 font-mono text-xs ${overdue ? "text-[#FF5F56]" : "text-[#7CFF6B]"}`}
                         >
                           <Clock3 size={13} />
                           {goal.status === "completed"
@@ -664,13 +666,13 @@ export default function PersonalWorkspacePage() {
                         </span>
                       </div>
                       <div className="mt-4 flex items-center gap-3">
-                        <div className="h-1.5 flex-1 bg-[#33382E]">
+                        <div className="h-1.5 flex-1 bg-[#262626]">
                           <div
-                            className="h-full bg-[#C1D879] transition-[width]"
+                            className="h-full bg-[#7CFF6B] transition-[width]"
                             style={{ width: `${goal.progress}%` }}
                           />
                         </div>
-                        <span className="w-10 text-right font-mono text-xs text-[#CED7B7]">
+                        <span className="w-10 text-right font-mono text-xs text-[#A1A1A1]">
                           {goal.progress}%
                         </span>
                         {!readOnly && (
@@ -689,11 +691,11 @@ export default function PersonalWorkspacePage() {
                                     : "active",
                               })
                             }
-                            className="w-20 accent-[#C1D879]"
+                            className="w-20 accent-[#7CFF6B]"
                           />
                         )}
                       </div>
-                      <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-[#929889]">
+                      <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-[#777]">
                         <span>
                           {localDate(goal.startsAt)} → {localDate(goal.dueAt)}
                         </span>
@@ -723,8 +725,8 @@ export default function PersonalWorkspacePage() {
                               <span
                                 className={
                                   milestone.completedAt
-                                    ? "text-[#C1D879]"
-                                    : "text-[#B5BAAA]"
+                                    ? "text-[#7CFF6B]"
+                                    : "text-[#A1A1A1]"
                                 }
                               >
                                 {milestone.completedAt ? "✓ " : "○ "}
@@ -750,7 +752,7 @@ export default function PersonalWorkspacePage() {
           {!readOnly && (
             <form
               onSubmit={saveGoal}
-              className="h-fit space-y-4 border-l border-[#30332D] pl-0 xl:pl-6"
+              className="h-fit space-y-4 border-l border-[#1E1E1E] pl-0 xl:pl-6"
             >
               <h2 className="font-medium">Define a goal</h2>
               <Field name="title" label="Goal" required />
@@ -771,7 +773,7 @@ export default function PersonalWorkspacePage() {
                   required
                 />
               </div>
-              <label className="block space-y-1.5 text-xs text-[#B5BAAA]">
+              <label className="block space-y-1.5 text-xs text-[#A1A1A1]">
                 Starting progress
                 <input
                   type="number"
@@ -779,19 +781,19 @@ export default function PersonalWorkspacePage() {
                   min="0"
                   max="100"
                   defaultValue="0"
-                  className="w-full border border-[#42473D] bg-[#141712] px-3 py-2.5 text-sm text-white outline-none focus:border-[#C1D879]"
+                  className="w-full rounded-md border border-[#262626] bg-[#121212] px-3 py-2.5 text-sm text-white outline-none focus:border-[#7CFF6B]"
                 />
               </label>
-              <label className="block space-y-1.5 text-xs text-[#B5BAAA]">
+              <label className="block space-y-1.5 text-xs text-[#A1A1A1]">
                 Milestones
                 <textarea
                   name="milestones"
                   rows={4}
                   placeholder="Prototype ready | 2026-10-04"
-                  className="w-full resize-y border border-[#42473D] bg-[#141712] px-3 py-2.5 text-sm text-white outline-none focus:border-[#C1D879]"
+                  className="w-full resize-y rounded-md border border-[#262626] bg-[#121212] px-3 py-2.5 text-sm text-white outline-none focus:border-[#7CFF6B]"
                 />
               </label>
-              <button className="inline-flex items-center gap-2 bg-[#D9E7A6] px-4 py-2.5 text-sm font-semibold text-[#23271D]">
+              <button className="inline-flex items-center gap-2 rounded-md bg-[#7CFF6B] px-4 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-[#68E057]">
                 <Plus size={16} />
                 Create goal
               </button>
@@ -805,11 +807,11 @@ export default function PersonalWorkspacePage() {
 
 function Metric({ label, value }: { label: string; value: string }) {
   return (
-    <div className="border-y border-[#30332D] py-4">
-      <p className="font-mono text-[10px] tracking-[0.13em] text-[#929889]">
+    <div className="border-y border-[#1E1E1E] py-4">
+      <p className="font-mono text-[10px] tracking-[0.13em] text-[#777]">
         {label}
       </p>
-      <p className="mt-2 text-2xl font-semibold tabular-nums text-[#E5E7D9]">
+      <p className="mt-2 text-2xl font-semibold tabular-nums text-[#F5F5F0]">
         {value}
       </p>
     </div>
@@ -838,7 +840,7 @@ function Field({
   placeholder?: string;
 }) {
   return (
-    <label className="block space-y-1.5 text-xs text-[#B5BAAA]">
+    <label className="block space-y-1.5 text-xs text-[#A1A1A1]">
       {label}
       <input
         name={name}
@@ -849,7 +851,7 @@ function Field({
         max={max}
         step={step}
         placeholder={placeholder}
-        className="w-full border border-[#42473D] bg-[#141712] px-3 py-2.5 text-sm text-white outline-none focus:border-[#C1D879] [color-scheme:dark]"
+        className="w-full rounded-md border border-[#262626] bg-[#121212] px-3 py-2.5 text-sm text-white outline-none focus:border-[#7CFF6B] [color-scheme:dark]"
       />
     </label>
   );
