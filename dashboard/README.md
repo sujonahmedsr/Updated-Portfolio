@@ -76,7 +76,12 @@ NEXT_PUBLIC_NEXT_PUBLIC_API_URL=https://your-backend-api.vercel.app/api
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=your-secure-password-here
 JWT_SECRET=your-random-jwt-secret-key
+PRIVATE_DATA_API_KEY=shared-random-key-set-on-dashboard-and-server
+DEMO_USERNAME=your-read-only-demo-username
+DEMO_PASSWORD=your-read-only-demo-password
 ```
+
+Configure the same `PRIVATE_DATA_API_KEY` on the Express Server and dashboard deployments. Optionally set `PRIVATE_DATA_API_BASE_URL` to the backend origin. `DEMO_USERNAME` and `DEMO_PASSWORD` create an explicit read-only viewer account; viewers can inspect dashboard data but cannot mutate it. Because the viewer can read personal workspace data, share those credentials only with trusted reviewers.
 
 ### 3. Run Development Server
 

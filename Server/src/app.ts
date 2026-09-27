@@ -3,6 +3,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import globalErrorHandler from './app/middlewares/globalErrorHandling';
 import router from './app/routes/routes';
+import { privateToolsAuth } from './app/middlewares/privateToolsAuth';
 const app = express();
 
 
@@ -12,7 +13,6 @@ const allowedOrigins = [
   'http://localhost:3001',
   'https://shofiqdev81.vercel.app',
   'https://shofiqdevdashboard.vercel.app',
-  'https://shofiqul81.vercel.app',
   process.env.DASHBOARD_URL,
   process.env.CLIENT_URL,
 ].filter(Boolean) as string[];
@@ -24,6 +24,7 @@ app.use(express.json());
 
 
 // api end points 
+app.use('/api/private-tools', privateToolsAuth);
 app.use('/api', router)
 
 

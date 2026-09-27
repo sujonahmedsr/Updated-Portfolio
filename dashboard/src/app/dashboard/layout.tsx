@@ -18,11 +18,22 @@ import {
   ChevronRight,
   Wifi,
   WifiOff,
+  Wallet,
 } from "lucide-react";
 import { checkServerHealthApi } from "@/lib/api";
 
 const sidebarNav = [
-  { section: "MAIN", items: [{ label: "Overview", href: "/dashboard", icon: LayoutDashboard }] },
+  {
+    section: "MAIN",
+    items: [
+      { label: "Overview", href: "/dashboard", icon: LayoutDashboard },
+      {
+        label: "Personal workspace",
+        href: "/dashboard/personal",
+        icon: Wallet,
+      },
+    ],
+  },
   {
     section: "CONTENT",
     items: [
@@ -32,7 +43,9 @@ const sidebarNav = [
   },
   {
     section: "COMMUNICATION",
-    items: [{ label: "Messages Inbox", href: "/dashboard/messages", icon: Mail }],
+    items: [
+      { label: "Messages Inbox", href: "/dashboard/messages", icon: Mail },
+    ],
   },
   {
     section: "SYSTEM",
@@ -40,11 +53,39 @@ const sidebarNav = [
   },
 ];
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [apiOnline, setApiOnline] = useState<boolean | null>(null);
+  const [role, setRole] = useState<"admin" | "viewer" | null>(null);
+
+  useEffect(() => {
+    fetch("/api/auth/session", { cache: "no-store" })
+      .then((response) => response.json())
+      .then((payload) =>
+        setRole(payload.session?.role === "viewer" ? "viewer" : "admin"),
+      )
+      .catch(() => setRole("admin"));
+  }, []);
+
+  const visibleNav =
+    role === "viewer"
+      ? sidebarNav
+          .filter((section) => section.section === "MAIN")
+          .map((section) => ({
+            ...section,
+            items: section.items.filter(
+              (item) =>
+                item.href === "/dashboard" ||
+                item.href === "/dashboard/personal",
+            ),
+          }))
+      : sidebarNav;
 
   useEffect(() => {
     const checkHealth = async () => {
@@ -70,21 +111,23 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   // Breadcrumbs text
   const getBreadcrumb = () => {
     if (pathname === "/dashboard") return "Overview";
-    if (pathname.includes("/dashboard/projects/new")) return "Projects / Create Project";
+    if (pathname.includes("/dashboard/projects/new"))
+      return "Projects / Create Project";
     if (pathname.includes("/dashboard/projects")) return "Projects";
-    if (pathname.includes("/dashboard/articles/new")) return "Articles / New Article";
+    if (pathname.includes("/dashboard/articles/new"))
+      return "Articles / New Article";
     if (pathname.includes("/dashboard/articles")) return "Articles / Blog";
     if (pathname.includes("/dashboard/messages")) return "Messages Inbox";
     if (pathname.includes("/dashboard/settings")) return "Settings";
+    if (pathname.includes("/dashboard/personal")) return "Personal workspace";
+    if (pathname.includes("/dashboard/read-only")) return "Read-only demo";
     return "Dashboard";
   };
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-[#F5F5F0] flex flex-col font-sans">
-      
       {/* Top Navigation Bar */}
       <header className="h-16 border-b border-[#1E1E1E] bg-[#0E0E0E] sticky top-0 z-40 px-4 sm:px-6 flex items-center justify-between">
-        
         {/* Left: Mobile Menu & Logo & Breadcrumbs */}
         <div className="flex items-center gap-4">
           <button
@@ -92,14 +135,23 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             className="md:hidden p-2 rounded-lg bg-[#161616] border border-[#262626] text-[#A1A1A1] hover:text-[#7CFF6B]"
             aria-label="Toggle Navigation"
           >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileOpen ? (
+              <X className="w-5 h-5" />
+            ) : (
+              <Menu className="w-5 h-5" />
+            )}
           </button>
 
-          <Link href="/dashboard" className="flex items-center gap-2.5 font-heading text-lg font-bold">
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-2.5 font-heading text-lg font-bold"
+          >
             <span className="w-8 h-8 rounded-lg bg-[#161616] border border-[#262626] flex items-center justify-center text-[#7CFF6B]">
               <Code2 className="w-4 h-4" />
             </span>
-            <span className="hidden sm:inline text-[#F5F5F0]">SHOFIQUL <span className="text-[#7CFF6B]">ADMIN</span></span>
+            <span className="hidden sm:inline text-[#F5F5F0]">
+              SHOFIQUL <span className="text-[#7CFF6B]">ADMIN</span>
+            </span>
           </Link>
 
           <div className="hidden md:flex items-center gap-2 text-xs font-mono text-[#777] border-l border-[#222] pl-4">
@@ -110,7 +162,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
         {/* Right: API Health Status Badge & Profile Menu */}
         <div className="flex items-center gap-4 font-mono text-xs">
-          
           {/* API Connection Indicator */}
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#141414] border border-[#222222]">
             {apiOnline === true ? (
@@ -131,7 +182,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {/* Admin Tag */}
           <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded bg-[#161616] border border-[#262626] text-[#A1A1A1]">
             <span className="w-2 h-2 rounded-full bg-[#7CFF6B]"></span>
-            <span>Shofiqul (Admin)</span>
+            <span>
+              {role === "viewer" ? "Demo (Read only)" : "Shofiqul (Admin)"}
+            </span>
           </div>
 
           <button
@@ -142,22 +195,23 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <LogOut className="w-4 h-4" />
           </button>
         </div>
-
       </header>
 
       <div className="flex-1 flex overflow-hidden">
-        
         {/* Desktop Sidebar Navigation */}
         <aside className="hidden md:flex flex-col w-64 border-r border-[#1E1E1E] bg-[#0C0C0C] p-4 justify-between font-mono text-xs shrink-0">
           <div className="space-y-6">
-            {sidebarNav.map((sec, idx) => (
+            {visibleNav.map((sec, idx) => (
               <div key={idx} className="space-y-2">
                 <span className="text-[10px] text-[#555] tracking-widest block uppercase px-3">
                   {sec.section}
                 </span>
                 <div className="space-y-1">
                   {sec.items.map((item) => {
-                    const isActive = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href));
+                    const isActive =
+                      pathname === item.href ||
+                      (item.href !== "/dashboard" &&
+                        pathname.startsWith(item.href));
                     const Icon = item.icon;
                     return (
                       <Link
@@ -181,7 +235,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
           <div className="pt-4 border-t border-[#1E1E1E] space-y-2">
             <div className="p-3 rounded bg-[#121212] border border-[#222222] text-[11px] text-[#666] space-y-1">
-              <span className="text-[#A1A1A1] block font-bold">Standalone CMS</span>
+              <span className="text-[#A1A1A1] block font-bold">
+                Standalone CMS
+              </span>
               <span>Next.js 15 App Router</span>
             </div>
           </div>
@@ -193,21 +249,29 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="w-64 bg-[#0C0C0C] border-r border-[#222222] p-5 flex flex-col justify-between font-mono text-xs animate-in slide-in-from-left duration-200">
               <div className="space-y-6">
                 <div className="flex items-center justify-between pb-3 border-b border-[#1E1E1E]">
-                  <span className="text-xs font-bold text-[#F5F5F0]">ADMIN MENU</span>
-                  <button onClick={() => setMobileOpen(false)} className="text-[#888]">
+                  <span className="text-xs font-bold text-[#F5F5F0]">
+                    ADMIN MENU
+                  </span>
+                  <button
+                    onClick={() => setMobileOpen(false)}
+                    className="text-[#888]"
+                  >
                     <X className="w-4 h-4" />
                   </button>
                 </div>
 
                 <div className="space-y-6">
-                  {sidebarNav.map((sec, idx) => (
+                  {visibleNav.map((sec, idx) => (
                     <div key={idx} className="space-y-2">
                       <span className="text-[10px] text-[#555] tracking-widest block uppercase">
                         {sec.section}
                       </span>
                       <div className="space-y-1">
                         {sec.items.map((item) => {
-                          const isActive = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href));
+                          const isActive =
+                            pathname === item.href ||
+                            (item.href !== "/dashboard" &&
+                              pathname.startsWith(item.href));
                           const Icon = item.icon;
                           return (
                             <Link
@@ -244,13 +308,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
         {/* Main Content Workspace */}
         <main className="flex-1 overflow-y-auto p-4 sm:p-8 bg-[#0A0A0A]">
-          <div className="max-w-6xl mx-auto space-y-8">
-            {children}
-          </div>
+          <div className="max-w-6xl mx-auto space-y-8">{children}</div>
         </main>
-
       </div>
-
     </div>
   );
 }

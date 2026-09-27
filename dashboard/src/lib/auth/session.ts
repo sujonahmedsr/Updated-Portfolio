@@ -9,11 +9,12 @@ export const SESSION_COOKIE_NAME = "admin_session_token";
 
 export interface SessionPayload {
   username: string;
-  role: "admin";
+  role: "admin" | "viewer";
   expiresAt: number;
 }
 
 export async function encryptSession(payload: Omit<SessionPayload, "expiresAt">) {
+  if (!process.env.JWT_SECRET) throw new Error("JWT_SECRET is required");
   const expiresAt = Date.now() + 7 * 24 * 60 * 60 * 1000; // 7 days
   return new SignJWT({ ...payload, expiresAt })
     .setProtectedHeader({ alg: "HS256" })
@@ -24,6 +25,7 @@ export async function encryptSession(payload: Omit<SessionPayload, "expiresAt">)
 
 export async function decryptSession(token: string): Promise<SessionPayload | null> {
   try {
+    if (!process.env.JWT_SECRET) return null;
     const { payload } = await jwtVerify(token, JWT_SECRET, {
       algorithms: ["HS256"],
     });
@@ -40,8 +42,8 @@ export async function getSession(): Promise<SessionPayload | null> {
   return decryptSession(token);
 }
 
-export async function createSession(username: string) {
-  const token = await encryptSession({ username, role: "admin" });
+export async function createSession(username: string, role: SessionPayload["role"] = "admin") {
+  const token = await encryptSession({ username, role });
   const cookieStore = await cookies();
   cookieStore.set(SESSION_COOKIE_NAME, token, {
     httpOnly: true,

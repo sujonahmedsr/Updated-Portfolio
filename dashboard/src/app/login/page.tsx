@@ -7,7 +7,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import axios from "axios";
 import { toast } from "sonner";
-import { Lock, User, Eye, EyeOff, ArrowRight, ShieldCheck, Code2 } from "lucide-react";
+import {
+  Lock,
+  User,
+  Eye,
+  EyeOff,
+  ArrowRight,
+  ShieldCheck,
+  Code2,
+} from "lucide-react";
 
 const loginSchema = z.object({
   username: z.string().min(1, "Username is required."),
@@ -35,11 +43,14 @@ export default function LoginPage() {
       const res = await axios.post("/api/auth/login", data);
       if (res.data?.success) {
         toast.success("Welcome back, Shofiqul!");
-        router.push("/dashboard");
+        router.push(
+          res.data?.role === "viewer" ? "/dashboard/read-only" : "/dashboard",
+        );
         router.refresh();
       }
     } catch (err: any) {
-      const msg = err.response?.data?.message || "Invalid username or password.";
+      const msg =
+        err.response?.data?.message || "Invalid username or password.";
       setServerError(msg);
       toast.error(msg);
     }
@@ -47,12 +58,10 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center p-4 relative overflow-hidden font-sans">
-      
       {/* Background Subtle Ambient Light */}
       <div className="absolute w-[500px] h-[500px] bg-[#7CFF6B]/5 rounded-full blur-[140px] pointer-events-none"></div>
 
       <div className="max-w-md w-full relative space-y-8">
-        
         {/* Brand Header */}
         <div className="text-center space-y-3">
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#121212] border border-[#222222] text-[#7CFF6B] mb-2 shadow-xl">
@@ -68,7 +77,6 @@ export default function LoginPage() {
 
         {/* Login Form Card */}
         <div className="p-8 rounded-xl bg-[#121212] border border-[#222222] shadow-2xl space-y-6">
-          
           <div className="flex items-center justify-between pb-4 border-b border-[#1E1E1E]">
             <span className="text-xs font-mono text-[#7CFF6B] flex items-center gap-1.5">
               <ShieldCheck className="w-4 h-4" />
@@ -84,10 +92,11 @@ export default function LoginPage() {
           )}
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-            
             {/* Username Input */}
             <div className="space-y-1.5">
-              <label className="text-xs font-mono text-[#A1A1A1] block">USERNAME</label>
+              <label className="text-xs font-mono text-[#A1A1A1] block">
+                USERNAME
+              </label>
               <div className="relative">
                 <User className="w-4 h-4 text-[#555] absolute left-3 top-3.5" />
                 <input
@@ -98,13 +107,17 @@ export default function LoginPage() {
                 />
               </div>
               {errors.username && (
-                <span className="text-xs font-mono text-[#FF5F56]">{errors.username.message}</span>
+                <span className="text-xs font-mono text-[#FF5F56]">
+                  {errors.username.message}
+                </span>
               )}
             </div>
 
             {/* Password Input */}
             <div className="space-y-1.5">
-              <label className="text-xs font-mono text-[#A1A1A1] block">PASSWORD</label>
+              <label className="text-xs font-mono text-[#A1A1A1] block">
+                PASSWORD
+              </label>
               <div className="relative">
                 <Lock className="w-4 h-4 text-[#555] absolute left-3 top-3.5" />
                 <input
@@ -119,11 +132,17 @@ export default function LoginPage() {
                   className="absolute right-3 top-3.5 text-[#555] hover:text-[#A1A1A1] focus:outline-none"
                   aria-label="Toggle password visibility"
                 >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
                 </button>
               </div>
               {errors.password && (
-                <span className="text-xs font-mono text-[#FF5F56]">{errors.password.message}</span>
+                <span className="text-xs font-mono text-[#FF5F56]">
+                  {errors.password.message}
+                </span>
               )}
             </div>
 
@@ -136,16 +155,13 @@ export default function LoginPage() {
               <span>{isSubmitting ? "Authenticating..." : "Sign In"}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
-
           </form>
-
         </div>
 
         {/* Footer info */}
         <div className="text-center font-mono text-xs text-[#555]">
           <span>Protected Single-Admin Environment</span>
         </div>
-
       </div>
     </div>
   );

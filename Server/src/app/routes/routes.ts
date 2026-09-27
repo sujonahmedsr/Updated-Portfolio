@@ -3,6 +3,7 @@ import projectsRouter from "../module/projects/projectsRoute";
 import messageRoute from "../module/message/messageRoute";
 import blogsRouter from "../module/blogs/blogsRoute";
 import settingsRoute from "../module/settings/settingsRoute";
+import privateToolsRoute from "../module/privateTools/privateToolsRoute";
 const router = Router();
 const moduleRoutes = [
 
@@ -21,6 +22,10 @@ const moduleRoutes = [
   {
     path: "/settings",
     route: settingsRoute,
+  },
+  {
+    path: "/private-tools",
+    route: privateToolsRoute,
   },
 ];
 moduleRoutes.forEach((route) => router.use(route.path, route.route));

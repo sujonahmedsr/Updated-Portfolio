@@ -4,31 +4,28 @@ import { jwtVerify } from "jose";
 
 const SESSION_COOKIE_NAME = "admin_session_token";
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || "shofiqul-portfolio-super-secret-jwt-key-2026"
-);
+const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "");
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const token = request.cookies.get(SESSION_COOKIE_NAME)?.value;
 
-  let isValidSession = false;
+  let role: "admin" | "viewer" | null = null;
 
-  if (token) {
+  if (token && process.env.JWT_SECRET) {
     try {
-      await jwtVerify(token, JWT_SECRET, {
+      const { payload } = await jwtVerify(token, JWT_SECRET, {
         algorithms: ["HS256"],
       });
-
-      isValidSession = true;
+      role = payload.role === "viewer" ? "viewer" : payload.role === "admin" ? "admin" : null;
     } catch {
-      isValidSession = false;
+      role = null;
     }
   }
 
   // Protect /dashboard routes
-  if (pathname.startsWith("/dashboard") && !isValidSession) {
+  if (pathname.startsWith("/dashboard") && !role) {
     const loginUrl = new URL("/login", request.url);
 
     loginUrl.searchParams.set("from", pathname);
@@ -37,8 +34,12 @@ export async function proxy(request: NextRequest) {
   }
 
   // Redirect authenticated user away from /login to /dashboard
-  if (pathname === "/login" && isValidSession) {
+  if (pathname === "/login" && role) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
+  if (role === "viewer" && pathname.startsWith("/dashboard") && !["/dashboard/read-only", "/dashboard/personal"].includes(pathname)) {
+    return NextResponse.redirect(new URL("/dashboard/read-only", request.url));
   }
 
   return NextResponse.next();
