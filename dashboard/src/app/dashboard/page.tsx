@@ -328,7 +328,7 @@ export default function DashboardOverviewPage() {
                         alt={item.title}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="shopify-screen-img object-cover object-top"
+                        className="shopify-screen-img object-cover object-top "
                       />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center bg-[#151515] text-[#333]">
