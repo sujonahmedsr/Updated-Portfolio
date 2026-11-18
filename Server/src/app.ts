@@ -19,7 +19,8 @@ const allowedOrigins = [
 
 app.use(cors({ origin: allowedOrigins.length > 0 ? allowedOrigins : true, credentials: true }));
 app.use(cookieParser());
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 
 

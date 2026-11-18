@@ -36,6 +36,9 @@ class QuiryBuilder<T> {
             "limit",
             "page",
             "fields",
+            "_t",
+            "timestamp",
+            "cacheBuster",
         ];
 
         excludeFields.forEach((el) => delete queryObj[el]);

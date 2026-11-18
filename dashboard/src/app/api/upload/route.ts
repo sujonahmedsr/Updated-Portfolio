@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { uploadToCloudinary } from "@/lib/cloudinary";
 
+export const dynamic = "force-dynamic";
+export const maxDuration = 60;
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
@@ -31,11 +34,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Maximum file size: 10MB
-    const MAX_SIZE = 10 * 1024 * 1024;
+    // Maximum file size: 25MB
+    const MAX_SIZE = 25 * 1024 * 1024;
     if (file.size > MAX_SIZE) {
       return NextResponse.json(
-        { success: false, message: "File size exceeds 10MB limit." },
+        { success: false, message: "File size exceeds 25MB limit." },
         { status: 400 }
       );
     }

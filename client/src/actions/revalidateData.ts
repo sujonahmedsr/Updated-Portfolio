@@ -240,10 +240,62 @@ const FALLBACK_SHOPIFY_PROJECTS: ShopifyProject[] = [
   },
 ];
 
+// Fallback high quality custom development projects
+const FALLBACK_CUSTOM_PROJECTS = [
+  {
+    _id: "6af2bf5dbde1411c1642c833",
+    title: "Shofi Chat — Real-Time Messaging & WebRTC Calling Platform",
+    category: "Full-Stack Web App",
+    image:
+      "https://res.cloudinary.com/dvjeaplel/image/upload/v1794293546/shofiqul_portfolio/projects/eazt2eai8ihulget1jyc.png",
+    description:
+      "A modern, production-grade real-time communication platform built with Next.js 16, React 19, Node.js, Express, Socket.io, and WebRTC. Features end-to-end messaging, 1-to-1 & group chats, voice notes, media file sharing, peer-to-peer HD audio/video calls, and Google OAuth 2.0 authentication.",
+    liveLink: "https://shofichat.vercel.app",
+    githubLink: "https://github.com/sujonahmedsr",
+    technologies: "Next.js 16, React 19, Socket.io, WebRTC, Node.js, Express, MongoDB, Tailwind CSS",
+  },
+  {
+    _id: "67b0f783a67db83200a5d023",
+    title: "Nike Modern E-Commerce Platform",
+    category: "E-Commerce",
+    image:
+      "https://res.cloudinary.com/dvjeaplel/image/upload/v1739650945/xsrgngmbtd8ec0dtvmwx.png",
+    description:
+      "Modern e-commerce platform built for high-conversion athletic footwear and apparel. Includes interactive product catalog, variant filters, cart drawer, user authentication, and secure checkout.",
+    liveLink: "https://sujonahmedsr.github.io/E-comerce/",
+    githubLink: "https://github.com/sujonahmedsr/E-comerce",
+    technologies: "React.js, Redux, Tailwind CSS, Stripe, REST API",
+  },
+  {
+    _id: "67b0f6eca67db83200a5d01b",
+    title: "CarePlus Hospital & Healthcare Portal",
+    category: "Healthcare Portal",
+    image:
+      "https://res.cloudinary.com/dvjeaplel/image/upload/v1739650794/cu6kb5fcmes5rf4fi1hr.png",
+    description:
+      "A responsive, user-friendly healthcare portal designed to showcase medical specialties, doctor profiles, appointment booking, and patient services with high performance and accessibility.",
+    liveLink: "https://sujonahmedsr.github.io/hospital/#home",
+    githubLink: "https://github.com/sujonahmedsr/hospital",
+    technologies: "Next.js, React, Tailwind CSS, REST APIs",
+  },
+  {
+    _id: "67b0f60aa67db83200a5d015",
+    title: "Groco Organic Superfoods & Grocery",
+    category: "E-Commerce",
+    image:
+      "https://res.cloudinary.com/dvjeaplel/image/upload/v1739650568/ggatodf25vwceva7cnsb.png",
+    description:
+      "Modern, responsive organic food and grocery shopping web app featuring fresh produce showcases, fast cart management, and seamless mobile-first responsive shopping.",
+    liveLink: "https://sujonahmedsr.github.io/vegatable-food/#home",
+    githubLink: "https://github.com/sujonahmedsr/vegatable-food",
+    technologies: "React.js, Node.js, Express, MongoDB, Tailwind CSS",
+  },
+];
+
 export async function getShopifyProjects(limit = 100): Promise<ShopifyProject[]> {
   try {
     const res = await axios.get(`${API_URL}/shopify-projects`, {
-      params: { limit, _t: Date.now() },
+      params: { limit },
       headers: noCacheHeaders,
       timeout: 8000,
     });
@@ -263,16 +315,19 @@ export async function getShopifyProjects(limit = 100): Promise<ShopifyProject[]>
 export async function getProjects() {
   try {
     const res = await axios.get(`${API_URL}/projects`, {
-      params: { _t: Date.now() },
+      params: { limit: 50 },
       headers: noCacheHeaders,
       timeout: 8000,
     });
 
     const list = res.data?.data?.result || res.data?.data || [];
-    return Array.isArray(list) ? list : [];
+    if (Array.isArray(list) && list.length > 0) {
+      return list;
+    }
+    return FALLBACK_CUSTOM_PROJECTS;
   } catch (error) {
     console.error("Error fetching projects:", error);
-    return [];
+    return FALLBACK_CUSTOM_PROJECTS;
   }
 }
 
@@ -290,7 +345,6 @@ export async function getSettings(): Promise<PortfolioSettings> {
 
   try {
     const res = await axios.get(`${API_URL}/settings`, {
-      params: { _t: Date.now() },
       headers: noCacheHeaders,
       timeout: 8000,
     });
@@ -304,7 +358,7 @@ export async function getSettings(): Promise<PortfolioSettings> {
 export async function getBlogs() {
   try {
     const res = await axios.get(`${API_URL}/blogs`, {
-      params: { _t: Date.now() },
+      params: { limit: 50 },
       headers: noCacheHeaders,
       timeout: 8000,
     });

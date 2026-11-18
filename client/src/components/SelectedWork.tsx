@@ -19,11 +19,12 @@ type ProjectInput = {
   whatIBuilt?: string[];
 };
 
-function mapProjects(items: ProjectInput[]): ProjectDetails[] {
+function mapProjects(items: ProjectInput[] = []): ProjectDetails[] {
+  if (!Array.isArray(items)) return [];
   return items.map((item) => ({
     _id: item._id,
     title: item.title || "UNTITLED PROJECT",
-    category: item.category || "",
+    category: item.category || "Full-Stack Development",
     description: item.description || "",
     image: item.image,
     liveLink: item.liveLink,
@@ -39,12 +40,12 @@ function mapProjects(items: ProjectInput[]): ProjectDetails[] {
 }
 
 export default function SelectedWork({
-  initialProjects,
+  initialProjects = [],
 }: {
-  initialProjects: ProjectInput[];
+  initialProjects?: ProjectInput[];
 }) {
   const [projects, setProjects] = useState<ProjectDetails[]>(() =>
-    mapProjects(initialProjects).slice(0, 4),
+    mapProjects(initialProjects).slice(0, 6),
   );
   const [selectedProject, setSelectedProject] = useState<ProjectDetails | null>(
     null,
@@ -52,7 +53,7 @@ export default function SelectedWork({
 
   useEffect(() => {
     if (initialProjects && initialProjects.length > 0) {
-      setProjects(mapProjects(initialProjects).slice(0, 4));
+      setProjects(mapProjects(initialProjects).slice(0, 6));
     }
   }, [initialProjects]);
 

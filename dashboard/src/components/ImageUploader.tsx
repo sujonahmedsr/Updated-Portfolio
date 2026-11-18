@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import { toast } from "sonner";
+import { optimizeImageForUpload } from "@/lib/imageCompression";
 import {
   UploadCloud,
   Image as ImageIcon,
@@ -17,7 +18,7 @@ import {
 interface ImageUploaderProps {
   value: string;
   onChange: (url: string) => void;
-  folder?: "projects" | "articles" | "general" | "shopify-projects";
+  folder?: "projects" | "articles" | "general" | "shopify-projects" | "resume";
   label?: string;
   error?: string;
 }
@@ -37,24 +38,27 @@ export default function ImageUploader({
   const handleFileUpload = async (file: File) => {
     if (!file) return;
 
-    // Check size (10MB)
-    if (file.size > 10 * 1024 * 1024) {
-      toast.error("File size must be under 10MB.");
+    // Check size (allow up to 25MB raw; we compress before upload)
+    if (file.size > 25 * 1024 * 1024) {
+      toast.error("File size must be under 25MB.");
       return;
     }
 
     // Check type
-    if (!file.type.startsWith("image/")) {
+    if (!file.type.startsWith("image/") && folder !== "resume") {
       toast.error("Please select a valid image file.");
       return;
     }
 
     setUploading(true);
-    const toastId = toast.loading("Uploading image to Cloudinary...");
+    const toastId = toast.loading("Optimizing & uploading image to Cloudinary...");
 
     try {
+      // Automatically optimize / compress large PNG & JPEG images to prevent HTTP 413 Payload Too Large
+      const fileToUpload = await optimizeImageForUpload(file);
+
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("file", fileToUpload);
       formData.append("folder", folder);
 
       const res = await axios.post("/api/upload", formData, {

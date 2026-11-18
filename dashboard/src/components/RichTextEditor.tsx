@@ -27,6 +27,7 @@ import {
   Upload,
 } from "lucide-react";
 import { toast } from "sonner";
+import { optimizeImageForUpload } from "@/lib/imageCompression";
 
 const Callout = Node.create({
   name: "callout",
@@ -162,16 +163,17 @@ export default function RichTextEditor({
       toast.error("Please select an image file.");
       return;
     }
-    if (file.size > 10 * 1024 * 1024) {
-      toast.error("Image size must be under 10MB.");
+    if (file.size > 25 * 1024 * 1024) {
+      toast.error("Image size must be under 25MB.");
       return;
     }
 
     setUploading(true);
-    const toastId = toast.loading("Uploading image to Cloudinary...");
+    const toastId = toast.loading("Optimizing & uploading image to Cloudinary...");
     try {
+      const fileToUpload = await optimizeImageForUpload(file);
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("file", fileToUpload);
       formData.append("folder", `${folder}/content`);
       const response = await fetch("/api/upload", {
         method: "POST",
