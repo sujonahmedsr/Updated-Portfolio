@@ -6,9 +6,10 @@ import Link from "next/link";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 
 const navLinks = [
-  { name: "Work", href: "#work" },
+  { name: "Shopify Stores", href: "#work" },
   { name: "Services", href: "#shopify" },
   { name: "Experience", href: "#experience" },
+  { name: "Custom Work", href: "#custom-work" },
   { name: "About", href: "#about" },
   { name: "Contact", href: "#contact" },
 ];

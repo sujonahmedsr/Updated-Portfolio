@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { ArrowUpRight, ExternalLink, Sparkles } from "lucide-react";
 import CaseStudyModal, { ProjectDetails } from "./CaseStudyModal";
@@ -43,17 +43,23 @@ export default function SelectedWork({
 }: {
   initialProjects: ProjectInput[];
 }) {
-  const [projects] = useState<ProjectDetails[]>(() =>
+  const [projects, setProjects] = useState<ProjectDetails[]>(() =>
     mapProjects(initialProjects).slice(0, 4),
   );
   const [selectedProject, setSelectedProject] = useState<ProjectDetails | null>(
     null,
   );
 
+  useEffect(() => {
+    if (initialProjects && initialProjects.length > 0) {
+      setProjects(mapProjects(initialProjects).slice(0, 4));
+    }
+  }, [initialProjects]);
+
   return (
     <section
-      id="work"
-      className="py-6 sm:py-12 bg-[#0A0A0A] border-b border-[#1A1A1A]"
+      id="custom-work"
+      className="py-12 sm:py-20 bg-[#0A0A0A] border-b border-[#1A1A1A]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -61,14 +67,14 @@ export default function SelectedWork({
           <div>
             <div className="flex items-center gap-2 text-xs font-mono text-[#7CFF6B] mb-3">
               <Sparkles className="w-4 h-4" />
-              <span>PORTFOLIO SELECTION</span>
+              <span>CUSTOM WEB &amp; FULL-STACK ENGINEERING</span>
             </div>
             <h2 className="font-heading text-3xl sm:text-5xl font-bold tracking-tight text-[#F5F5F0]">
-              SELECTED WORK
+              SELECTED CUSTOM WORK
             </h2>
           </div>
           <p className="text-sm text-[#A1A1A1] max-w-md font-sans leading-relaxed">
-            A curated selection of modern web applications built with
+            A curated selection of modern web applications, bespoke dashboards, and full-stack solutions built with
             performance, usability, and clean architecture.
           </p>
         </div>
